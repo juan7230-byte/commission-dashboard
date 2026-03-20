@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>2026 Commission KPI Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#eef0f4;color:#1f2937;font-size:14px}
+
+    /* HEADER */
+    header{background:#1e3a5f;color:#fff;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+    .h-left{display:flex;align-items:center;gap:14px}
+    .h-icon{background:#2e75b6;border-radius:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
+    .h-title{font-size:17px;font-weight:700}
+    .h-sub{font-size:12px;opacity:.7;margin-top:2px}
+    .h-right{text-align:right;font-size:12px;opacity:.75}
+
+    main{max-width:1440px;margin:0 auto;padding:24px 24px 48px}
+
+    /* CARDS */
+    .card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);padding:22px 24px}
+
+    /* KPI GRID */
+    .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:16px}
+    .kpi-card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);padding:18px 20px;border-top:4px solid transparent}
+    /* Closed=teal · JY=blue · Helm=purple · Total=grey · Remaining=amber */
+    .kpi-card.green{border-top-color:#0d9488}.kpi-card.orange{border-top-color:#f59e0b}.kpi-card.blue{border-top-color:#2e75b6}.kpi-card.purple{border-top-color:#9ca3af}
+    .kpi-lbl{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#6b7280;margin-bottom:8px}
+    .kpi-val{font-size:28px;font-weight:800;line-height:1;margin-bottom:6px}
+    .kpi-card.green .kpi-val{color:#0f766e}.kpi-card.orange .kpi-val{color:#d97706}.kpi-card.blue .kpi-val{color:#2e75b6}.kpi-card.purple .kpi-val{color:#4b5563}
+    .kpi-sub{font-size:12px;color:#9ca3af}
+    .kpi-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;margin-top:6px}
+    .bg-green{background:#ccfbf1;color:#134e4a}.bg-orange{background:#fef3c7;color:#92400e}.bg-blue{background:#dbeafe;color:#1e40af}.bg-purple{background:#f3f4f6;color:#374151}
+
+    /* PROGRESS */
+    .prog-card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);padding:16px 24px;margin-bottom:16px}
+    .prog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .prog-title{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6b7280}
+    .prog-pcts{display:flex;gap:18px;font-size:12px;font-weight:600}
+    .prog-track{background:#fde68a;border-radius:8px;height:12px;overflow:hidden;display:flex}
+    .prog-seg-closed{height:100%;background:#0d9488;transition:width .5s;width:0%}
+    .prog-seg-jy{height:100%;background:#2e75b6;transition:width .5s;width:0%;opacity:.8}
+    .prog-seg-helm{height:100%;background:#8b5cf6;transition:width .5s;width:0%;opacity:.8}
+    .prog-labels{display:flex;justify-content:space-between;margin-top:5px;font-size:11px;color:#9ca3af}
+
+    /* MID GRID */
+    .mid-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+    .sec-title{font-size:15px;font-weight:700;color:#1f2937;margin-bottom:3px}
+    .sec-sub{font-size:12px;color:#9ca3af;margin-bottom:16px}
+    .chart-wrap{position:relative;height:230px}
+
+    /* OUTLOOK / INSIGHTS */
+    .out-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f3f4f6}
+    .out-row:last-child{border:none}
+    .out-lbl{font-size:13px;color:#6b7280}
+    .out-val{font-size:14px;font-weight:700;color:#1f2937}
+    .out-val.blue{color:#2e75b6}.out-val.green{color:#0f766e}.out-val.orange{color:#d97706}.out-val.teal{color:#0f766e}.out-val.purple{color:#7c3aed}.out-val.amber{color:#d97706}.out-val.grey{color:#4b5563}
+    .insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;max-width:320px;margin-left:auto;margin-right:auto}
+    .insight-col-hdr{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#374151;text-align:center;padding-bottom:2px;border-bottom:2px solid #e5e7eb;margin-bottom:12px}
+    .insight-tile{background:#f8fafc;border-radius:10px;padding:11px 13px;display:flex;flex-direction:column;gap:4px;border:1px solid #e5e7eb;transition:box-shadow .15s}
+    .insight-tile:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .insight-icon{font-size:16px;margin-bottom:2px}
+    .insight-val{font-size:17px;font-weight:800;line-height:1.1}
+    .insight-lbl{font-size:11px;color:#6b7280;font-weight:500;line-height:1.3}
+    .insight-sub{font-size:10px;color:#9ca3af;margin-top:1px}
+    .insight-tile.c-teal .insight-val{color:#0f766e}
+    .insight-tile.c-blue .insight-val{color:#2e75b6}
+    .insight-tile.c-purple .insight-val{color:#7c3aed}
+    .insight-tile.c-amber .insight-val{color:#d97706}
+    .insight-tile.c-grey .insight-val{color:#0f766e}
+    .insight-tile.c-teal{border-left:3px solid #0d9488}
+    .insight-tile.c-blue{border-left:3px solid #2e75b6}
+    .insight-tile.c-purple{border-left:3px solid #8b5cf6}
+    .insight-tile.c-amber{border-left:3px solid #f59e0b}
+    .insight-tile.c-grey{border-left:3px solid #9ca3af}
+    .insight-divider{grid-column:1/-1;height:1px;background:#e5e7eb;margin:2px 0}
+
+    /* TABLE SECTION */
+    .tbl-section{margin-bottom:16px}
+    .tbl-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+    .tbl-totals{display:flex;gap:24px;font-size:12px;color:#6b7280}
+    .tot-item{display:flex;flex-direction:column;gap:2px;text-align:right}
+    .tot-item strong{color:#1f2937;font-size:14px}
+
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    thead tr{background:#e9ecef;border-bottom:2px solid #d1d5db}
+    th{text-align:left;padding:8px 10px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#6b7280;white-space:nowrap}
+    td{padding:4px 6px;border-bottom:1px solid #f3f4f6;vertical-align:middle}
+    tbody tr:hover{background:rgba(0,0,0,.015)}
+    .tr-paid{background:#f0fdf4}.tr-paid:hover{background:#dcfce7}
+    .tr-estimated{background:#fffbeb}.tr-estimated:hover{background:#fef9c3}
+    tfoot td{padding:9px 10px;border-top:2px solid #d1d5db;background:#e9ecef;font-weight:700}
+
+    .num{text-align:right}
+    .net-val{font-weight:700;font-variant-numeric:tabular-nums;padding-right:4px}
+    .auto-comm{color:#9ca3af;font-style:italic}
+
+    /* INPUTS */
+    .ti{border:1px solid transparent;background:transparent;font-size:13px;width:100%;padding:4px 6px;border-radius:5px;font-family:inherit;color:#1f2937;outline:none;min-width:0}
+    .ti:hover{border-color:#d1d5db;background:#fafafa}
+    .ti:focus{border-color:#2e75b6;background:#f0f7ff;box-shadow:0 0 0 2px rgba(46,117,182,.12)}
+    .ti.num-i{text-align:right}
+    .ti-sel{-webkit-appearance:none;appearance:none;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 6px center;padding-right:22px;cursor:pointer}
+    .split-badge{display:inline-block;background:#f3f4f6;border-radius:5px;padding:2px 8px;font-size:12px;color:#374151;white-space:nowrap}
+    .split-proc{background:#e0e7ff;color:#3730a3}
+
+    /* STATUS SELECT COLORS */
+    select.s-closed-paid{background:#d1fae5;color:#065f46;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
+    select.s-closed-estimated{background:#fef3c7;color:#92400e;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
+    select.s-estimated{background:#fef9c3;color:#a16207;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
+    select.s-projected{background:#f3f4f6;color:#6b7280;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
+
+    /* DELETE BTN */
+    .del-btn{border:none;background:transparent;color:#d1d5db;font-size:18px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:4px;transition:all .15s}
+    .del-btn:hover{background:#fee2e2;color:#dc2626}
+
+    /* ADD BTN */
+    .add-btn{display:flex;align-items:center;gap:6px;margin-top:12px;padding:8px 14px;border:none;border-radius:8px;background:transparent;color:#2e75b6;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;width:100%}
+    .add-btn:hover{color:#1e5a9a;background:#f0f7ff}
+
+    .warn{background:#fef3c7;color:#92400e;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:4px}
+
+    /* SAVE BUTTON */
+    #save-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
+    #save-btn:hover{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.6)}
+    #save-btn.saved{background:#10b981;border-color:#10b981}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:28px;right:28px;background:#1e3a5f;color:#fff;padding:12px 18px 12px 16px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 4px 24px rgba(0,0,0,.22);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(14px);transition:all .28s ease;z-index:9999;pointer-events:none}
+    .toast.show{opacity:1;transform:translateY(0)}
+    .toast-icon{font-size:16px}
+    .toast-action{font-size:11px;opacity:.75;margin-left:4px}
+
+    /* STATUS HINT */
+    .status-hint{font-size:11px;color:#9ca3af;padding:4px 10px 2px;font-style:italic}
+
+    /* TABLE SCROLL */
+    .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .calc-val{color:#9ca3af;font-style:italic}
+    .role-sel{font-size:11px;max-width:150px}
+
+    /* PIPELINE MONTH GROUP */
+    .pipe-month-card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);margin-bottom:12px}
+    .pipe-month-header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 10px;border-bottom:1px solid #f3f4f6}
+    .pipe-month-title{font-size:15px;font-weight:700;color:#1f2937}
+    .pipe-month-footer{padding:6px 20px 16px}
+    .pipe-global-header{padding:18px 24px 16px;border-bottom:2px solid #f3f4f6;margin-bottom:12px;display:flex;flex-direction:column}
+    .pipe-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;width:100%}
+    .pipe-stat{background:#f8fafc;border-radius:10px;padding:12px 16px;border:1px solid #e5e7eb;text-align:center}
+    .pipe-stat-lbl{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6b7280;margin-bottom:5px}
+    .pipe-stat-val{font-size:18px;font-weight:800;color:#1f2937}
+    .pipe-stat-val.blue{color:#2e75b6}
+
+    /* GUIDE */
+    .guide-card{background:linear-gradient(135deg,#1e3a5f 0%,#1e4976 100%);border-radius:16px;padding:32px;margin-bottom:16px;color:#fff}
+    .guide-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12)}
+    .guide-header-icon{background:rgba(255,255,255,.12);border-radius:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    .guide-header-text h2{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
+    .guide-header-text p{font-size:13px;color:rgba(255,255,255,.6);margin:0}
+    .guide-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+    .guide-panel{background:rgba(255,255,255,.07);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,.1)}
+    .guide-panel-full{grid-column:1/-1}
+    .guide-panel h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1)}
+    .guide-item{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);gap:10px;font-size:12.5px}
+    .guide-item:last-child{border:none;padding-bottom:0}
+    .guide-item-key{font-weight:600;color:rgba(255,255,255,.9);white-space:nowrap}
+    .guide-item-val{color:rgba(255,255,255,.55);text-align:right;font-size:12px;line-height:1.4}
+    .guide-formula-box{background:rgba(0,0,0,.2);border-left:3px solid rgba(255,255,255,.3);border-radius:0 8px 8px 0;padding:10px 14px;margin:8px 0;font-family:monospace;font-size:12.5px;color:rgba(255,255,255,.85);line-height:1.6}
+    .guide-formula-box.accent{border-left-color:#10b981}
+    .guide-note-text{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:10px;font-style:italic;line-height:1.5}
+    .guide-role-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border-radius:6px;padding:5px 10px;font-size:11.5px;color:#fff;margin:3px 0;width:100%;justify-content:space-between}
+    .guide-role-badge .splits{color:rgba(255,255,255,.55);font-size:11px}
+    .guide-status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin:3px 0}
+    .guide-source-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12.5px}
+    .guide-source-row:last-child{border:none}
+    .guide-source-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+    .kpi-card.teal{border-top-color:#8b5cf6}.kpi-card.teal .kpi-val{color:#7c3aed}.bg-teal{background:#ede9fe;color:#4c1d95}
+    @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.mid-grid{grid-template-columns:1fr}}
+    @media(max-width:600px){
+      main{padding:12px 12px 32px}
+      header{padding:10px 16px}
+      .h-title{font-size:14px}.h-sub{font-size:11px}.h-right{font-size:11px}
+      .kpi-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+      .kpi-val{font-size:22px}
+      .mid-grid{grid-template-columns:1fr}
+      .chart-wrap{height:200px}
+      .insight-grid{max-width:100%}
+      .pipe-summary-grid{grid-template-columns:repeat(2,1fr)}
+      .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+      table{font-size:12px}
+      th,td{padding:5px 6px}
+      .sec-title{font-size:13px}
+      .guide-card{padding:20px 16px}
+      .guide-grid{grid-template-columns:1fr}
+      .tbl-head{flex-direction:column;gap:8px}
+      .tbl-totals{flex-wrap:wrap;gap:12px}
+      .pipe-month-header{padding:12px 14px 8px}
+      .pipe-month-footer{padding:4px 14px 12px}
+      .card{padding:16px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="h-left">
+    <div class="h-icon">$</div>
+    <div>
+      <div class="h-title">Juan Yepes</div>
+      <div class="h-sub">2026 Commission KPI Dashboard</div>
+    </div>
+  </div>
+  <div class="h-right" style="display:flex;align-items:center;gap:14px">
+    <div style="text-align:right">
+      <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
+      <div id="updated-date"></div>
+    </div>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage">💾 Save</button>
+  </div>
+</header>
+
+<main>
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card green">
+      <div class="kpi-lbl">YTD Closed</div>
+      <div class="kpi-val" id="kpi-closed">—</div>
+      <div class="kpi-sub" id="kpi-closed-sub"></div>
+      <span class="kpi-badge bg-green" id="kpi-closed-pct"></span>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-lbl">JY Sourced Pipeline</div>
+      <div class="kpi-val" id="kpi-jy-pipeline">—</div>
+      <div class="kpi-sub" id="kpi-jy-pipeline-sub"></div>
+      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct"></span>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-lbl">Helm Sourced Pipeline</div>
+      <div class="kpi-val" id="kpi-helm-pipeline">—</div>
+      <div class="kpi-sub" id="kpi-helm-pipeline-sub"></div>
+      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct"></span>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-lbl">Total Closed + Pipeline</div>
+      <div class="kpi-val" id="kpi-total">—</div>
+      <div class="kpi-sub" id="kpi-total-sub"></div>
+      <span class="kpi-badge bg-purple" id="kpi-total-pct"></span>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-lbl">Remaining to 2026 Goal</div>
+      <div class="kpi-val" id="kpi-remaining">—</div>
+      <div class="kpi-sub">of $107k goal</div>
+      <span class="kpi-badge bg-orange" id="kpi-remaining-pct"></span>
+    </div>
+  </div>
+
+  <!-- CHART + OUTLOOK -->
+  <div class="mid-grid">
+    <div class="card">
+      <div class="sec-title" style="text-align:center">Monthly Net Commission</div>
+      <div class="chart-wrap"><canvas id="monthlyChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="sec-title" style="color:#0f766e;text-align:center">Key Highlights</div>
+      <div id="outlook-rows"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="move-toast">
+    <span class="toast-icon" id="toast-icon"></span>
+    <span id="toast-msg"></span>
+  </div>
+
+  <!-- CLOSED DEALS -->
+  <div class="card tbl-section">
+    <div class="tbl-head">
+      <div>
+        <div class="sec-title">Closed Deals</div>
+        <div class="sec-sub" style="margin-bottom:0">YTD 2026</div>
+      </div>
+      <div class="tbl-totals" id="closed-totals"></div>
+    </div>
+    <div class="tbl-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:90px">Month</th>
+          <th style="min-width:120px">Client Name</th>
+          <th style="width:140px">Role</th>
+          <th class="num" style="width:100px">Loan Amount</th>
+          <th class="num" style="width:72px">Gross %</th>
+          <th class="num" style="width:105px">Gross Comm ($)</th>
+          <th class="num" style="width:90px">Proc. Cost</th>
+          <th class="num" style="width:100px">Net Comm</th>
+          <th class="num" style="width:78px">Split 1</th>
+          <th class="num" style="width:68px">Split 2</th>
+          <th class="num" style="width:105px">JY Commission</th>
+          <th style="width:120px">Status</th>
+          <th style="width:30px"></th>
+        </tr>
+      </thead>
+      <tbody id="closed-tbody"></tbody>
+      <tfoot id="closed-foot"></tfoot>
+    </table>
+    </div>
+    <button class="add-btn" onclick="addDeal('closed')">＋ Add Closed Deal</button>
+  </div>
+
+  <!-- PIPELINE (JS-rendered by month groups) -->
+  <div id="pipeline-container"></div>
+  <!-- GUIDE -->
+  <div class="guide-card">
+    <div class="guide-header">
+      <div class="guide-header-icon">📖</div>
+      <div class="guide-header-text">
+        <h2>How This Dashboard Works</h2>
+        <p>Column definitions, formulas, role presets, and status logic — all in one place</p>
+      </div>
+    </div>
+
+    <div class="guide-grid">
+
+      <!-- Column Definitions -->
+      <div class="guide-panel">
+        <h4>Column Definitions</h4>
+        <div class="guide-item"><span class="guide-item-key">Loan Amount</span><span class="guide-item-val">Total loan value for the deal</span></div>
+        <div class="guide-item"><span class="guide-item-key">Gross Comm %</span><span class="guide-item-val">Commission rate — syncs bidirectionally with Gross $</span></div>
+        <div class="guide-item"><span class="guide-item-key">Gross Comm ($)</span><span class="guide-item-val">Total commission before any deductions</span></div>
+        <div class="guide-item"><span class="guide-item-key">Processing Cost</span><span class="guide-item-val">Deducted from Gross before splitting (lender fees etc.)</span></div>
+        <div class="guide-item"><span class="guide-item-key">Net Commission</span><span class="guide-item-val">Gross Comm ($) minus Processing Cost</span></div>
+        <div class="guide-item"><span class="guide-item-key">Split 1</span><span class="guide-item-val">Your % share of Net Comm (or $995 flat for Processing roles)</span></div>
+        <div class="guide-item"><span class="guide-item-key">Split 2</span><span class="guide-item-val">50% split with Jon · 100% solo</span></div>
+        <div class="guide-item"><span class="guide-item-key">JY Commission</span><span class="guide-item-val">Your final take-home on this deal</span></div>
+      </div>
+
+      <!-- Formulas -->
+      <div class="guide-panel">
+        <h4>Commission Formulas</h4>
+        <div class="guide-formula-box">Gross $ = Loan Amount × Gross %<br><span style="color:rgba(255,255,255,.4);font-size:11px">Gross % ↔ Gross $ auto-sync when either changes</span></div>
+        <div class="guide-formula-box">Net Commission = Gross $ − Processing Cost</div>
+        <div class="guide-formula-box">JY Commission = Net Comm × Split 1 × Split 2</div>
+        <div class="guide-formula-box accent">Processing Role exception:<br>JY Commission = $995 × Split 2<br><span style="color:rgba(255,255,255,.4);font-size:11px">Flat fee — Net Comm is ignored for split calc</span></div>
+      </div>
+
+      <!-- Role Presets -->
+      <div class="guide-panel">
+        <h4>Role Presets</h4>
+        <div class="guide-role-badge"><span>Juan Self Sourced</span><span class="splits">S1: 75% · S2: 100%</span></div>
+        <div class="guide-role-badge"><span>Juan Company Sourced</span><span class="splits">S1: 25% · S2: 100%</span></div>
+        <div class="guide-role-badge"><span>Juan LOA</span><span class="splits">S1: 10% · S2: 100%</span></div>
+        <div class="guide-role-badge"><span>Juan Processing</span><span class="splits">S1: $995 flat · S2: 100%</span></div>
+        <div class="guide-role-badge"><span>Juan LOA with Jon</span><span class="splits">S1: 10% · S2: 50%</span></div>
+        <div class="guide-role-badge"><span>Juan Processing with Jon</span><span class="splits">S1: $995 flat · S2: 50%</span></div>
+        <p class="guide-note-text">Selecting a role auto-fills Split 1 &amp; 2. You can always override manually.</p>
+      </div>
+
+      <!-- Status + Sourcing (full width) -->
+      <div class="guide-panel guide-panel-full" style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div>
+          <h4>Status &amp; Table Movement</h4>
+          <div class="guide-item">
+            <span class="guide-status-badge" style="background:rgba(243,244,246,.15);color:#e5e7eb">Projected</span>
+            <span class="guide-item-val">Avg comp (1.75%) estimate · stays in Pipeline</span>
+          </div>
+          <div class="guide-item">
+            <span class="guide-status-badge" style="background:rgba(254,243,199,.15);color:#fde68a">Estimated</span>
+            <span class="guide-item-val">Commission entered manually · stays in Pipeline</span>
+          </div>
+          <div class="guide-item">
+            <span class="guide-status-badge" style="background:rgba(254,243,199,.2);color:#fcd34d">Closed – Estimated</span>
+            <span class="guide-item-val">Deal closed, payment pending · moves to Closed</span>
+          </div>
+          <div class="guide-item">
+            <span class="guide-status-badge" style="background:rgba(16,185,129,.2);color:#6ee7b7">Closed – Paid</span>
+            <span class="guide-item-val">Deal closed and paid · moves to Closed</span>
+          </div>
+          <p class="guide-note-text">Set a Closed deal back to "Projected" or "Estimated" to return it to Pipeline. All changes auto-save to your browser.</p>
+        </div>
+        <div>
+          <h4>Sourcing Categories</h4>
+          <div class="guide-source-row">
+            <div class="guide-source-dot" style="background:#2e75b6"></div>
+            <div><div style="font-weight:600;color:rgba(255,255,255,.9);margin-bottom:2px">JY Sourced</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Role = Juan Self Sourced — deals you brought in directly. Split 1 is 75%.</div></div>
+          </div>
+          <div class="guide-source-row">
+            <div class="guide-source-dot" style="background:#8b5cf6"></div>
+            <div><div style="font-weight:600;color:rgba(255,255,255,.9);margin-bottom:2px">Helm Sourced</div><div style="font-size:12px;color:rgba(255,255,255,.5)">All other roles or blank — Company Sourced, LOA, Processing. Sourced through Helm.</div></div>
+          </div>
+          <p class="guide-note-text" style="margin-top:12px">The JY vs Helm split flows through the KPI cards, progress bar, monthly chart, and 2026 Outlook automatically — set the Role column and everything updates.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ── CONSTANTS ────────────────────────────────────────────────
+const PROC_FEE = 995;
+const AVG_COMP = 0.0175;
+const TARGET = 107000;
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const ROLES = ['','Juan Company Sourced','Juan Self Sourced','Juan Processing','Juan LOA','Juan Processing with Jon','Juan LOA with Jon'];
+const ROLE_PRESETS = {
+  'Juan Company Sourced':     {split1:'25', split2:'100'},
+  'Juan Self Sourced':        {split1:'75', split2:'100'},
+  'Juan Processing':          {split1:'',   split2:'100'},
+  'Juan LOA':                 {split1:'10', split2:'100'},
+  'Juan Processing with Jon': {split1:'',   split2:'50'},
+  'Juan LOA with Jon':        {split1:'10', split2:'50'},
+};
+
+// ── DATA ─────────────────────────────────────────────────────
+let closedDeals = [
+  {month:'February', client:'Javier Cruz',              role:'', loan:242525, grossCommPct:'1.97', commission:4789,  processingCost:0, split1:'25', split2:'100', status:'Closed - Paid'},
+  {month:'February', client:'Confesor Trinidad',         role:'', loan:281300, grossCommPct:'2.56', commission:7208,  processingCost:0, split1:'25', split2:'100', status:'Closed - Paid'},
+  {month:'March',    client:'Jose Raudes',               role:'', loan:402217, grossCommPct:'3.01', commission:12091, processingCost:0, split1:'',   split2:'50',  status:'Closed - Paid'},
+  {month:'March',    client:'Leticia Ileana Godoy-Sanch',role:'', loan:238000, grossCommPct:'1.75', commission:4165,  processingCost:0, split1:'',   split2:'50',  status:'Closed - Estimated'},
+  {month:'March',    client:'Justin Ilagan',             role:'', loan:655991, grossCommPct:'0.91', commission:5965,  processingCost:0, split1:'10', split2:'50',  status:'Closed - Paid'},
+  {month:'March',    client:'Jan Aaron Hernandez-Carap', role:'', loan:250000, grossCommPct:'1.35', commission:3380,  processingCost:0, split1:'10', split2:'50',  status:'Closed - Paid'},
+  {month:'March',    client:'Tarik Montrey Williams',    role:'', loan:348570, grossCommPct:'1.46', commission:5105,  processingCost:0, split1:'10', split2:'50',  status:'Closed - Paid'},
+  {month:'March',    client:'Javier Nieves',             role:'', loan:286711, grossCommPct:'1.81', commission:5188,  processingCost:0, split1:'25', split2:'100', status:'Closed - Paid'},
+];
+
+let pipelineDeals = [
+  {month:'March', client:'Dillon Grover',           role:'', loan:134680, grossCommPct:'2.09', commission:2820,  processingCost:0, split1:'80', split2:'50',  status:'Estimated'},
+  {month:'March', client:'Eric Naples',             role:'', loan:426000, grossCommPct:'1.52', commission:6460,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Shlomi Yehezkel',         role:'', loan:340000, grossCommPct:'1.46', commission:4955,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Lisa Della Croppa',       role:'', loan:400000, grossCommPct:'1.50', commission:6005,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Seth Dorne',              role:'', loan:787500, grossCommPct:'1.62', commission:12786, processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Victoria Marie Freitas',  role:'', loan:184000, grossCommPct:'1.21', commission:2225,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Yves Robert Tapage',      role:'', loan:170000, grossCommPct:'1.16', commission:1980,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Danielle Sharkey',        role:'', loan:337000, grossCommPct:'1.46', commission:4903,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Jeanella Adonis',         role:'', loan:80000,  grossCommPct:'0.51', commission:405,   processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Stephanie Preasha',       role:'', loan:251250, grossCommPct:'1.35', commission:3402,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
+  {month:'March', client:'Jose Ivan Matos',         role:'', loan:273000, grossCommPct:'1.39', commission:3783,  processingCost:0, split1:'25', split2:'100', status:'Projected'},
+  {month:'March', client:'Marlon Salmeron',         role:'', loan:480000, grossCommPct:'2.00', commission:9600,  processingCost:0, split1:'75', split2:'100', status:'Projected'},
+  {month:'March', client:'Nicholas Barnhart',       role:'', loan:195000, grossCommPct:'2.00', commission:3900,  processingCost:0, split1:'75', split2:'100', status:'Projected'},
+  {month:'April', client:'Jacob Foreman',           role:'', loan:476000, grossCommPct:'1.40', commission:6664,  processingCost:0, split1:'75', split2:'100', status:'Projected'},
+  {month:'April', client:'Macaulay Okwah',          role:'', loan:188000, grossCommPct:'1.75', commission:3290,  processingCost:0, split1:'75', split2:'100', status:'Projected'},
+  {month:'April', client:'Radley Raven',            role:'', loan:972000, grossCommPct:'1.75', commission:17010, processingCost:0, split1:'75', split2:'100', status:'Projected'},
+];
+
+// ── HELPERS ──────────────────────────────────────────────────
+function calcGrossComm(d) {
+  const loan = parseNum(d.loan);
+  const comm = parseNum(d.commission);
+  return comm > 0 ? comm : (loan > 0 ? loan * AVG_COMP : 0);
+}
+
+function calcNetComm(d) {
+  const loan = parseNum(d.loan);
+  const comm = parseNum(d.commission);
+  if (!loan && !comm) return null;
+  return calcGrossComm(d) - (parseNum(d.processingCost) || 0);
+}
+
+function calcJYComm(d) {
+  const loan = parseNum(d.loan);
+  const comm = parseNum(d.commission);
+  const s1 = (d.split1 === '' || d.split1 === null || d.split1 === undefined) ? null : parseFloat(d.split1);
+  const s2 = parseFloat(d.split2) || 100;
+  if (!loan && !comm) return null;
+  if (s1 === null) return PROC_FEE * (s2/100);
+  const netComm = calcNetComm(d);
+  if (netComm === null) return null;
+  return netComm * (s1/100) * (s2/100);
+}
+
+// Backward-compat alias used by chart/KPI code
+function calcNet(d) { return calcJYComm(d); }
+
+function parseNum(v) {
+  if (v === '' || v === null || v === undefined) return 0;
+  return parseFloat(String(v).replace(/[$,]/g,'')) || 0;
+}
+
+function fmt(v, decimals=0) {
+  if (v === null || v === undefined || isNaN(v)) return '—';
+  return '$' + Math.round(v).toLocaleString('en-US');
+}
+
+function fmtDisp(v) {
+  const n = parseNum(v);
+  return n > 0 ? n.toLocaleString('en-US') : '';
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function isNonStandardSplit(s1) {
+  return s1 !== '' && s1 !== null && s1 !== undefined && !['10','25','75'].includes(String(s1));
+}
+
+// ── ROW BUILDER ──────────────────────────────────────────────
+function rowHTML(type, d, i) {
+  const jy  = calcJYComm(d);
+  const nc  = calcNetComm(d);
+  const gc  = calcGrossComm(d);
+  const rowCls = (d.status==='Closed - Paid') ? 'tr-paid' : (d.status==='Estimated'||d.status==='Closed - Estimated') ? 'tr-estimated' : '';
+
+  // Month
+  const monthOpts = [['','— Mo —'],...MONTHS.map(m=>[m,m.slice(0,3)])].map(([v,l])=>
+    `<option value="${v}"${v===d.month?' selected':''}>${l}</option>`).join('');
+
+  // Role
+  const roleOpts = ROLES.map(r=>
+    `<option value="${r}"${r===d.role?' selected':''}>${r||'— Role —'}</option>`).join('');
+
+  // Gross Comm %
+  const gcpVal = (d.grossCommPct && d.grossCommPct !== 'custom') ? d.grossCommPct : '';
+
+  // Split1
+  const s1Val = String(d.split1 ?? '');
+  const s1Std = [['','$995'],['10','10%'],['25','25%'],['75','75%'],['80','80%']];
+  const hasCustomS1 = s1Val !== '' && !['','10','25','75','80'].includes(s1Val);
+  const s1Opts = s1Std.map(([v,l])=>
+    `<option value="${v}"${v===s1Val?' selected':''}>${l}</option>`).join('') +
+    (hasCustomS1 ? `<option value="${s1Val}" selected>${s1Val}%</option>` : '') +
+    `<option value="__custom__">Other…</option>`;
+
+  // Split2
+  const s2Opts = ['50','100'].map(v=>
+    `<option value="${v}"${v===String(d.split2)?' selected':''}>${v}%</option>`).join('');
+
+  // Status
+  const statOpts = ['Projected','Estimated','Closed - Estimated','Closed - Paid'].map(s=>
+    `<option value="${s}"${s===d.status?' selected':''}>${s}</option>`).join('');
+  const statCls = d.status==='Closed - Paid'?'s-closed-paid':d.status==='Closed - Estimated'?'s-closed-estimated':d.status==='Estimated'?'s-estimated':'s-projected';
+
+  const jyDisp   = jy  !== null ? fmt(jy)  : '<span style="color:#d1d5db">—</span>';
+  const ncDisp   = nc  !== null ? fmt(nc)  : '<span style="color:#d1d5db">—</span>';
+
+  return `<tr id="row-${type}-${i}" class="${rowCls}">
+    <td><select class="ti ti-sel" onchange="updateField('${type}',${i},'month',this.value)">${monthOpts}</select></td>
+    <td><input class="ti" type="text" value="${esc(d.client)}" oninput="updateField('${type}',${i},'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('${type}',${i},this.value)">${roleOpts}</select></td>
+    <td><input class="ti num-i" type="text" value="${fmtDisp(d.loan)}" data-raw="${parseNum(d.loan)||''}"
+      onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)"
+      oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('${type}',${i},'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-${type}-${i}" value="${gcpVal}"
+        oninput="updateField('${type}',${i},'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-${type}-${i}" value="${fmtDisp(d.commission)}" data-raw="${parseNum(d.commission)||''}"
+        onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)"
+        oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('${type}',${i},'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="${fmtDisp(d.processingCost)}" data-raw="${parseNum(d.processingCost)||''}"
+      onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)"
+      oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('${type}',${i},'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-${type}-${i}">${ncDisp}</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('${type}',${i},this)">${s1Opts}</select></td>
+    <td><select class="ti ti-sel" onchange="updateField('${type}',${i},'split2',this.value)">${s2Opts}</select></td>
+    <td class="num"><span class="net-val" id="net-${type}-${i}">${jyDisp}</span></td>
+    <td><select class="ti ti-sel ${statCls}" id="stat-sel-${type}-${i}" onchange="updateField('${type}',${i},'status',this.value)">${statOpts}</select></td>
+    <td><button class="del-btn" onclick="deleteDeal('${type}',${i})" title="Delete">×</button></td>
+  </tr>`;
+}
+
+// ── RENDER TABLE (closed only) ────────────────────────────────
+function renderTable(type, deals) {
+  if (type === 'pipeline') { renderPipeline(); return; }
+  document.getElementById(`${type}-tbody`).innerHTML = deals.map((d,i) => rowHTML(type,d,i)).join('');
+  updateTotalsDisplay(type, deals);
+}
+
+// ── RENDER PIPELINE (by month groups) ────────────────────────
+const PIPE_THEAD = `<thead><tr>
+  <th style="width:90px">Month</th>
+  <th style="min-width:120px">Client Name</th>
+  <th style="width:140px">Role</th>
+  <th class="num" style="width:100px">Loan Amount</th>
+  <th class="num" style="width:72px">Gross %</th>
+  <th class="num" style="width:105px">Gross Comm ($)</th>
+  <th class="num" style="width:90px">Proc. Cost</th>
+  <th class="num" style="width:100px">Net Comm</th>
+  <th class="num" style="width:78px">Split 1</th>
+  <th class="num" style="width:68px">Split 2</th>
+  <th class="num" style="width:105px">JY Commission</th>
+  <th style="width:120px">Status</th>
+  <th style="width:30px"></th>
+</tr></thead>`;
+
+function renderPipeline() {
+  const container = document.getElementById('pipeline-container');
+  if (!container) return;
+
+  // Months present, sorted chronologically
+  const monthsPresent = [...new Set(pipelineDeals.map(d=>d.month).filter(m=>m))];
+  monthsPresent.sort((a,b)=>MONTHS.indexOf(a)-MONTHS.indexOf(b));
+  const hasUnscheduled = pipelineDeals.some(d=>!d.month);
+
+  // Global summary stats
+  const totalDeals = pipelineDeals.length;
+  const totalLoan  = pipelineDeals.reduce((s,d)=>s+parseNum(d.loan),0);
+  const totalGross = pipelineDeals.reduce((s,d)=>s+calcGrossComm(d),0);
+  const totalJY    = pipelineDeals.reduce((s,d)=>{const n=calcJYComm(d);return s+(n||0);},0);
+  let html = `
+    <div class="pipe-global-header">
+      <div>
+        <div class="sec-title">Pipeline / Potential Deals</div>
+        <div class="sec-sub" style="margin-bottom:0">Active Pipeline</div>
+      </div>
+      <div class="pipe-summary-grid">
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total Deals</div><div class="pipe-stat-val">${totalDeals}</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total Volume</div><div class="pipe-stat-val">${fmt(totalLoan)}</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Gross Comm</div><div class="pipe-stat-val">${fmt(totalGross)}</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total JY Comm</div><div class="pipe-stat-val blue">${fmt(totalJY)}</div></div>
+      </div>
+    </div>`;
+
+  const groups = monthsPresent.map(m=>({label:m, deals:pipelineDeals.map((d,i)=>({d,i})).filter(({d})=>d.month===m)}));
+  if (hasUnscheduled) groups.push({label:'', deals:pipelineDeals.map((d,i)=>({d,i})).filter(({d})=>!d.month)});
+
+  for (const {label, deals} of groups) {
+    const gLabel  = label || 'Unscheduled';
+    const mId     = (label||'unscheduled').replace(/\s/g,'');
+    html += `
+    <div class="pipe-month-card">
+      <div class="pipe-month-header">
+        <div class="pipe-month-title">${gLabel} <span style="color:#9ca3af;font-size:12px;font-weight:400">(${deals.length} deal${deals.length!==1?'s':''})</span></div>
+      </div>
+      <div class="tbl-scroll" style="padding:0 4px">
+      <table>
+        ${PIPE_THEAD}
+        <tbody id="pipeline-tbody-${mId}">${deals.map(({d,i})=>rowHTML('pipeline',d,i)).join('')}</tbody>
+        <tfoot id="pipeline-foot-${mId}"></tfoot>
+      </table>
+      </div>
+      <div class="pipe-month-footer">
+        <button class="add-btn" onclick="addPipelineDeal('${label}')">＋ Add ${gLabel} Deal</button>
+      </div>
+    </div>`;
+  }
+
+  html += `<div style="padding:0 0 16px"><button class="add-btn" style="margin-top:0" onclick="addDeal('pipeline')">＋ Add Pipeline Deal (new month)</button></div>`;
+  container.innerHTML = html;
+
+  // Render footers for each group
+  for (const {label, deals} of groups) {
+    const mId = (label||'unscheduled').replace(/\s/g,'');
+    const mLoan  = deals.reduce((s,{d})=>s+parseNum(d.loan),0);
+    const mGross = deals.reduce((s,{d})=>s+calcGrossComm(d),0);
+    const mPC    = deals.reduce((s,{d})=>s+(parseNum(d.processingCost)||0),0);
+    const mNC    = deals.reduce((s,{d})=>{const n=calcNetComm(d);return s+(n||0);},0);
+    const mJY    = deals.reduce((s,{d})=>{const n=calcJYComm(d);return s+(n||0);},0);
+    const foot   = document.getElementById(`pipeline-foot-${mId}`);
+    if (foot) foot.innerHTML = `<tr>
+      <td colspan="3" style="font-size:13px">TOTALS — ${deals.length} deal${deals.length!==1?'s':''}</td>
+      <td class="num">${fmt(mLoan)}</td><td></td>
+      <td class="num">${fmt(mGross)}</td>
+      <td class="num">${fmt(mPC)}</td>
+      <td class="num">${fmt(mNC)}</td>
+      <td colspan="2"></td>
+      <td class="num" style="color:#2e75b6">${fmt(mJY)}</td>
+      <td colspan="2"></td>
+    </tr>`;
+  }
+}
+
+// ── UPDATE FIELD (no full re-render) ─────────────────────────
+function updateField(type, idx, field, value) {
+  const deals = type === 'closed' ? closedDeals : pipelineDeals;
+  deals[idx][field] = value;
+
+  // ── AUTO-MOVE LOGIC ──────────────────────────────────────
+  if (field === 'status') {
+    // Pipeline → Closed when marked Closed - Estimated or Closed - Paid
+    if (type === 'pipeline' && (value === 'Closed - Estimated' || value === 'Closed - Paid')) {
+      const deal = pipelineDeals.splice(idx, 1)[0];
+      closedDeals.push(deal);
+      renderTable('pipeline', pipelineDeals);
+      renderTable('closed', closedDeals);
+      updateKPIs(); updateProgress(); updateChart(); autoSave();
+      showToast(
+        value === 'Closed - Paid' ? '✅' : '🟡',
+        `"${deal.client || 'Deal'}" moved to Closed Deals`,
+        'Status set to ' + value
+      );
+      return;
+    }
+    // Closed → Pipeline when marked Projected or Estimated
+    if (type === 'closed' && (value === 'Projected' || value === 'Estimated')) {
+      const deal = closedDeals.splice(idx, 1)[0];
+      pipelineDeals.unshift(deal);
+      renderTable('closed', closedDeals);
+      renderTable('pipeline', pipelineDeals);
+      updateKPIs(); updateProgress(); updateChart(); autoSave();
+      showToast('🔄', `"${deal.client || 'Deal'}" moved to Pipeline`, 'Status set to ' + value);
+      return;
+    }
+    // Same-table status change — update row style only
+    const row = document.getElementById(`row-${type}-${idx}`);
+    if (row) row.className = value==='Closed - Paid' ? 'tr-paid' : (value==='Estimated'||value==='Closed - Estimated') ? 'tr-estimated' : '';
+    const sel = document.getElementById(`stat-sel-${type}-${idx}`);
+    if (sel) sel.className = `ti ti-sel ${value==='Closed - Paid'?'s-closed-paid':value==='Closed - Estimated'?'s-closed-estimated':value==='Estimated'?'s-estimated':'s-projected'}`;
+  }
+
+  // ── AUTO-SORT ON MONTH CHANGE ────────────────────────────
+  if (field === 'month') {
+    const arr = type === 'closed' ? closedDeals : pipelineDeals;
+    arr.sort((a, b) => MONTHS.indexOf(a.month) - MONTHS.indexOf(b.month));
+    renderTable(type, arr);
+    updateKPIs(); updateProgress(); updateChart(); autoSave();
+    return;
+  }
+
+  // ── BIDIRECTIONAL GROSS %/$ SYNC ────────────────────────
+  if (field === 'loan') {
+    const loan = parseNum(value);
+    const pct  = deals[idx].grossCommPct;
+    const comm = parseNum(deals[idx].commission);
+    if (pct && pct !== 'custom') {
+      const p = parseFloat(pct);
+      if (!isNaN(p) && p > 0 && loan > 0) {
+        deals[idx].commission = loan * p / 100;
+        const gcInput = document.getElementById(`grosscomm-input-${type}-${idx}`);
+        if (gcInput && document.activeElement !== gcInput) {
+          gcInput.dataset.raw = Math.round(deals[idx].commission);
+          gcInput.value = fmtDisp(deals[idx].commission);
+        }
+      }
+    } else if (comm > 0 && loan > 0) {
+      deals[idx].grossCommPct = (comm / loan * 100).toFixed(2);
+      const gcpInput = document.getElementById(`grosspct-input-${type}-${idx}`);
+      if (gcpInput && document.activeElement !== gcpInput) {
+        gcpInput.value = deals[idx].grossCommPct;
+      }
+    }
+  }
+
+  if (field === 'commission') {
+    const loan = parseNum(deals[idx].loan);
+    const comm = parseNum(value);
+    if (loan > 0 && comm > 0) {
+      deals[idx].grossCommPct = (comm / loan * 100).toFixed(2);
+      const gcpInput = document.getElementById(`grosspct-input-${type}-${idx}`);
+      if (gcpInput && document.activeElement !== gcpInput) {
+        gcpInput.value = deals[idx].grossCommPct;
+      }
+    }
+  }
+
+  if (field === 'grossCommPct') {
+    const loan = parseNum(deals[idx].loan);
+    const pct  = parseFloat(value);
+    if (loan > 0 && !isNaN(pct) && pct > 0) {
+      deals[idx].commission = loan * pct / 100;
+      const gcInput = document.getElementById(`grosscomm-input-${type}-${idx}`);
+      if (gcInput && document.activeElement !== gcInput) {
+        gcInput.dataset.raw = Math.round(deals[idx].commission);
+        gcInput.value = fmtDisp(deals[idx].commission);
+      }
+    }
+  }
+
+  // Recalculate and update net comm + JY comm cells
+  const nc  = calcNetComm(deals[idx]);
+  const jy  = calcJYComm(deals[idx]);
+  const ncCell = document.getElementById(`netcomm-${type}-${idx}`);
+  const netCell = document.getElementById(`net-${type}-${idx}`);
+  if (ncCell)  ncCell.innerHTML  = nc  !== null ? fmt(nc)  : '<span style="color:#d1d5db">—</span>';
+  if (netCell) netCell.innerHTML = jy  !== null ? fmt(jy)  : '<span style="color:#d1d5db">—</span>';
+
+  updateTotalsDisplay(type, deals);
+  updateKPIs();
+  updateProgress();
+  updateChart();
+  autoSave();
+}
+
+function handleSplit1(type, idx, select) {
+  if (select.value === '__custom__') {
+    const val = prompt('Enter Split 1 % (e.g. 80):');
+    if (val !== null && val.trim() !== '' && !isNaN(parseFloat(val))) {
+      const v = String(parseFloat(val));
+      const deals = type === 'closed' ? closedDeals : pipelineDeals;
+      deals[idx].split1 = v;
+      if (type === 'pipeline') {
+        renderPipeline();
+      } else {
+        const tbody = document.getElementById(`${type}-tbody`);
+        const rows = tbody.querySelectorAll('tr');
+        const tr = document.createElement('tbody');
+        tr.innerHTML = rowHTML(type, deals[idx], idx);
+        rows[idx].replaceWith(tr.firstChild);
+        updateTotalsDisplay(type, deals);
+      }
+      updateKPIs(); updateProgress(); updateChart(); autoSave();
+    } else {
+      const deals = type === 'closed' ? closedDeals : pipelineDeals;
+      select.value = String(deals[idx].split1 ?? '');
+    }
+  } else {
+    updateField(type, idx, 'split1', select.value);
+  }
+}
+
+function handleRole(type, idx, value) {
+  const deals = type === 'closed' ? closedDeals : pipelineDeals;
+  deals[idx].role = value;
+  if (ROLE_PRESETS[value]) {
+    deals[idx].split1 = ROLE_PRESETS[value].split1;
+    deals[idx].split2 = ROLE_PRESETS[value].split2;
+  }
+  if (type === 'pipeline') {
+    renderPipeline();
+  } else {
+    const tbody = document.getElementById(`${type}-tbody`);
+    const rows = tbody.querySelectorAll('tr');
+    const tr = document.createElement('tbody');
+    tr.innerHTML = rowHTML(type, deals[idx], idx);
+    rows[idx].replaceWith(tr.firstChild);
+    updateTotalsDisplay(type, deals);
+  }
+  updateKPIs(); updateProgress(); updateChart(); autoSave();
+}
+
+
+// ── ADD / DELETE ─────────────────────────────────────────────
+function addDeal(type) {
+  const deals = type === 'closed' ? closedDeals : pipelineDeals;
+  const newDeal = {month:'', client:'', role:'', loan:'', grossCommPct:'1.75', commission:'', processingCost:0, split1:'', split2:'100', status:'Projected'};
+  deals.push(newDeal);
+  if (type === 'pipeline') {
+    renderPipeline();
+    // Focus last unscheduled tbody's first row input
+    setTimeout(()=>{
+      const tb = document.getElementById('pipeline-tbody-unscheduled');
+      if (tb) { const inp = tb.lastElementChild?.querySelector('input'); if (inp) inp.focus(); }
+    }, 80);
+  } else {
+    const tbody = document.getElementById(`${type}-tbody`);
+    const tmpl = document.createElement('tbody');
+    tmpl.innerHTML = rowHTML(type, newDeal, deals.length - 1);
+    tbody.appendChild(tmpl.firstChild);
+    const newRow = tbody.lastElementChild;
+    const inp = newRow.querySelectorAll('input')[0];
+    if (inp) setTimeout(() => inp.focus(), 50);
+    updateTotalsDisplay(type, deals);
+  }
+  updateKPIs(); updateProgress(); updateChart();
+  autoSave();
+}
+
+function addPipelineDeal(month) {
+  const newDeal = {month, client:'', role:'', loan:'', grossCommPct:'1.75', commission:'', processingCost:0, split1:'', split2:'100', status:'Projected'};
+  pipelineDeals.push(newDeal);
+  pipelineDeals.sort((a,b)=>MONTHS.indexOf(a.month)-MONTHS.indexOf(b.month));
+  renderPipeline();
+  updateKPIs(); updateProgress(); updateChart();
+  autoSave();
+  // Focus the new row
+  const mId = (month||'unscheduled').replace(/\s/g,'');
+  setTimeout(()=>{
+    const tb = document.getElementById(`pipeline-tbody-${mId}`);
+    if (tb) { const inp = tb.lastElementChild?.querySelector('input'); if (inp) inp.focus(); }
+  }, 80);
+}
+
+function deleteDeal(type, idx) {
+  const deals = type === 'closed' ? closedDeals : pipelineDeals;
+  deals.splice(idx, 1);
+  renderTable(type, deals);
+  updateKPIs(); updateProgress(); updateChart();
+  autoSave();
+}
+
+// ── TOTALS DISPLAY ───────────────────────────────────────────
+function updateTotalsDisplay(type, deals) {
+  // Pipeline totals are handled by renderPipeline() — skip if elements don't exist
+  const totalsEl = document.getElementById(`${type}-totals`);
+  const footEl   = document.getElementById(`${type}-foot`);
+  if (!totalsEl || !footEl) return;
+
+  const totalLoan    = deals.reduce((s,d) => s+parseNum(d.loan), 0);
+  const totalGross   = deals.reduce((s,d) => s+calcGrossComm(d), 0);
+  const totalProcCost= deals.reduce((s,d) => s+(parseNum(d.processingCost)||0), 0);
+  const totalNetComm = deals.reduce((s,d) => { const n=calcNetComm(d); return s+(n||0); }, 0);
+  const totalJY      = deals.reduce((s,d) => { const n=calcJYComm(d);  return s+(n||0); }, 0);
+  const clr = type === 'closed' ? '#059669' : '#2e75b6';
+  totalsEl.innerHTML = `
+    <div class="tot-item"><span>Total Volume</span><strong>${fmt(totalLoan)}</strong></div>
+    <div class="tot-item"><span>Gross Commission</span><strong>${fmt(totalGross)}</strong></div>
+    <div class="tot-item"><span>JY Commission</span><strong style="color:${clr}">${fmt(totalJY)}</strong></div>`;
+  footEl.innerHTML =
+    `<tr>
+      <td colspan="3" style="font-size:13px">TOTALS — ${deals.length} deal${deals.length!==1?'s':''}</td>
+      <td class="num">${fmt(totalLoan)}</td>
+      <td></td>
+      <td class="num">${fmt(totalGross)}</td>
+      <td class="num">${fmt(totalProcCost)}</td>
+      <td class="num">${fmt(totalNetComm)}</td>
+      <td colspan="2"></td>
+      <td class="num" style="color:${clr}">${fmt(totalJY)}</td>
+      <td colspan="2"></td>
+    </tr>`;
+}
+
+// ── KPI UPDATES ──────────────────────────────────────────────
+function updateKPIs() {
+  const jyClosed    = closedDeals.filter(d=>d.role==='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
+  const helmClosed  = closedDeals.filter(d=>d.role!=='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
+  const ytdClosed   = jyClosed + helmClosed;
+  const jyPipeline  = pipelineDeals.filter(d=>d.role==='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
+  const helmPipeline= pipelineDeals.filter(d=>d.role!=='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
+  const ytdPipeline = jyPipeline + helmPipeline;
+  const ytdTotal    = ytdClosed + ytdPipeline;
+  const remaining   = Math.max(0, TARGET - ytdTotal);
+  const closedPct   = (ytdClosed/TARGET*100).toFixed(1);
+  const jyClosedPct = (jyClosed/TARGET*100).toFixed(1);
+  const helmClosedPct=(helmClosed/TARGET*100).toFixed(1);
+  const jyPct       = (jyPipeline/TARGET*100).toFixed(1);
+  const helmPct     = (helmPipeline/TARGET*100).toFixed(1);
+  const totalPct    = (ytdTotal/TARGET*100).toFixed(1);
+  const remainPct   = Math.max(0, 100 - parseFloat(totalPct)).toFixed(1);
+  const jyCount     = pipelineDeals.filter(d=>d.role==='Juan Self Sourced').length;
+  const helmCount   = pipelineDeals.length - jyCount;
+  const totalDeals  = closedDeals.length + pipelineDeals.length;
+
+  document.getElementById('kpi-closed').textContent     = fmt(ytdClosed);
+  document.getElementById('kpi-closed-sub').textContent  = `from ${closedDeals.length} deal${closedDeals.length!==1?'s':''}`;
+  document.getElementById('kpi-closed-pct').textContent  = `${closedPct}% of $107k goal`;
+
+  document.getElementById('kpi-jy-pipeline').textContent    = fmt(jyPipeline);
+  document.getElementById('kpi-jy-pipeline-sub').textContent = `from ${jyCount} deal${jyCount!==1?'s':''}`;
+  document.getElementById('kpi-jy-pipeline-pct').textContent = `${jyPct}% of $107k goal`;
+
+  document.getElementById('kpi-helm-pipeline').textContent    = fmt(helmPipeline);
+  document.getElementById('kpi-helm-pipeline-sub').textContent = `from ${helmCount} deal${helmCount!==1?'s':''}`;
+  document.getElementById('kpi-helm-pipeline-pct').textContent = `${helmPct}% of $107k goal`;
+
+  document.getElementById('kpi-total').textContent     = fmt(ytdTotal);
+  document.getElementById('kpi-total-sub').textContent  = `from ${totalDeals} deal${totalDeals!==1?'s':''} combined`;
+  document.getElementById('kpi-total-pct').textContent  = `${totalPct}% of $107k goal`;
+
+  document.getElementById('kpi-remaining').textContent    = fmt(remaining);
+  document.getElementById('kpi-remaining-pct').textContent = `${remainPct}% still needed`;
+
+  // ── KEY HIGHLIGHTS ──────────────────────────────────────────
+  const monthsWithDeals = [...new Set(closedDeals.map(d=>d.month).filter(Boolean))].length;
+  const effectiveMonths = Math.max(1, monthsWithDeals || (new Date().getMonth() + 1));
+
+  // Avg monthly closings by source
+  const avgMonthlyJY   = jyClosed   / effectiveMonths;
+  const avgMonthlyHelm = helmClosed / effectiveMonths;
+
+  // Avg gross % by source (closed deals)
+  const jyClosedWithLoan   = closedDeals.filter(d=>d.role==='Juan Self Sourced' && d.loan>0 && d.commission>0);
+  const helmClosedWithLoan = closedDeals.filter(d=>d.role!=='Juan Self Sourced'  && d.loan>0 && d.commission>0);
+  const avgGrossPctJY   = jyClosedWithLoan.length   > 0 ? (jyClosedWithLoan.reduce((s,d)=>s+(d.commission/d.loan*100),0)   / jyClosedWithLoan.length).toFixed(2)   : null;
+  const avgGrossPctHelm = helmClosedWithLoan.length > 0 ? (helmClosedWithLoan.reduce((s,d)=>s+(d.commission/d.loan*100),0) / helmClosedWithLoan.length).toFixed(2) : null;
+
+  // Avg loan size by source (closed deals)
+  const jyClosedLoans   = closedDeals.filter(d=>d.role==='Juan Self Sourced' && d.loan>0);
+  const helmClosedLoans = closedDeals.filter(d=>d.role!=='Juan Self Sourced'  && d.loan>0);
+  const avgLoanJY   = jyClosedLoans.length   > 0 ? jyClosedLoans.reduce((s,d)=>s+(+d.loan||0),0)   / jyClosedLoans.length   : null;
+  const avgLoanHelm = helmClosedLoans.length > 0 ? helmClosedLoans.reduce((s,d)=>s+(+d.loan||0),0) / helmClosedLoans.length : null;
+  const fmtLoan = v => v !== null ? '$'+Math.round(v/1000)+'k' : '—';
+
+  document.getElementById('outlook-rows').innerHTML = `
+    <div class="insight-grid">
+      <div class="insight-col-hdr">JY Sourced Closings</div>
+      <div class="insight-col-hdr">Helm Sourced Closings</div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">${fmtLoan(avgLoanJY)}</div>
+        <div class="insight-lbl">Avg Loan Size</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">${fmtLoan(avgLoanHelm)}</div>
+        <div class="insight-lbl">Avg Loan Size</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">${avgGrossPctJY !== null ? avgGrossPctJY+'%' : '—'}</div>
+        <div class="insight-lbl">Avg Comm %</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">${avgGrossPctHelm !== null ? avgGrossPctHelm+'%' : '—'}</div>
+        <div class="insight-lbl">Avg Comm %</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">${fmt(avgMonthlyJY)}</div>
+        <div class="insight-lbl">Avg Monthly Comm</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">${fmt(avgMonthlyHelm)}</div>
+        <div class="insight-lbl">Avg Monthly Comm</div>
+      </div>
+    </div>`;
+}
+
+// ── PROGRESS BAR ─────────────────────────────────────────────
+function updateProgress() {}
+
+// ── CHART ────────────────────────────────────────────────────
+let chartInst = null;
+let lastChartData = null;
+
+// Pin tooltip to top-left so it never covers bars
+Chart.Tooltip.positioners.topLeft = function() {
+  const ca = this.chart.chartArea;
+  return { x: ca.left + 10, y: ca.top + 10 };
+};
+
+function getChartData() {
+  const mClosed   = MONTHS.map(m=>closedDeals.filter(d=>d.month===m).reduce((s,d)=>s+(calcNet(d)||0),0));
+  const mJYPipe   = MONTHS.map(m=>pipelineDeals.filter(d=>d.month===m&&d.role==='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0));
+  const mHelmPipe = MONTHS.map(m=>pipelineDeals.filter(d=>d.month===m&&d.role!=='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0));
+
+  // Cumulative running totals
+  let cc=0, cj=0, ch=0;
+  const cumClosed    = mClosed.map(v=>{cc+=v;return cc;});
+  const cumJYPipe    = mJYPipe.map(v=>{cj+=v;return cj;});
+  const cumHelmPipe  = mHelmPipe.map(v=>{ch+=v;return ch;});
+
+  // Straight-line budget target: $0 → $107k evenly over 12 months
+  const budget = MONTHS.map((_,i)=>Math.round(TARGET/12*(i+1)));
+
+  // Remaining to monthly target
+  const remaining = budget.map((b,i)=>Math.max(0, b - cumClosed[i] - cumJYPipe[i] - cumHelmPipe[i]));
+
+  lastChartData = {cumClosed, cumJYPipe, cumHelmPipe, budget, remaining};
+  return lastChartData;
+}
+
+function updateChart() {
+  if (!chartInst) return;
+  const d = getChartData();
+  chartInst.data.datasets[0].data = d.cumClosed;
+  chartInst.data.datasets[1].data = d.cumJYPipe;
+  chartInst.data.datasets[2].data = d.cumHelmPipe;
+  chartInst.data.datasets[3].data = d.remaining;
+  chartInst.data.datasets[4].data = d.budget;
+  chartInst.update();
+}
+
+function initChart() {
+  const ctx = document.getElementById('monthlyChart').getContext('2d');
+  const d = getChartData();
+  chartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      datasets: [
+        {
+          type:'bar', label:'Closed', data:d.cumClosed, stack:'s0',
+          backgroundColor:'rgba(13,148,136,.85)', order:2
+        },
+        {
+          type:'bar', label:'JY Pipeline', data:d.cumJYPipe, stack:'s0',
+          backgroundColor:'rgba(46,117,182,.6)', order:2
+        },
+        {
+          type:'bar', label:'Helm Pipeline', data:d.cumHelmPipe, stack:'s0',
+          backgroundColor:'rgba(139,92,246,.6)', order:2
+        },
+        {
+          type:'bar', label:'Remaining', data:d.remaining, stack:'s0',
+          backgroundColor:'rgba(245,158,11,.35)', order:2
+        },
+        {
+          type:'line', label:'$107k Target', data:d.budget,
+          borderColor:'#111827', borderWidth:2, borderDash:[7,4],
+          pointRadius:0, fill:false, tension:0, order:1
+        }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{position:'top',labels:{font:{size:12},padding:14,boxWidth:12,boxHeight:12}},
+        tooltip:{
+          position: 'topLeft',
+          xAlign: 'left',
+          yAlign: 'top',
+          callbacks:{
+            label: ()=>null,
+            afterBody: (items)=>{
+              if (!items.length || !lastChartData) return [];
+              const i = items[0].dataIndex;
+              const closed   = lastChartData.cumClosed[i]   || 0;
+              const jy       = lastChartData.cumJYPipe[i]   || 0;
+              const helm     = lastChartData.cumHelmPipe[i] || 0;
+              const target   = lastChartData.budget[i]      || 0;
+              const total    = closed + jy + helm;
+              const pct = v => target>0 ? ` (${(v/target*100).toFixed(1)}%)` : '';
+              const rem = Math.max(0, target - total);
+              return [
+                `  Target: ${fmt(target)}`,
+                `  Closed + Pipeline: ${fmt(total)}${pct(total)}`,
+                `  Closed: ${fmt(closed)}${pct(closed)}`,
+                `  JY Pipeline: ${fmt(jy)}${pct(jy)}`,
+                `  Helm Pipeline: ${fmt(helm)}${pct(helm)}`,
+                `  Remaining: ${fmt(rem)}${pct(rem)}`
+              ];
+            }
+          }
+        }
+      },
+      scales:{
+        x:{grid:{display:false}, ticks:{font:{size:12}}, stacked:true},
+        y:{
+          stacked:true,
+          grid:{color:'#f3f4f6'},
+          ticks:{font:{size:11},callback:v=>'$'+v.toLocaleString()},
+          title:{display:true,text:'Cumulative Net Commission ($)',font:{size:11},color:'#9ca3af'}
+        }
+      }
+    }
+  });
+}
+
+// ── TOAST ────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(icon, msg, sub) {
+  const t = document.getElementById('move-toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').innerHTML = msg + (sub ? ` <span class="toast-action">(${sub})</span>` : '');
+  t.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+
+// ── LOCAL STORAGE ─────────────────────────────────────────────
+const STORAGE_KEY = 'commission_dashboard_2026';
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      closedDeals,
+      pipelineDeals,
+      savedAt: new Date().toISOString()
+    }));
+  } catch(e) { console.warn('Save failed', e); }
+}
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const parsed = JSON.parse(raw);
+    if (parsed.closedDeals)   closedDeals   = parsed.closedDeals;
+    if (parsed.pipelineDeals) pipelineDeals = parsed.pipelineDeals;
+    return true;
+  } catch(e) { return false; }
+}
+
+let saveTimer = null;
+function autoSave() {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { saveData(); }, 800);
+}
+
+function manualSave() {
+  saveData();
+  const btn = document.getElementById('save-btn');
+  btn.textContent = '✓ Saved';
+  btn.classList.add('saved');
+  setTimeout(() => { btn.textContent = '💾 Save'; btn.classList.remove('saved'); }, 1800);
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('updated-date').textContent = 'Updated: ' +
+    new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+  loadData();
+  renderTable('closed', closedDeals);
+  renderPipeline();
+  updateKPIs();
+  updateProgress();
+  initChart();
+});
+</script>
+</body>
+</html>
