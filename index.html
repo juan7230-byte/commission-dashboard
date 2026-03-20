@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>2026 Commission KPI Dashboard</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
@@ -217,9 +215,9 @@
   <div class="h-right" style="display:flex;align-items:center;gap:14px">
     <div style="text-align:right">
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
-      <div id="updated-date"></div>
+      <div id="updated-date">Updated: Mar 20, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage">💾 Save</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="saved">✓ Saved</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in — replace your local file then push to GitHub">🌐 Export for Web</button>
   </div>
 </header>
@@ -229,33 +227,33 @@
   <div class="kpi-grid">
     <div class="kpi-card green">
       <div class="kpi-lbl">YTD Closed</div>
-      <div class="kpi-val" id="kpi-closed">—</div>
-      <div class="kpi-sub" id="kpi-closed-sub"></div>
-      <span class="kpi-badge bg-green" id="kpi-closed-pct"></span>
+      <div class="kpi-val" id="kpi-closed">$6,397</div>
+      <div class="kpi-sub" id="kpi-closed-sub">from 9 deals</div>
+      <span class="kpi-badge bg-green" id="kpi-closed-pct">6.0% of $107k goal</span>
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">JY Sourced Pipeline</div>
-      <div class="kpi-val" id="kpi-jy-pipeline">—</div>
-      <div class="kpi-sub" id="kpi-jy-pipeline-sub"></div>
-      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct"></span>
+      <div class="kpi-val" id="kpi-jy-pipeline">$25,876</div>
+      <div class="kpi-sub" id="kpi-jy-pipeline-sub">from 5 deals</div>
+      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct">24.2% of $107k goal</span>
     </div>
     <div class="kpi-card teal">
       <div class="kpi-lbl">Helm Sourced Pipeline</div>
-      <div class="kpi-val" id="kpi-helm-pipeline">—</div>
-      <div class="kpi-sub" id="kpi-helm-pipeline-sub"></div>
-      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct"></span>
+      <div class="kpi-val" id="kpi-helm-pipeline">$7,268</div>
+      <div class="kpi-sub" id="kpi-helm-pipeline-sub">from 14 deals</div>
+      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">6.8% of $107k goal</span>
     </div>
     <div class="kpi-card purple">
       <div class="kpi-lbl">Total Closed + Pipeline</div>
-      <div class="kpi-val" id="kpi-total">—</div>
-      <div class="kpi-sub" id="kpi-total-sub"></div>
-      <span class="kpi-badge bg-purple" id="kpi-total-pct"></span>
+      <div class="kpi-val" id="kpi-total">$39,541</div>
+      <div class="kpi-sub" id="kpi-total-sub">from 28 deals combined</div>
+      <span class="kpi-badge bg-purple" id="kpi-total-pct">37.0% of $107k goal</span>
     </div>
     <div class="kpi-card orange">
       <div class="kpi-lbl">Remaining to 2026 Goal</div>
-      <div class="kpi-val" id="kpi-remaining">—</div>
+      <div class="kpi-val" id="kpi-remaining">$67,459</div>
       <div class="kpi-sub">of $107k goal</div>
-      <span class="kpi-badge bg-orange" id="kpi-remaining-pct"></span>
+      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">63.0% still needed</span>
     </div>
   </div>
 
@@ -263,11 +261,39 @@
   <div class="mid-grid">
     <div class="card">
       <div class="sec-title" style="text-align:center">Monthly Net Commission</div>
-      <div class="chart-wrap"><canvas id="monthlyChart"></canvas></div>
+      <div class="chart-wrap"><canvas id="monthlyChart" width="1738" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 869px;"></canvas></div>
     </div>
     <div class="card">
       <div class="sec-title" style="color:#0f766e;text-align:center">Key Highlights</div>
-      <div id="outlook-rows"></div>
+      <div id="outlook-rows">
+    <div class="insight-grid">
+      <div class="insight-col-hdr">JY Sourced Closings</div>
+      <div class="insight-col-hdr">Helm Sourced Closings</div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">—</div>
+        <div class="insight-lbl">Avg Loan Size</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">$310k</div>
+        <div class="insight-lbl">Avg Loan Size</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">—</div>
+        <div class="insight-lbl">Avg Comm %</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">1.98%</div>
+        <div class="insight-lbl">Avg Comm %</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">$0</div>
+        <div class="insight-lbl">Avg Monthly Comm</div>
+      </div>
+      <div class="insight-tile c-grey">
+        <div class="insight-val">$3,199</div>
+        <div class="insight-lbl">Avg Monthly Comm</div>
+      </div>
+    </div></div>
     </div>
   </div>
 
@@ -284,7 +310,10 @@
         <div class="sec-title">Closed Deals</div>
         <div class="sec-sub" style="margin-bottom:0">YTD 2026</div>
       </div>
-      <div class="tbl-totals" id="closed-totals"></div>
+      <div class="tbl-totals" id="closed-totals">
+    <div class="tot-item"><span>Total Volume</span><strong>$2,787,695</strong></div>
+    <div class="tot-item"><span>Gross Commission</span><strong>$51,657</strong></div>
+    <div class="tot-item"><span>JY Commission</span><strong style="color:#059669">$6,397</strong></div></div>
     </div>
     <div class="tbl-scroll">
     <table>
@@ -305,15 +334,543 @@
           <th style="width:30px"></th>
         </tr>
       </thead>
-      <tbody id="closed-tbody"></tbody>
-      <tfoot id="closed-foot"></tfoot>
+      <tbody id="closed-tbody"><tr id="row-closed-0" class="tr-paid">
+    <td><select class="ti ti-sel" onchange="updateField('closed',0,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February" selected="">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Javier Cruz" oninput="updateField('closed',0,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',0,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced" selected="">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="242,525" data-raw="242525" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',0,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-0" value="1.97" oninput="updateField('closed',0,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-0" value="4,789" data-raw="4789" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',0,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',0,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-0">$4,789</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',0,this)"><option value="">$995</option><option value="10">10%</option><option value="25" selected="">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',0,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-0">$1,197</span></td>
+    <td><select class="ti ti-sel s-closed-paid" id="stat-sel-closed-0" onchange="updateField('closed',0,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid" selected="">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',0)" title="Delete">×</button></td>
+  </tr><tr id="row-closed-1" class="tr-paid">
+    <td><select class="ti ti-sel" onchange="updateField('closed',1,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February" selected="">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Confesor Trinidad" oninput="updateField('closed',1,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',1,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced" selected="">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="281,300" data-raw="281300" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',1,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-1" value="2.56" oninput="updateField('closed',1,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-1" value="7,208" data-raw="7208" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',1,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',1,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-1">$7,208</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',1,this)"><option value="">$995</option><option value="10">10%</option><option value="25" selected="">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',1,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-1">$1,802</span></td>
+    <td><select class="ti ti-sel s-closed-paid" id="stat-sel-closed-1" onchange="updateField('closed',1,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid" selected="">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',1)" title="Delete">×</button></td>
+  </tr><tr id="row-closed-2" class="tr-paid">
+    <td><select class="ti ti-sel" onchange="updateField('closed',2,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Jose Raudes" oninput="updateField('closed',2,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',2,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon" selected="">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="402,217" data-raw="402217" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',2,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-2" value="3.01" oninput="updateField('closed',2,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-2" value="12,091" data-raw="12091" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',2,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',2,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-2">$12,091</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',2,this)"><option value="" selected="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',2,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-2">$498</span></td>
+    <td><select class="ti ti-sel s-closed-paid" id="stat-sel-closed-2" onchange="updateField('closed',2,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid" selected="">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',2)" title="Delete">×</button></td>
+  </tr><tr id="row-closed-3" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('closed',3,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Leticia Ileana Godoy-Sanch" oninput="updateField('closed',3,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',3,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon" selected="">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="240,000" data-raw="240000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',3,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-3" value="1.07" oninput="updateField('closed',3,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-3" value="2,568" data-raw="2568.0000000000005" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',3,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',3,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-3">$2,568</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',3,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="61" selected="">61%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',3,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-3">$783</span></td>
+    <td><select class="ti ti-sel s-closed-estimated" id="stat-sel-closed-3" onchange="updateField('closed',3,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated" selected="">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',3)" title="Delete">×</button></td>
+  </tr><tr id="row-closed-4" class="tr-paid">
+    <td><select class="ti ti-sel" onchange="updateField('closed',4,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Justin Ilagan" oninput="updateField('closed',4,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',4,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="655,991" data-raw="655991" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',4,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-4" value="1.06" oninput="updateField('closed',4,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-4" value="6,960" data-raw="6960" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',4,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="995" data-raw="995" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',4,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-4">$5,965</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',4,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',4,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-4">$298</span></td>
+    <td><select class="ti ti-sel s-closed-paid" id="stat-sel-closed-4" onchange="updateField('closed',4,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid" selected="">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',4)" title="Delete">×</button></td>
+  </tr><tr id="row-closed-5" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('closed',5,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Jan Aaron Hernandez-Carap" oninput="updateField('closed',5,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',5,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="250,381" data-raw="250381" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',5,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-5" value="2.5" oninput="updateField('closed',5,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-5" value="6,259.525" data-raw="6259.525" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',5,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',5,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-5">$5,760</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',5,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',5,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-5">$288</span></td>
+    <td><select class="ti ti-sel s-closed-estimated" id="stat-sel-closed-5" onchange="updateField('closed',5,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated" selected="">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',5)" title="Delete">×</button></td>
+  </tr><tr id="row-closed-6" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('closed',6,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Tarik Montrey Williams" oninput="updateField('closed',6,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',6,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="348,570" data-raw="348570" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',6,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-6" value="1.18" oninput="updateField('closed',6,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-6" value="4,098" data-raw="4098" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',6,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="995" data-raw="995" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',6,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-6">$3,103</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',6,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',6,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-6">$155</span></td>
+    <td><select class="ti ti-sel s-closed-estimated" id="stat-sel-closed-6" onchange="updateField('closed',6,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated" selected="">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',6)" title="Delete">×</button></td>
+  </tr><tr id="row-closed-7" class="tr-paid">
+    <td><select class="ti ti-sel" onchange="updateField('closed',7,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Javier Nieves" oninput="updateField('closed',7,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',7,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced" selected="">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="286,711" data-raw="286711" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',7,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-7" value="1.98" oninput="updateField('closed',7,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-7" value="5,683" data-raw="5683" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',7,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',7,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-7">$5,183</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',7,this)"><option value="">$995</option><option value="10">10%</option><option value="25" selected="">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',7,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-7">$1,296</span></td>
+    <td><select class="ti ti-sel s-closed-paid" id="stat-sel-closed-7" onchange="updateField('closed',7,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid" selected="">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',7)" title="Delete">×</button></td>
+  </tr><tr id="row-closed-8" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('closed',8,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Jeanella Adonis" oninput="updateField('closed',8,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',8,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="80,000" data-raw="80000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',8,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-closed-8" value="2.50" oninput="updateField('closed',8,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-closed-8" value="2,000" data-raw="2000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',8,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="400" data-raw="400" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('closed',8,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-closed-8">$1,600</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('closed',8,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('closed',8,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-closed-8">$80</span></td>
+    <td><select class="ti ti-sel s-closed-estimated" id="stat-sel-closed-8" onchange="updateField('closed',8,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated" selected="">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('closed',8)" title="Delete">×</button></td>
+  </tr></tbody>
+      <tfoot id="closed-foot"><tr>
+      <td colspan="3" style="font-size:13px">TOTALS — 9 deals</td>
+      <td class="num">$2,787,695</td>
+      <td></td>
+      <td class="num">$51,657</td>
+      <td class="num">$3,390</td>
+      <td class="num">$48,267</td>
+      <td colspan="2"></td>
+      <td class="num" style="color:#059669">$6,397</td>
+      <td colspan="2"></td>
+    </tr></tfoot>
     </table>
     </div>
     <button class="add-btn" onclick="addDeal('closed')">＋ Add Closed Deal</button>
   </div>
 
   <!-- PIPELINE (JS-rendered by month groups) -->
-  <div id="pipeline-container"></div>
+  <div id="pipeline-container">
+    <div class="pipe-global-header">
+      <div>
+        <div class="sec-title">Pipeline / Potential Deals</div>
+        <div class="sec-sub" style="margin-bottom:0">Active Pipeline</div>
+      </div>
+      <div class="pipe-summary-grid">
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total Deals</div><div class="pipe-stat-val">19</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total Volume</div><div class="pipe-stat-val">$7,263,014</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Gross Comm</div><div class="pipe-stat-val">$121,173</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total JY Comm</div><div class="pipe-stat-val blue">$33,144</div></div>
+      </div>
+    </div>
+    <div class="pipe-month-card">
+      <div class="pipe-month-header">
+        <div class="pipe-month-title">March <span style="color:#9ca3af;font-size:12px;font-weight:400">(10 deals)</span></div>
+      </div>
+      <div class="tbl-scroll" style="padding:0 4px">
+      <table>
+        <thead><tr>
+  <th style="width:90px">Month</th>
+  <th style="min-width:120px">Client Name</th>
+  <th style="width:140px">Role</th>
+  <th class="num" style="width:100px">Loan Amount</th>
+  <th class="num" style="width:72px">Gross %</th>
+  <th class="num" style="width:105px">Gross Comm ($)</th>
+  <th class="num" style="width:90px">Proc. Cost</th>
+  <th class="num" style="width:100px">Net Comm</th>
+  <th class="num" style="width:78px">Split 1</th>
+  <th class="num" style="width:68px">Split 2</th>
+  <th class="num" style="width:105px">JY Commission</th>
+  <th style="width:120px">Status</th>
+  <th style="width:30px"></th>
+</tr></thead>
+        <tbody id="pipeline-tbody-March"><tr id="row-pipeline-0" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',0,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Dillon Grover" oninput="updateField('pipeline',0,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',0,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon" selected="">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="120,000" data-raw="120000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',0,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-0" value="3.8" oninput="updateField('pipeline',0,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-0" value="4,560" data-raw="4560" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',0,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',0,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-0">$4,560</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',0,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="90" selected="">90%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',0,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-0">$2,052</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-0" onchange="updateField('pipeline',0,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',0)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-1" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',1,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Eric Naples" oninput="updateField('pipeline',1,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',1,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="452,500" data-raw="452500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',1,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-1" value=".72" oninput="updateField('pipeline',1,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-1" value="3,258" data-raw="3258" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',1,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',1,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-1">$2,758</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',1,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',1,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-1">$138</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-1" onchange="updateField('pipeline',1,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',1)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-2" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',2,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Shlomi Yehezkel" oninput="updateField('pipeline',2,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',2,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="344,250" data-raw="344250" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',2,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-2" value="2.50" oninput="updateField('pipeline',2,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-2" value="8,606" data-raw="8606" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',2,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',2,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-2">$8,106</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',2,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',2,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-2">$405</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-2" onchange="updateField('pipeline',2,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',2)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-3" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',3,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Lisa Della Croppa" oninput="updateField('pipeline',3,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',3,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="492,000" data-raw="492000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',3,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-3" value="2.12" oninput="updateField('pipeline',3,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-3" value="10,435" data-raw="10435" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',3,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',3,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-3">$9,935</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',3,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',3,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-3">$497</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-3" onchange="updateField('pipeline',3,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',3)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-4" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',4,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Seth Dorne" oninput="updateField('pipeline',4,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',4,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="787,500" data-raw="787500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-4" value="1" oninput="updateField('pipeline',4,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-4" value="7,875" data-raw="7875" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-4">$7,375</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',4,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',4,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-4">$369</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-4" onchange="updateField('pipeline',4,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',4)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-5" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',5,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Victoria Marie Freitas" oninput="updateField('pipeline',5,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',5,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="184,000" data-raw="184000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',5,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-5" value="2.50" oninput="updateField('pipeline',5,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-5" value="4,600" data-raw="4600" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',5,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="400" data-raw="400" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',5,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-5">$4,200</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',5,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',5,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-5">$210</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-5" onchange="updateField('pipeline',5,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',5)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-6" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',6,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Yves Robert Tapage" oninput="updateField('pipeline',6,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',6,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="170,000" data-raw="170000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',6,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-6" value="2.5" oninput="updateField('pipeline',6,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-6" value="4,250" data-raw="4250" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',6,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',6,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-6">$4,250</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',6,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',6,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-6">$213</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-6" onchange="updateField('pipeline',6,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',6)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-7" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',7,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Danielle Sharkey" oninput="updateField('pipeline',7,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',7,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="340,296" data-raw="340296" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',7,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-7" value="1.22" oninput="updateField('pipeline',7,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-7" value="4,152" data-raw="4152" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',7,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="200" data-raw="200" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',7,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-7">$3,952</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',7,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',7,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-7">$198</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-7" onchange="updateField('pipeline',7,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',7)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-8" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',8,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Stephanie Preasha" oninput="updateField('pipeline',8,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',8,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="296,250" data-raw="296250" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',8,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-8" value="2.00" oninput="updateField('pipeline',8,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-8" value="5,925" data-raw="5925" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',8,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="995" data-raw="995" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',8,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-8">$4,930</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',8,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',8,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-8">$247</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-8" onchange="updateField('pipeline',8,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',8)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-9" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',9,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March" selected="">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Marlon Salmeron" oninput="updateField('pipeline',9,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',9,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="480,700" data-raw="480700" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',9,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-9" value="2.00" oninput="updateField('pipeline',9,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-9" value="9,614" data-raw="9614" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',9,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',9,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-9">$9,614</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',9,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75" selected="">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',9,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-9">$7,211</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-9" onchange="updateField('pipeline',9,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',9)" title="Delete">×</button></td>
+  </tr></tbody>
+        <tfoot id="pipeline-foot-March"><tr>
+      <td colspan="3" style="font-size:13px">TOTALS — 10 deals</td>
+      <td class="num">$3,667,496</td><td></td>
+      <td class="num">$63,275</td>
+      <td class="num">$3,595</td>
+      <td class="num">$59,680</td>
+      <td colspan="2"></td>
+      <td class="num" style="color:#2e75b6">$11,538</td>
+      <td colspan="2"></td>
+    </tr></tfoot>
+      </table>
+      </div>
+      <div class="pipe-month-footer">
+        <button class="add-btn" onclick="addPipelineDeal('March')">＋ Add March Deal</button>
+      </div>
+    </div>
+    <div class="pipe-month-card">
+      <div class="pipe-month-header">
+        <div class="pipe-month-title">April <span style="color:#9ca3af;font-size:12px;font-weight:400">(8 deals)</span></div>
+      </div>
+      <div class="tbl-scroll" style="padding:0 4px">
+      <table>
+        <thead><tr>
+  <th style="width:90px">Month</th>
+  <th style="min-width:120px">Client Name</th>
+  <th style="width:140px">Role</th>
+  <th class="num" style="width:100px">Loan Amount</th>
+  <th class="num" style="width:72px">Gross %</th>
+  <th class="num" style="width:105px">Gross Comm ($)</th>
+  <th class="num" style="width:90px">Proc. Cost</th>
+  <th class="num" style="width:100px">Net Comm</th>
+  <th class="num" style="width:78px">Split 1</th>
+  <th class="num" style="width:68px">Split 2</th>
+  <th class="num" style="width:105px">JY Commission</th>
+  <th style="width:120px">Status</th>
+  <th style="width:30px"></th>
+</tr></thead>
+        <tbody id="pipeline-tbody-April"><tr id="row-pipeline-10" class="">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',10,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April" selected="">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Farnaz Daryan" oninput="updateField('pipeline',10,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',10,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA" selected="">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="306,000" data-raw="306000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',10,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-10" value="1.75" oninput="updateField('pipeline',10,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-10" value="5,355" data-raw="5355" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',10,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',10,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-10">$4,855</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',10,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',10,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-10">$486</span></td>
+    <td><select class="ti ti-sel s-projected" id="stat-sel-pipeline-10" onchange="updateField('pipeline',10,'status',this.value)"><option value="Projected" selected="">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',10)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-11" class="">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',11,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April" selected="">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Neel Patel" oninput="updateField('pipeline',11,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',11,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="580,000" data-raw="580000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',11,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-11" value="1.75" oninput="updateField('pipeline',11,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-11" value="10,150" data-raw="10150" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',11,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',11,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-11">$9,650</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',11,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="50" selected="">50%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',11,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-11">$4,825</span></td>
+    <td><select class="ti ti-sel s-projected" id="stat-sel-pipeline-11" onchange="updateField('pipeline',11,'status',this.value)"><option value="Projected" selected="">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',11)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-12" class="">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',12,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April" selected="">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Jose Ivan Matos" oninput="updateField('pipeline',12,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',12,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced" selected="">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="284,746" data-raw="284746" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',12,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-12" value="1.75" oninput="updateField('pipeline',12,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-12" value="4,983.055" data-raw="4983.055" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',12,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="995" data-raw="995" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',12,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-12">$3,988</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',12,this)"><option value="">$995</option><option value="10">10%</option><option value="25" selected="">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',12,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-12">$997</span></td>
+    <td><select class="ti ti-sel s-projected" id="stat-sel-pipeline-12" onchange="updateField('pipeline',12,'status',this.value)"><option value="Projected" selected="">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',12)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-13" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',13,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April" selected="">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Jacob Foreman" oninput="updateField('pipeline',13,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',13,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="476,000" data-raw="476000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',13,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-13" value="1.40" oninput="updateField('pipeline',13,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-13" value="6,664" data-raw="6664" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',13,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',13,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-13">$6,664</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',13,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75" selected="">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',13,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-13">$4,998</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-13" onchange="updateField('pipeline',13,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',13)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-14" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',14,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April" selected="">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Radley Raven" oninput="updateField('pipeline',14,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',14,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="950,000" data-raw="950000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',14,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-14" value="1" oninput="updateField('pipeline',14,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-14" value="9,500" data-raw="9500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',14,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',14,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-14">$9,000</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',14,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75" selected="">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',14,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-14">$6,750</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-14" onchange="updateField('pipeline',14,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',14)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-15" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',15,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April" selected="">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Edson Chavez" oninput="updateField('pipeline',15,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',15,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon" selected="">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="502,271.55" data-raw="502271.55" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',15,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-15" value="2.5" oninput="updateField('pipeline',15,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-15" value="12,556.789" data-raw="12556.78875" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',15,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',15,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-15">$12,057</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',15,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',15,'split2',this.value)"><option value="50" selected="">50%</option><option value="100">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-15">$603</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-15" onchange="updateField('pipeline',15,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',15)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-16" class="">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',16,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April" selected="">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Thomas Serrano" oninput="updateField('pipeline',16,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',16,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced" selected="">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="186,900" data-raw="186900" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',16,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-16" value="1.75" oninput="updateField('pipeline',16,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-16" value="3,270.75" data-raw="3270.75" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',16,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',16,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-16">$2,771</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',16,this)"><option value="">$995</option><option value="10">10%</option><option value="25" selected="">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',16,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-16">$693</span></td>
+    <td><select class="ti ti-sel s-projected" id="stat-sel-pipeline-16" onchange="updateField('pipeline',16,'status',this.value)"><option value="Projected" selected="">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',16)" title="Delete">×</button></td>
+  </tr><tr id="row-pipeline-17" class="">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',17,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April" selected="">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Tyanna Reed" oninput="updateField('pipeline',17,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',17,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA" selected="">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="121,600" data-raw="121600" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',17,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-17" value="1.75" oninput="updateField('pipeline',17,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-17" value="2,128" data-raw="2128" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',17,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',17,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-17">$1,628</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',17,this)"><option value="">$995</option><option value="10" selected="">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',17,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-17">$163</span></td>
+    <td><select class="ti ti-sel s-projected" id="stat-sel-pipeline-17" onchange="updateField('pipeline',17,'status',this.value)"><option value="Projected" selected="">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',17)" title="Delete">×</button></td>
+  </tr></tbody>
+        <tfoot id="pipeline-foot-April"><tr>
+      <td colspan="3" style="font-size:13px">TOTALS — 8 deals</td>
+      <td class="num">$3,407,518</td><td></td>
+      <td class="num">$54,608</td>
+      <td class="num">$3,995</td>
+      <td class="num">$50,613</td>
+      <td colspan="2"></td>
+      <td class="num" style="color:#2e75b6">$19,514</td>
+      <td colspan="2"></td>
+    </tr></tfoot>
+      </table>
+      </div>
+      <div class="pipe-month-footer">
+        <button class="add-btn" onclick="addPipelineDeal('April')">＋ Add April Deal</button>
+      </div>
+    </div>
+    <div class="pipe-month-card">
+      <div class="pipe-month-header">
+        <div class="pipe-month-title">May <span style="color:#9ca3af;font-size:12px;font-weight:400">(1 deal)</span></div>
+      </div>
+      <div class="tbl-scroll" style="padding:0 4px">
+      <table>
+        <thead><tr>
+  <th style="width:90px">Month</th>
+  <th style="min-width:120px">Client Name</th>
+  <th style="width:140px">Role</th>
+  <th class="num" style="width:100px">Loan Amount</th>
+  <th class="num" style="width:72px">Gross %</th>
+  <th class="num" style="width:105px">Gross Comm ($)</th>
+  <th class="num" style="width:90px">Proc. Cost</th>
+  <th class="num" style="width:100px">Net Comm</th>
+  <th class="num" style="width:78px">Split 1</th>
+  <th class="num" style="width:68px">Split 2</th>
+  <th class="num" style="width:105px">JY Commission</th>
+  <th style="width:120px">Status</th>
+  <th style="width:30px"></th>
+</tr></thead>
+        <tbody id="pipeline-tbody-May"><tr id="row-pipeline-18" class="">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',18,'month',this.value)"><option value="">— Mo —</option><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May" selected="">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></select></td>
+    <td><input class="ti" type="text" value="Macaulay Okwah" oninput="updateField('pipeline',18,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',18,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option></select></td>
+    <td><input class="ti num-i" type="text" value="188,000" data-raw="188000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',18,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-18" value="1.75" oninput="updateField('pipeline',18,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-18" value="3,290" data-raw="3290" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',18,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="500" data-raw="500" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',18,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-18">$2,790</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',18,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75" selected="">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',18,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-18">$2,093</span></td>
+    <td><select class="ti ti-sel s-projected" id="stat-sel-pipeline-18" onchange="updateField('pipeline',18,'status',this.value)"><option value="Projected" selected="">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',18)" title="Delete">×</button></td>
+  </tr></tbody>
+        <tfoot id="pipeline-foot-May"><tr>
+      <td colspan="3" style="font-size:13px">TOTALS — 1 deal</td>
+      <td class="num">$188,000</td><td></td>
+      <td class="num">$3,290</td>
+      <td class="num">$500</td>
+      <td class="num">$2,790</td>
+      <td colspan="2"></td>
+      <td class="num" style="color:#2e75b6">$2,093</td>
+      <td colspan="2"></td>
+    </tr></tfoot>
+      </table>
+      </div>
+      <div class="pipe-month-footer">
+        <button class="add-btn" onclick="addPipelineDeal('May')">＋ Add May Deal</button>
+      </div>
+    </div><div style="padding:0 0 16px"><button class="add-btn" style="margin-top:0" onclick="addDeal('pipeline')">＋ Add Pipeline Deal (new month)</button></div></div>
   <!-- GUIDE -->
   <div class="guide-card">
     <div class="guide-header">
@@ -419,33 +976,338 @@ const ROLE_PRESETS = {
 
 // ── DATA ─────────────────────────────────────────────────────
 let closedDeals = [
-  {month:'February', client:'Javier Cruz',              role:'', loan:242525, grossCommPct:'1.97', commission:4789,  processingCost:0, split1:'25', split2:'100', status:'Closed - Paid'},
-  {month:'February', client:'Confesor Trinidad',         role:'', loan:281300, grossCommPct:'2.56', commission:7208,  processingCost:0, split1:'25', split2:'100', status:'Closed - Paid'},
-  {month:'March',    client:'Jose Raudes',               role:'', loan:402217, grossCommPct:'3.01', commission:12091, processingCost:0, split1:'',   split2:'50',  status:'Closed - Paid'},
-  {month:'March',    client:'Leticia Ileana Godoy-Sanch',role:'', loan:238000, grossCommPct:'1.75', commission:4165,  processingCost:0, split1:'',   split2:'50',  status:'Closed - Estimated'},
-  {month:'March',    client:'Justin Ilagan',             role:'', loan:655991, grossCommPct:'0.91', commission:5965,  processingCost:0, split1:'10', split2:'50',  status:'Closed - Paid'},
-  {month:'March',    client:'Jan Aaron Hernandez-Carap', role:'', loan:250000, grossCommPct:'1.35', commission:3380,  processingCost:0, split1:'10', split2:'50',  status:'Closed - Paid'},
-  {month:'March',    client:'Tarik Montrey Williams',    role:'', loan:348570, grossCommPct:'1.46', commission:5105,  processingCost:0, split1:'10', split2:'50',  status:'Closed - Paid'},
-  {month:'March',    client:'Javier Nieves',             role:'', loan:286711, grossCommPct:'1.81', commission:5188,  processingCost:0, split1:'25', split2:'100', status:'Closed - Paid'},
+  {
+    "month": "February",
+    "client": "Javier Cruz",
+    "loan": 242525,
+    "commission": "4789",
+    "split1": "25",
+    "split2": "100",
+    "status": "Closed - Paid",
+    "role": "Juan Company Sourced",
+    "grossCommPct": "1.97"
+  },
+  {
+    "month": "February",
+    "client": "Confesor Trinidad",
+    "loan": 281300,
+    "commission": "7208",
+    "split1": "25",
+    "split2": "100",
+    "status": "Closed - Paid",
+    "role": "Juan Company Sourced",
+    "grossCommPct": "2.56"
+  },
+  {
+    "month": "March",
+    "client": "Jose Raudes",
+    "loan": 402217,
+    "commission": "12091",
+    "split1": "",
+    "split2": "50",
+    "status": "Closed - Paid",
+    "role": "Juan Processing with Jon",
+    "grossCommPct": "3.01"
+  },
+  {
+    "month": "March",
+    "client": "Leticia Ileana Godoy-Sanch",
+    "loan": "240000",
+    "commission": 2568.0000000000005,
+    "split1": "61",
+    "split2": "50",
+    "status": "Closed - Estimated",
+    "role": "Juan Processing with Jon",
+    "grossCommPct": "1.07"
+  },
+  {
+    "month": "March",
+    "client": "Justin Ilagan",
+    "loan": 655991,
+    "commission": "6960",
+    "split1": "10",
+    "split2": "50",
+    "status": "Closed - Paid",
+    "role": "Juan LOA with Jon",
+    "processingCost": "995",
+    "grossCommPct": "1.06"
+  },
+  {
+    "month": "March",
+    "client": "Jan Aaron Hernandez-Carap",
+    "loan": "250381",
+    "commission": 6259.525,
+    "split1": "10",
+    "split2": "50",
+    "status": "Closed - Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "2.5",
+    "processingCost": "500"
+  },
+  {
+    "month": "March",
+    "client": "Tarik Montrey Williams",
+    "loan": "348570.00",
+    "commission": "4098",
+    "split1": "10",
+    "split2": "50",
+    "status": "Closed - Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "1.18",
+    "processingCost": "995"
+  },
+  {
+    "month": "March",
+    "client": "Javier Nieves",
+    "loan": 286711,
+    "commission": "5683",
+    "split1": "25",
+    "split2": "100",
+    "status": "Closed - Paid",
+    "role": "Juan Company Sourced",
+    "processingCost": "500",
+    "grossCommPct": "1.98"
+  },
+  {
+    "month": "March",
+    "client": "Jeanella Adonis",
+    "loan": 80000,
+    "commission": "2000",
+    "split1": "10",
+    "split2": "50",
+    "status": "Closed - Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "2.50",
+    "processingCost": "400"
+  }
 ];
 
 let pipelineDeals = [
-  {month:'March', client:'Dillon Grover',           role:'', loan:134680, grossCommPct:'2.09', commission:2820,  processingCost:0, split1:'80', split2:'50',  status:'Estimated'},
-  {month:'March', client:'Eric Naples',             role:'', loan:426000, grossCommPct:'1.52', commission:6460,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Shlomi Yehezkel',         role:'', loan:340000, grossCommPct:'1.46', commission:4955,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Lisa Della Croppa',       role:'', loan:400000, grossCommPct:'1.50', commission:6005,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Seth Dorne',              role:'', loan:787500, grossCommPct:'1.62', commission:12786, processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Victoria Marie Freitas',  role:'', loan:184000, grossCommPct:'1.21', commission:2225,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Yves Robert Tapage',      role:'', loan:170000, grossCommPct:'1.16', commission:1980,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Danielle Sharkey',        role:'', loan:337000, grossCommPct:'1.46', commission:4903,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Jeanella Adonis',         role:'', loan:80000,  grossCommPct:'0.51', commission:405,   processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Stephanie Preasha',       role:'', loan:251250, grossCommPct:'1.35', commission:3402,  processingCost:0, split1:'10', split2:'50',  status:'Projected'},
-  {month:'March', client:'Jose Ivan Matos',         role:'', loan:273000, grossCommPct:'1.39', commission:3783,  processingCost:0, split1:'25', split2:'100', status:'Projected'},
-  {month:'March', client:'Marlon Salmeron',         role:'', loan:480000, grossCommPct:'2.00', commission:9600,  processingCost:0, split1:'75', split2:'100', status:'Projected'},
-  {month:'March', client:'Nicholas Barnhart',       role:'', loan:195000, grossCommPct:'2.00', commission:3900,  processingCost:0, split1:'75', split2:'100', status:'Projected'},
-  {month:'April', client:'Jacob Foreman',           role:'', loan:476000, grossCommPct:'1.40', commission:6664,  processingCost:0, split1:'75', split2:'100', status:'Projected'},
-  {month:'April', client:'Macaulay Okwah',          role:'', loan:188000, grossCommPct:'1.75', commission:3290,  processingCost:0, split1:'75', split2:'100', status:'Projected'},
-  {month:'April', client:'Radley Raven',            role:'', loan:972000, grossCommPct:'1.75', commission:17010, processingCost:0, split1:'75', split2:'100', status:'Projected'},
+  {
+    "month": "March",
+    "client": "Dillon Grover",
+    "loan": "120000",
+    "commission": 4560,
+    "split1": "90",
+    "split2": "50",
+    "status": "Estimated",
+    "role": "Juan Processing with Jon",
+    "grossCommPct": "3.8"
+  },
+  {
+    "month": "March",
+    "client": "Eric Naples",
+    "loan": "452500.00",
+    "commission": 3258,
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": ".72",
+    "processingCost": "500"
+  },
+  {
+    "month": "March",
+    "client": "Shlomi Yehezkel",
+    "loan": "344250.00",
+    "commission": "8606.",
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "2.50",
+    "processingCost": "500"
+  },
+  {
+    "month": "March",
+    "client": "Lisa Della Croppa",
+    "loan": "492000.00",
+    "commission": "10435.",
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "2.12",
+    "processingCost": "500"
+  },
+  {
+    "month": "March",
+    "client": "Seth Dorne",
+    "loan": 787500,
+    "commission": 7875,
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "1",
+    "processingCost": "500"
+  },
+  {
+    "month": "March",
+    "client": "Victoria Marie Freitas",
+    "loan": "184000.00",
+    "commission": "4600",
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "2.50",
+    "processingCost": "400"
+  },
+  {
+    "month": "March",
+    "client": "Yves Robert Tapage",
+    "loan": 170000,
+    "commission": 4250,
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "2.5",
+    "processingCost": "0"
+  },
+  {
+    "month": "March",
+    "client": "Danielle Sharkey",
+    "loan": "340296",
+    "commission": "4152",
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated",
+    "role": "Juan LOA with Jon",
+    "grossCommPct": "1.22",
+    "processingCost": "200"
+  },
+  {
+    "month": "March",
+    "client": "Stephanie Preasha",
+    "loan": "296250.00",
+    "commission": 5925,
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated",
+    "grossCommPct": "2.00",
+    "role": "Juan LOA with Jon",
+    "processingCost": "995"
+  },
+  {
+    "month": "March",
+    "client": "Marlon Salmeron",
+    "loan": "480700",
+    "commission": 9614,
+    "split1": "75",
+    "split2": "100",
+    "status": "Estimated",
+    "grossCommPct": "2.00",
+    "role": "Juan Self Sourced"
+  },
+  {
+    "month": "April",
+    "client": "Farnaz Daryan",
+    "role": "Juan LOA",
+    "loan": "306000",
+    "grossCommPct": "1.75",
+    "commission": 5355,
+    "processingCost": "500",
+    "split1": "10",
+    "split2": "100",
+    "status": "Projected"
+  },
+  {
+    "month": "April",
+    "client": "Neel Patel",
+    "role": "Juan Self Sourced",
+    "loan": "580000",
+    "grossCommPct": "1.75",
+    "commission": 10150,
+    "processingCost": "500",
+    "split1": "50",
+    "split2": "100",
+    "status": "Projected"
+  },
+  {
+    "month": "April",
+    "client": "Jose Ivan Matos",
+    "loan": "284746.00",
+    "commission": 4983.055,
+    "split1": "25",
+    "split2": "100",
+    "status": "Projected",
+    "grossCommPct": "1.75",
+    "role": "Juan Company Sourced",
+    "processingCost": "995"
+  },
+  {
+    "month": "April",
+    "client": "Jacob Foreman",
+    "loan": 476000,
+    "commission": "6664",
+    "split1": "75",
+    "split2": "100",
+    "status": "Estimated",
+    "grossCommPct": "1.40",
+    "role": "Juan Self Sourced"
+  },
+  {
+    "month": "April",
+    "client": "Radley Raven",
+    "loan": "950000",
+    "commission": 9500,
+    "split1": "75",
+    "split2": "100",
+    "status": "Estimated",
+    "role": "Juan Self Sourced",
+    "grossCommPct": "1",
+    "processingCost": "500"
+  },
+  {
+    "month": "April",
+    "client": "Edson Chavez",
+    "role": "Juan LOA with Jon",
+    "loan": "502271.55",
+    "grossCommPct": "2.5",
+    "commission": 12556.78875,
+    "processingCost": "500",
+    "split1": "10",
+    "split2": "50",
+    "status": "Estimated"
+  },
+  {
+    "month": "April",
+    "client": "Thomas Serrano",
+    "role": "Juan Company Sourced",
+    "loan": "186900",
+    "grossCommPct": "1.75",
+    "commission": 3270.75,
+    "processingCost": "500",
+    "split1": "25",
+    "split2": "100",
+    "status": "Projected"
+  },
+  {
+    "month": "April",
+    "client": "Tyanna Reed",
+    "role": "Juan LOA",
+    "loan": "121600",
+    "grossCommPct": "1.75",
+    "commission": 2128,
+    "processingCost": "500",
+    "split1": "10",
+    "split2": "100",
+    "status": "Projected"
+  },
+  {
+    "month": "May",
+    "client": "Macaulay Okwah",
+    "role": "Juan Self Sourced",
+    "loan": "188000",
+    "grossCommPct": "1.75",
+    "commission": 3290,
+    "processingCost": "500",
+    "split1": "75",
+    "split2": "100",
+    "status": "Projected"
+  }
 ];
 
 // ── HELPERS ──────────────────────────────────────────────────
@@ -1199,5 +2061,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initChart();
 });
 </script>
-</body>
-</html>
+
+
+</body></html>
