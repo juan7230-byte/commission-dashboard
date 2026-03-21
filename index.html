@@ -1955,13 +1955,17 @@ function showToast(icon, msg, sub) {
 
 // ── LOCAL STORAGE ─────────────────────────────────────────────
 const STORAGE_KEY = 'commission_dashboard_2026';
+// Timestamp of when this file's data was last baked in via Export for Web.
+// localStorage is only used if it was saved AFTER this timestamp.
+const FILE_DATA_VERSION = 1742500800000;
 
 function saveData() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       closedDeals,
       pipelineDeals,
-      savedAt: new Date().toISOString()
+      savedAt: new Date().toISOString(),
+      savedTs: Date.now()
     }));
   } catch(e) { console.warn('Save failed', e); }
 }
@@ -1971,6 +1975,9 @@ function loadData() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return false;
     const parsed = JSON.parse(raw);
+    // Ignore localStorage if it predates the file's baked-in data
+    const lsTs = parsed.savedTs || (parsed.savedAt ? new Date(parsed.savedAt).getTime() : 0);
+    if (lsTs <= FILE_DATA_VERSION) return false;
     if (parsed.closedDeals)   closedDeals   = parsed.closedDeals;
     if (parsed.pipelineDeals) pipelineDeals = parsed.pipelineDeals;
     return true;
@@ -1987,8 +1994,10 @@ function exportForWeb() {
   const src = document.documentElement.outerHTML;
   const closedJSON  = JSON.stringify(closedDeals,  null, 2);
   const pipeJSON    = JSON.stringify(pipelineDeals, null, 2);
-  // Replace the baked-in default arrays with current data
+  const nowTs = Date.now();
+  // Replace the baked-in default arrays with current data, and stamp new FILE_DATA_VERSION
   const updated = src
+    .replace(/const FILE_DATA_VERSION\s*=\s*\d+;/, `const FILE_DATA_VERSION = ${nowTs};`)
     .replace(/let closedDeals\s*=\s*\[[\s\S]*?\];/, `let closedDeals = ${closedJSON};`)
     .replace(/let pipelineDeals\s*=\s*\[[\s\S]*?\];/, `let pipelineDeals = ${pipeJSON};`);
   const blob = new Blob([updated], {type:'text/html'});
