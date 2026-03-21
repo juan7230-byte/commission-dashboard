@@ -1969,7 +1969,15 @@ function saveData() {
 function loadData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return false;
+    if (!raw) {
+      // Fall back to data baked in via Export for Web
+      if (window.DASHBOARD_DATA) {
+        if (window.DASHBOARD_DATA.closedDeals)   closedDeals   = window.DASHBOARD_DATA.closedDeals;
+        if (window.DASHBOARD_DATA.pipelineDeals) pipelineDeals = window.DASHBOARD_DATA.pipelineDeals;
+        return true;
+      }
+      return false;
+    }
     const parsed = JSON.parse(raw);
     if (parsed.closedDeals)   closedDeals   = parsed.closedDeals;
     if (parsed.pipelineDeals) pipelineDeals = parsed.pipelineDeals;
@@ -1984,13 +1992,12 @@ function autoSave() {
 }
 
 function exportForWeb() {
+  const data = JSON.stringify({closedDeals, pipelineDeals});
+  const injection = `<script>window.DASHBOARD_DATA=${data};<\/script>`;
   const src = document.documentElement.outerHTML;
-  const closedJSON  = JSON.stringify(closedDeals,  null, 2);
-  const pipeJSON    = JSON.stringify(pipelineDeals, null, 2);
-  // Replace the baked-in default arrays with current data
-  const updated = src
-    .replace(/let closedDeals\s*=\s*\[[\s\S]*?\];/, `let closedDeals = ${closedJSON};`)
-    .replace(/let pipelineDeals\s*=\s*\[[\s\S]*?\];/, `let pipelineDeals = ${pipeJSON};`);
+  // Remove any previous injection, then add fresh one before </head>
+  const cleaned = src.replace(/<script>window\.DASHBOARD_DATA=[\s\S]*?<\/script>/, '');
+  const updated = cleaned.replace('</head>', injection + '</head>');
   const blob = new Blob([updated], {type:'text/html'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
