@@ -2645,7 +2645,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1790653619539;
+const FILE_DATA_VERSION = 1790653905328;
 
 function saveData() {
   try {
@@ -2764,11 +2764,28 @@ async function ghApiPut(token, filename, content) {
     branch:  GH_BRANCH
   };
   if (shaRes.ok) body.sha = (await shaRes.json()).sha;
-  const res = await fetch(
+  let res = await fetch(
     `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${filename}`,
     { method:'PUT', headers:{'Authorization':`token ${token}`,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'}, body: JSON.stringify(body) }
   );
-  if (!res.ok) { const e = await res.json(); throw new Error(e.message); }
+  // SHA mismatch: re-fetch the latest SHA and retry once
+  if (!res.ok) {
+    const e = await res.json();
+    if (e.message && e.message.includes('does not match')) {
+      const retry = await fetch(
+        `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${filename}?ref=${GH_BRANCH}`,
+        { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } }
+      );
+      if (retry.ok) body.sha = (await retry.json()).sha;
+      res = await fetch(
+        `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${filename}`,
+        { method:'PUT', headers:{'Authorization':`token ${token}`,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'}, body: JSON.stringify(body) }
+      );
+      if (!res.ok) { const e2 = await res.json(); throw new Error(e2.message); }
+    } else {
+      throw new Error(e.message);
+    }
+  }
 }
 
 async function pushToGitHub() {
@@ -2805,12 +2822,12 @@ async function pushToGitHub() {
       btn.disabled = false;
     }, 3000);
   } catch(e) {
-    const isNetworkErr = e.message === 'Failed to fetch';
-    if (isNetworkErr) {
-      alert('Push failed: network error (Failed to fetch).\n\nThis is usually a temporary issue. Your token has been kept — try pushing again.');
-    } else {
-      alert('Push failed: ' + e.message + '\n\nYour token may be invalid or expired. It has been cleared — try again to re-enter it.');
+    const isAuthErr = e.message && (e.message.includes('Bad credentials') || e.message.includes('401') || e.message.includes('403'));
+    if (isAuthErr) {
+      alert('Push failed: ' + e.message + '\n\nYour token is invalid or expired. It has been cleared — try again to re-enter it.');
       localStorage.removeItem('gh_pat');
+    } else {
+      alert('Push failed: ' + e.message + '\n\nYour token has been kept — try pushing again.');
     }
     btn.textContent = '⚡ Push to GitHub';
     btn.disabled = false;
