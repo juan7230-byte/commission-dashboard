@@ -200,7 +200,7 @@
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
       <div id="updated-date">Updated: Sep 29, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" style="display: none;">💾 Save</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="">💾 Save</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
     <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>
     <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>
@@ -252,7 +252,7 @@
   <div class="mid-grid">
     <div class="card">
       <div class="sec-title" style="text-align:center">Monthly Net Commission</div>
-      <div class="chart-wrap"><canvas id="monthlyChart" width="2607" height="690" style="display: block; box-sizing: border-box; height: 230px; width: 869px;"></canvas></div>
+      <div class="chart-wrap"><canvas id="monthlyChart" width="1738" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 869px;"></canvas></div>
     </div>
     <div class="card">
       <div class="sec-title" style="color:#0f766e;text-align:center">Key Highlights</div>
@@ -2614,7 +2614,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1790655748241;
+const FILE_DATA_VERSION = 1790655889398;
 
 function saveData() {
   try {
