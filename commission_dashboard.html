@@ -2614,7 +2614,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1790654487707;
+const FILE_DATA_VERSION = 1790654866420;
 
 function saveData() {
   try {
@@ -2820,7 +2820,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('pull-btn').style.display = '';
   } else {
     document.getElementById('save-btn').style.display = 'none';
-    document.getElementById('export-btn').style.display = 'none';
   }
   loadData();
   renderTable('closed', closedDeals);
