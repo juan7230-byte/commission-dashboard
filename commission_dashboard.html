@@ -224,8 +224,8 @@
     </div>
     <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage">💾 Save</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
-    <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)" class="" disabled="">⏳ Pushing...</button>
-    <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="">⬇ Pull from GitHub</button>
+    <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>
+    <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>
   </div>
 </header>
 
@@ -2636,7 +2636,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1790652504764;
+const FILE_DATA_VERSION = 1790653227226;
 
 function saveData() {
   try {
@@ -2670,15 +2670,7 @@ function autoSave() {
 }
 
 function exportForWeb() {
-  const src = document.documentElement.outerHTML;
-  const closedJSON  = JSON.stringify(closedDeals,  null, 2);
-  const pipeJSON    = JSON.stringify(pipelineDeals, null, 2);
-  const nowTs = Date.now();
-  // Replace the baked-in default arrays with current data, and stamp new FILE_DATA_VERSION
-  const updated = src
-    .replace(/const FILE_DATA_VERSION\s*=\s*\d+;/, `const FILE_DATA_VERSION = ${nowTs};`)
-    .replace(/let closedDeals\s*=\s*\[[\s\S]*?\];/, `let closedDeals = ${closedJSON};`)
-    .replace(/let pipelineDeals\s*=\s*\[[\s\S]*?\];/, `let pipelineDeals = ${pipeJSON};`);
+  const updated = buildUpdatedHTML();
   const blob = new Blob([updated], {type:'text/html'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -2747,7 +2739,9 @@ function buildUpdatedHTML() {
   return src
     .replace(/const FILE_DATA_VERSION\s*=\s*\d+;/, `const FILE_DATA_VERSION = ${nowTs};`)
     .replace(/let closedDeals\s*=\s*\[[\s\S]*?\];/,   `let closedDeals = ${closedJSON};`)
-    .replace(/let pipelineDeals\s*=\s*\[[\s\S]*?\];/, `let pipelineDeals = ${pipeJSON};`);
+    .replace(/let pipelineDeals\s*=\s*\[[\s\S]*?\];/, `let pipelineDeals = ${pipeJSON};`)
+    .replace(/<button id="push-btn"[^>]*>[\s\S]*?<\/button>/, '<button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>')
+    .replace(/<button id="pull-btn"[^>]*>[\s\S]*?<\/button>/, '<button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>');
 }
 
 async function ghApiPut(token, filename, content) {
@@ -2770,7 +2764,7 @@ async function ghApiPut(token, filename, content) {
 
 async function pushToGitHub() {
   const btn = document.getElementById('push-btn');
-  let token = localStorage.getItem('gh_pat');
+  let token = (localStorage.getItem('gh_pat') || '').trim();
 
   if (!token) {
     token = prompt(
@@ -2783,8 +2777,8 @@ async function pushToGitHub() {
       'It will be saved locally and never leave your browser.'
     );
     if (!token) return;
-    localStorage.setItem('gh_pat', token.trim());
     token = token.trim();
+    localStorage.setItem('gh_pat', token);
   }
 
   btn.textContent = '⏳ Pushing...';
@@ -2802,8 +2796,13 @@ async function pushToGitHub() {
       btn.disabled = false;
     }, 3000);
   } catch(e) {
-    alert('Push failed: ' + e.message + '\n\nYour token may be invalid or expired. It has been cleared — try again to re-enter it.');
-    localStorage.removeItem('gh_pat');
+    const isNetworkErr = e.message === 'Failed to fetch';
+    if (isNetworkErr) {
+      alert('Push failed: network error (Failed to fetch).\n\nThis is usually a temporary issue. Your token has been kept — try pushing again.');
+    } else {
+      alert('Push failed: ' + e.message + '\n\nYour token may be invalid or expired. It has been cleared — try again to re-enter it.');
+      localStorage.removeItem('gh_pat');
+    }
     btn.textContent = '⚡ Push to GitHub';
     btn.disabled = false;
   }
