@@ -185,12 +185,13 @@
     @media(max-width:1200px) and (min-width:901px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:600px){
       main{padding:12px 10px 32px}
-      header{padding:10px 14px;flex-wrap:wrap;gap:8px}
-      .h-left{flex:1 1 auto}
-      .h-right{flex:1 1 100%;order:3;text-align:left;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-      .h-right > div{white-space:nowrap}
-      #save-btn,#export-btn,#push-btn,#pull-btn{padding:5px 10px;font-size:12px}
-      .h-title{font-size:14px}.h-sub{font-size:11px}
+      header{padding:10px 14px;flex-wrap:wrap;gap:6px}
+      .h-left{flex:1 1 auto;min-width:0}
+      .h-icon{width:34px;height:34px;font-size:16px}
+      .h-title{font-size:13px}.h-sub{font-size:10px}
+      .h-right{flex:1 1 100% !important;order:3;display:flex !important;align-items:center !important;gap:8px !important;flex-wrap:wrap}
+      .h-right > div{display:none}
+      #save-btn,#export-btn,#push-btn,#pull-btn{padding:6px 12px;font-size:12px}
       .kpi-grid{grid-template-columns:repeat(2,1fr);gap:10px}
       .kpi-card{padding:14px 16px}
       .kpi-val{font-size:22px}
@@ -2645,7 +2646,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1790653905328;
+const FILE_DATA_VERSION = 1790654078362;
 
 function saveData() {
   try {
