@@ -122,11 +122,13 @@
 
     .warn{background:#fef3c7;color:#92400e;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:4px}
 
-    /* SAVE BUTTON */
-    #save-btn,#export-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
-    #save-btn:hover,#export-btn:hover{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.6)}
+    /* HEADER BUTTONS */
+    #save-btn,#export-btn,#push-btn,#pull-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
+    #save-btn:hover,#export-btn:hover,#push-btn:hover,#pull-btn:hover{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.6)}
     #save-btn.saved{background:#10b981;border-color:#10b981}
     #export-btn.done{background:#0d9488;border-color:#0d9488}
+    #push-btn.done{background:#166534;border-color:#166534}
+    #pull-btn.done{background:#166534;border-color:#166534}
 
     /* TOAST */
     .toast{position:fixed;bottom:28px;right:28px;background:#1e3a5f;color:#fff;padding:12px 18px 12px 16px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 4px 24px rgba(0,0,0,.22);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(14px);transition:all .28s ease;z-index:9999;pointer-events:none}
@@ -220,9 +222,10 @@
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
       <div id="updated-date">Updated: Sep 28, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="">💾 Save</button>
-    <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in — replace your local file then push to GitHub" class="">🌐 Export for Web</button>
-    <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)" style="background:#24292e;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px" disabled="">⏳ Pushing...</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage">💾 Save</button>
+    <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
+    <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)" disabled="">⏳ Pushing...</button>
+    <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="">⬇ Pull from GitHub</button>
   </div>
 </header>
 
@@ -2633,7 +2636,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1790650736015;
+const FILE_DATA_VERSION = 1790652068587;
 
 function saveData() {
   try {
@@ -2685,7 +2688,50 @@ function exportForWeb() {
   const btn = document.getElementById('export-btn');
   btn.textContent = '✓ Downloaded';
   btn.classList.add('done');
-  setTimeout(() => { btn.textContent = '🌐 Export for Web'; btn.classList.remove('done'); }, 2500);
+  setTimeout(() => { btn.textContent = '⬇ Download'; btn.classList.remove('done'); }, 2500);
+}
+
+// ── GITHUB PULL ───────────────────────────────────────────────
+async function pullFromGitHub() {
+  const btn = document.getElementById('pull-btn');
+  btn.textContent = '⏳ Pulling...';
+  btn.disabled = true;
+  try {
+    const url = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/index.html?t=${Date.now()}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const html = await res.text();
+
+    const versionMatch = html.match(/const FILE_DATA_VERSION\s*=\s*(\d+);/);
+    const ghVersion    = versionMatch ? parseInt(versionMatch[1]) : 0;
+    const localVersion = FILE_DATA_VERSION;
+
+    if (ghVersion <= localVersion) {
+      const force = confirm('Your local data is already up to date (or newer) than GitHub.\n\nForce pull anyway?');
+      if (!force) { btn.textContent = '⬇ Pull from GitHub'; btn.disabled = false; return; }
+    }
+
+    const closedMatch = html.match(/let closedDeals\s*=\s*(\[[\s\S]*?\]);/);
+    const pipeMatch   = html.match(/let pipelineDeals\s*=\s*(\[[\s\S]*?\]);/);
+    if (!closedMatch || !pipeMatch) throw new Error('Could not parse data from GitHub file');
+
+    closedDeals   = JSON.parse(closedMatch[1]);
+    pipelineDeals = JSON.parse(pipeMatch[1]);
+
+    saveData();
+    renderClosed();
+    renderPipeline();
+    updateKPIs();
+    updateChart();
+
+    btn.textContent = '✓ Pulled!';
+    btn.classList.add('done');
+    setTimeout(() => { btn.textContent = '⬇ Pull from GitHub'; btn.classList.remove('done'); btn.disabled = false; }, 3000);
+  } catch(e) {
+    alert('Pull failed: ' + e.message);
+    btn.textContent = '⬇ Pull from GitHub';
+    btn.disabled = false;
+  }
 }
 
 // ── GITHUB PUSH ───────────────────────────────────────────────
@@ -2749,17 +2795,16 @@ async function pushToGitHub() {
     await ghApiPut(token, 'index.html', html);
     await ghApiPut(token, 'commission_dashboard.html', html);
     btn.textContent = '✓ Pushed!';
-    btn.style.background = '#166534';
+    btn.classList.add('done');
     setTimeout(() => {
       btn.textContent = '⚡ Push to GitHub';
-      btn.style.background = '#24292e';
+      btn.classList.remove('done');
       btn.disabled = false;
     }, 3000);
   } catch(e) {
     alert('Push failed: ' + e.message + '\n\nYour token may be invalid or expired. It has been cleared — try again to re-enter it.');
     localStorage.removeItem('gh_pat');
     btn.textContent = '⚡ Push to GitHub';
-    btn.style.background = '#24292e';
     btn.disabled = false;
   }
 }
@@ -2776,6 +2821,10 @@ function manualSave() {
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('updated-date').textContent = 'Updated: ' +
     new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+  // Show Pull button only when running as a local file
+  if (location.protocol === 'file:') {
+    document.getElementById('pull-btn').style.display = '';
+  }
   loadData();
   renderTable('closed', closedDeals);
   renderPipeline();
