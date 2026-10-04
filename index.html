@@ -198,9 +198,9 @@
   <div class="h-right" style="display:flex;align-items:center;gap:14px">
     <div style="text-align:right">
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
-      <div id="updated-date">Updated: Oct 2, 2026</div>
+      <div id="updated-date">Updated: Oct 4, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="">💾 Save</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="saved">✓ Saved</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
     <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>
     <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>
@@ -214,37 +214,37 @@
       <div class="kpi-lbl">YTD Closed</div>
       <div class="kpi-val" id="kpi-closed">$145,546</div>
       <div class="kpi-sub" id="kpi-closed-sub">from 49 deals</div>
-      <span class="kpi-badge bg-green" id="kpi-closed-pct">97.0% of $150k goal</span>
+      <span class="kpi-badge bg-green" id="kpi-closed-pct">100.4% of $145k goal</span>
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">JY Sourced Pipeline</div>
       <div class="kpi-val" id="kpi-jy-pipeline">$4,808</div>
       <div class="kpi-sub" id="kpi-jy-pipeline-sub">from 1 deal</div>
-      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct">3.2% of $150k goal</span>
+      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct">3.3% of $145k goal</span>
     </div>
     <div class="kpi-card teal">
       <div class="kpi-lbl">Helm Sourced Pipeline</div>
       <div class="kpi-val" id="kpi-helm-pipeline">$2,629</div>
       <div class="kpi-sub" id="kpi-helm-pipeline-sub">from 1 deal</div>
-      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">1.8% of $150k goal</span>
+      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">1.8% of $145k goal</span>
     </div>
     <div class="kpi-card purple">
       <div class="kpi-lbl">Total Closed + Pipeline</div>
       <div class="kpi-val" id="kpi-total">$152,982</div>
       <div class="kpi-sub" id="kpi-total-sub">from 52 deals combined</div>
-      <span class="kpi-badge bg-purple" id="kpi-total-pct">102.0% of $150k goal</span>
+      <span class="kpi-badge bg-purple" id="kpi-total-pct">105.5% of $145k goal</span>
     </div>
     <div class="kpi-card orange">
       <div class="kpi-lbl">Remaining to 2026 Goal</div>
-      <div class="kpi-val" id="kpi-remaining">$-2,982</div>
-      <div class="kpi-sub">of $150k goal</div>
-      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">2% over goal</span>
+      <div class="kpi-val" id="kpi-remaining">$-7,982</div>
+      <div class="kpi-sub">of $145k goal</div>
+      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">5.5% over goal</span>
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">2027 Pipeline</div>
       <div class="kpi-val" id="kpi-2027-pipeline">$6,257</div>
       <div class="kpi-sub" id="kpi-2027-pipeline-sub">from 1 deal</div>
-      <span class="kpi-badge bg-blue" id="kpi-2027-pipeline-pct">4.2% of $150k goal</span>
+      <span class="kpi-badge bg-blue" id="kpi-2027-pipeline-pct">4.3% of $145k goal</span>
     </div>
   </div>
 
@@ -284,8 +284,8 @@
 
   <!-- TOAST -->
   <div class="toast" id="move-toast">
-    <span class="toast-icon" id="toast-icon">🔄</span>
-    <span id="toast-msg">"Ones Encarnacion (BPC 2)" moved to Pipeline <span class="toast-action">(Status set to Estimated)</span></span>
+    <span class="toast-icon" id="toast-icon"></span>
+    <span id="toast-msg"></span>
   </div>
 
   <!-- CLOSED DEALS -->
@@ -1250,7 +1250,7 @@
 // ── CONSTANTS ────────────────────────────────────────────────
 const PROC_FEE = 995;
 const AVG_COMP = 0.0175;
-const TARGET = 150000;
+const TARGET = 145000;
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MONTHS_2027 = MONTHS.map(m => m + ' 2027');
 const MONTHS_ALL  = [...MONTHS, ...MONTHS_2027];
@@ -2383,19 +2383,19 @@ function updateKPIs() {
 
   document.getElementById('kpi-closed').textContent     = fmt(ytdClosed);
   document.getElementById('kpi-closed-sub').textContent  = `from ${closedDeals.length} deal${closedDeals.length!==1?'s':''}`;
-  document.getElementById('kpi-closed-pct').textContent  = `${closedPct}% of $150k goal`;
+  document.getElementById('kpi-closed-pct').textContent  = `${closedPct}% of $145k goal`;
 
   document.getElementById('kpi-jy-pipeline').textContent    = fmt(jyPipeline);
   document.getElementById('kpi-jy-pipeline-sub').textContent = `from ${jyCount} deal${jyCount!==1?'s':''}`;
-  document.getElementById('kpi-jy-pipeline-pct').textContent = `${jyPct}% of $150k goal`;
+  document.getElementById('kpi-jy-pipeline-pct').textContent = `${jyPct}% of $145k goal`;
 
   document.getElementById('kpi-helm-pipeline').textContent    = fmt(helmPipeline);
   document.getElementById('kpi-helm-pipeline-sub').textContent = `from ${helmCount} deal${helmCount!==1?'s':''}`;
-  document.getElementById('kpi-helm-pipeline-pct').textContent = `${helmPct}% of $150k goal`;
+  document.getElementById('kpi-helm-pipeline-pct').textContent = `${helmPct}% of $145k goal`;
 
   document.getElementById('kpi-total').textContent     = fmt(ytdTotal);
   document.getElementById('kpi-total-sub').textContent  = `from ${totalDeals} deal${totalDeals!==1?'s':''} combined`;
-  document.getElementById('kpi-total-pct').textContent  = `${totalPct}% of $150k goal`;
+  document.getElementById('kpi-total-pct').textContent  = `${totalPct}% of $145k goal`;
 
   document.getElementById('kpi-remaining').textContent    = fmt(remaining);
   document.getElementById('kpi-remaining-pct').textContent = parseFloat(remainPct) < 0 ? `${Math.abs(remainPct)}% over goal` : `${remainPct}% still needed`;
@@ -2405,7 +2405,7 @@ function updateKPIs() {
   const pipe2027Pct   = (pipeline2027/TARGET*100).toFixed(1);
   document.getElementById('kpi-2027-pipeline').textContent     = fmt(pipeline2027);
   document.getElementById('kpi-2027-pipeline-sub').textContent = `from ${pipe2027.length} deal${pipe2027.length!==1?'s':''}`;
-  document.getElementById('kpi-2027-pipeline-pct').textContent = `${pipe2027Pct}% of $150k goal`;
+  document.getElementById('kpi-2027-pipeline-pct').textContent = `${pipe2027Pct}% of $145k goal`;
 
   // ── KEY HIGHLIGHTS ──────────────────────────────────────────
   const monthsWithDeals = [...new Set(closedDeals.map(d=>d.month).filter(Boolean))].length;
@@ -2527,7 +2527,7 @@ function initChart() {
           backgroundColor:'rgba(245,158,11,.35)', order:2
         },
         {
-          type:'line', label:'$150k Target', data:d.budget,
+          type:'line', label:'$145k Target', data:d.budget,
           borderColor:'#111827', borderWidth:2, borderDash:[7,4],
           pointRadius:0, fill:false, tension:0, order:1
         }
@@ -2602,7 +2602,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1791034667922;
+const FILE_DATA_VERSION = 1791148490965;
 
 function saveData() {
   try {
