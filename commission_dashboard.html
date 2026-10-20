@@ -5,7 +5,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#eef0f4;color:#1f2937;font-size:14px;overflow-x:hidden;max-width:100vw}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#eef0f4;color:#1f2937;font-size:14px;min-width:1200px}
 
     /* HEADER */
     header{background:#1e3a5f;color:#fff;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
@@ -181,8 +181,8 @@
     .guide-source-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
     .kpi-card.teal{border-top-color:#8b5cf6}.kpi-card.teal .kpi-val{color:#7c3aed}.bg-teal{background:#ede9fe;color:#4c1d95}
-    @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.mid-grid{grid-template-columns:1fr}}
-    @media(max-width:1200px) and (min-width:901px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:1300px){.mid-grid{grid-template-columns:1fr}}
+    @media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
   </style>
 </head>
 <body>
@@ -252,7 +252,7 @@
   <div class="mid-grid">
     <div class="card">
       <div class="sec-title" style="text-align:center">Monthly Net Commission</div>
-      <div class="chart-wrap"><canvas id="monthlyChart" width="1738" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 869px;"></canvas></div>
+      <div class="chart-wrap"><canvas id="monthlyChart" width="2340" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 1170px;"></canvas></div>
     </div>
     <div class="card">
       <div class="sec-title" style="color:#0f766e;text-align:center">Key Highlights</div>
@@ -284,8 +284,8 @@
 
   <!-- TOAST -->
   <div class="toast" id="move-toast">
-    <span class="toast-icon" id="toast-icon">🟡</span>
-    <span id="toast-msg">"Marion Perez-Ruiz" moved to Closed Deals <span class="toast-action">(Status set to Closed - Estimated)</span></span>
+    <span class="toast-icon" id="toast-icon"></span>
+    <span id="toast-msg"></span>
   </div>
 
   <!-- CLOSED DEALS -->
@@ -2602,7 +2602,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1792515415656;
+const FILE_DATA_VERSION = 1792515596822;
 
 function saveData() {
   try {
