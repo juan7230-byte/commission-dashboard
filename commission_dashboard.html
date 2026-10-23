@@ -217,13 +217,13 @@
       <span class="kpi-badge bg-green" id="kpi-closed-pct">102.2% of $145k goal</span>
     </div>
     <div class="kpi-card blue">
-      <div class="kpi-lbl">JY Sourced Pipeline</div>
+      <div class="kpi-lbl">JY &amp; Team Pipeline</div>
       <div class="kpi-val" id="kpi-jy-pipeline">$7,136</div>
       <div class="kpi-sub" id="kpi-jy-pipeline-sub">from 3 deals</div>
       <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct">4.9% of $145k goal</span>
     </div>
     <div class="kpi-card teal">
-      <div class="kpi-lbl">Helm Sourced Pipeline</div>
+      <div class="kpi-lbl">Helm Pipeline</div>
       <div class="kpi-val" id="kpi-helm-pipeline">$0</div>
       <div class="kpi-sub" id="kpi-helm-pipeline-sub">from 0 deals</div>
       <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">0.0% of $145k goal</span>
@@ -2641,7 +2641,7 @@ function initChart() {
           backgroundColor:'rgba(13,148,136,.85)', order:2
         },
         {
-          type:'bar', label:'JY Pipeline', data:d.cumJYPipe, stack:'s0',
+          type:'bar', label:'JY & Team Pipeline', data:d.cumJYPipe, stack:'s0',
           backgroundColor:'rgba(46,117,182,.6)', order:2
         },
         {
@@ -2728,7 +2728,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1792791110334;
+const FILE_DATA_VERSION = 1792791272757;
 
 function saveData() {
   try {
