@@ -55,7 +55,7 @@
     .out-lbl{font-size:13px;color:#6b7280}
     .out-val{font-size:14px;font-weight:700;color:#1f2937}
     .out-val.blue{color:#2e75b6}.out-val.green{color:#0f766e}.out-val.orange{color:#d97706}.out-val.teal{color:#0f766e}.out-val.purple{color:#7c3aed}.out-val.amber{color:#d97706}.out-val.grey{color:#4b5563}
-    .insight-grid{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:6px 10px;margin-top:14px;align-items:center}
+    .insight-grid{display:grid;grid-template-columns:auto 1fr 1fr 1fr 1fr;gap:6px 10px;margin-top:14px;align-items:center}
     .insight-col-hdr{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#374151;text-align:center;padding-bottom:4px;border-bottom:2px solid #e5e7eb}
     .insight-col-hdr-blank{border-bottom:2px solid transparent;padding-bottom:4px}
     .insight-row-lbl{font-size:11px;font-weight:600;color:#6b7280;text-align:right;padding-right:6px;white-space:nowrap}
@@ -181,7 +181,7 @@
     .guide-source-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
     .kpi-card.teal{border-top-color:#8b5cf6}.kpi-card.teal .kpi-val{color:#7c3aed}.bg-teal{background:#ede9fe;color:#4c1d95}
-    @media(max-width:1300px){.mid-grid{grid-template-columns:1fr}}
+    .mid-grid{grid-template-columns:1fr !important}
     @media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
   </style>
 </head>
@@ -218,15 +218,15 @@
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">JY Sourced Pipeline</div>
-      <div class="kpi-val" id="kpi-jy-pipeline">$4,808</div>
-      <div class="kpi-sub" id="kpi-jy-pipeline-sub">from 1 deal</div>
-      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct">3.3% of $145k goal</span>
+      <div class="kpi-val" id="kpi-jy-pipeline">$7,136</div>
+      <div class="kpi-sub" id="kpi-jy-pipeline-sub">from 3 deals</div>
+      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct">4.9% of $145k goal</span>
     </div>
     <div class="kpi-card teal">
       <div class="kpi-lbl">Helm Sourced Pipeline</div>
-      <div class="kpi-val" id="kpi-helm-pipeline">$2,329</div>
-      <div class="kpi-sub" id="kpi-helm-pipeline-sub">from 2 deals</div>
-      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">1.6% of $145k goal</span>
+      <div class="kpi-val" id="kpi-helm-pipeline">$0</div>
+      <div class="kpi-sub" id="kpi-helm-pipeline-sub">from 0 deals</div>
+      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">0.0% of $145k goal</span>
     </div>
     <div class="kpi-card purple">
       <div class="kpi-lbl">Total Closed + Pipeline</div>
@@ -252,7 +252,7 @@
   <div class="mid-grid">
     <div class="card">
       <div class="sec-title" style="text-align:center">Monthly Net Commission</div>
-      <div class="chart-wrap"><canvas id="monthlyChart" width="1738" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 869px;"></canvas></div>
+      <div class="chart-wrap"><canvas id="monthlyChart" width="2688" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 1344px;"></canvas></div>
     </div>
     <div class="card">
       <div class="sec-title" style="color:#0f766e;text-align:center">Key Highlights</div>
@@ -260,24 +260,34 @@
     <div class="insight-grid">
       <div class="insight-col-hdr-blank"></div>
       <div class="insight-col-hdr">JY Sourced</div>
+      <div class="insight-col-hdr">JY Team</div>
       <div class="insight-col-hdr">Partnership</div>
       <div class="insight-col-hdr">Helm Sourced</div>
       <div class="insight-row-lbl">Deals Closed</div>
       <div class="insight-tile c-grey"><div class="insight-val">11</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">0</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">11</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">28</div></div>
       <div class="insight-row-lbl">Avg Loan Size</div>
       <div class="insight-tile c-grey"><div class="insight-val">$595k</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">—</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$300k</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$342k</div></div>
       <div class="insight-row-lbl">Avg Comm %</div>
       <div class="insight-tile c-grey"><div class="insight-val">1.96%</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">—</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">2.28%</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">2.01%</div></div>
       <div class="insight-row-lbl">Total Comm YTD</div>
       <div class="insight-tile c-grey"><div class="insight-val">$93,607</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">$0</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$29,583</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$24,986</div></div>
+      <div class="insight-row-lbl">Total Pipeline</div>
+      <div class="insight-tile c-grey"><div class="insight-val">$4,808</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">$2,329</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">$0</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">$0</div></div>
     </div></div>
     </div>
   </div>
@@ -1135,7 +1145,7 @@
     <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',1,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="15" selected="">15%</option><option value="__custom__">Other…</option></select></td>
     <td><select class="ti ti-sel" onchange="updateField('pipeline',1,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
     <td class="num"><span class="net-val" id="net-pipeline-1">$1,035</span></td>
-    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-1" onchange="updateField('pipeline',1,'status',this.value)"><option value="Projected" selected="">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-1" onchange="updateField('pipeline',1,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
     <td><button class="del-btn" onclick="deleteDeal('pipeline',1)" title="Delete">×</button></td>
   </tr><tr id="row-pipeline-2" class="tr-estimated">
     <td><select class="ti ti-sel" onchange="updateField('pipeline',2,'month',this.value)"><option value="">— Mo —</option><optgroup label="2026"><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November" selected="">Nov</option><option value="December">Dec</option></optgroup><optgroup label="2027"><option value="January 2027">Jan '27</option><option value="February 2027">Feb '27</option><option value="March 2027">Mar '27</option><option value="April 2027">Apr '27</option><option value="May 2027">May '27</option><option value="June 2027">Jun '27</option><option value="July 2027">Jul '27</option><option value="August 2027">Aug '27</option><option value="September 2027">Sep '27</option><option value="October 2027">Oct '27</option><option value="November 2027">Nov '27</option><option value="December 2027">Dec '27</option></optgroup></select></td>
@@ -1149,7 +1159,7 @@
     <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',2,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75" selected="">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
     <td><select class="ti ti-sel" onchange="updateField('pipeline',2,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
     <td class="num"><span class="net-val" id="net-pipeline-2">$1,294</span></td>
-    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-2" onchange="updateField('pipeline',2,'status',this.value)"><option value="Projected" selected="">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-2" onchange="updateField('pipeline',2,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
     <td><button class="del-btn" onclick="deleteDeal('pipeline',2)" title="Delete">×</button></td>
   </tr></tbody>
         <tfoot id="pipeline-foot-November"><tr>
@@ -2447,16 +2457,19 @@ function updateTotalsDisplay(type, deals) {
 
 // ── KPI UPDATES ──────────────────────────────────────────────
 function updateKPIs() {
+  const JY_TEAM_ROLES  = ['JY LO — LOA (Non-Associated)','JY LO — JY Associated (≤2%)','JY LO — JY Associated (>2%)'];
+  const JY_ASSOC_ROLES = ['Juan Self Sourced','JY LO — LOA (Non-Associated)','JY LO — JY Associated (≤2%)','JY LO — JY Associated (>2%)'];
   const jyClosedArr          = closedDeals.filter(d=>d.role==='Juan Self Sourced');
   const partnershipClosedArr = closedDeals.filter(d=>d.role==='Juan Partnership Sourced');
-  const helmClosedArr        = closedDeals.filter(d=>d.role!=='Juan Self Sourced' && d.role!=='Juan Partnership Sourced');
+  const HELM_ROLES = ['Juan Company Sourced','Juan LOA','Juan Processing','Juan LOA with Jon','Juan Processing with Jon'];
+  const helmClosedArr = closedDeals.filter(d=>HELM_ROLES.includes(d.role));
   const jyClosed          = jyClosedArr.reduce((s,d)=>s+(calcNet(d)||0),0);
   const partnershipClosed = partnershipClosedArr.reduce((s,d)=>s+(calcNet(d)||0),0);
   const helmClosed        = helmClosedArr.reduce((s,d)=>s+(calcNet(d)||0),0);
   const ytdClosed   = jyClosed + partnershipClosed + helmClosed;
   const pipe2026    = pipelineDeals.filter(d=>MONTHS.includes(d.month));
-  const jyPipeline  = pipe2026.filter(d=>d.role==='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
-  const helmPipeline= pipe2026.filter(d=>d.role!=='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
+  const jyPipeline  = pipe2026.filter(d=>JY_ASSOC_ROLES.includes(d.role)).reduce((s,d)=>s+(calcNet(d)||0),0);
+  const helmPipeline= pipe2026.filter(d=>!JY_ASSOC_ROLES.includes(d.role)).reduce((s,d)=>s+(calcNet(d)||0),0);
   const ytdPipeline = jyPipeline + helmPipeline;
   const ytdTotal    = ytdClosed + ytdPipeline;
   const remaining   = TARGET - ytdTotal;
@@ -2467,8 +2480,8 @@ function updateKPIs() {
   const helmPct     = (helmPipeline/TARGET*100).toFixed(1);
   const totalPct    = (ytdTotal/TARGET*100).toFixed(1);
   const remainPct   = (100 - parseFloat(totalPct)).toFixed(1);
-  const jyCount     = pipe2026.filter(d=>d.role==='Juan Self Sourced').length;
-  const helmCount   = pipe2026.length - jyCount;
+  const jyCount     = pipe2026.filter(d=>JY_ASSOC_ROLES.includes(d.role)).length;
+  const helmCount   = pipe2026.filter(d=>!JY_ASSOC_ROLES.includes(d.role)).length;
   const totalDeals  = closedDeals.length + pipelineDeals.length;
 
   document.getElementById('kpi-closed').textContent     = fmt(ytdClosed);
@@ -2506,44 +2519,67 @@ function updateKPIs() {
   const avgMonthlyHelm = helmClosed / effectiveMonths;
 
   // Avg gross % by source (closed deals)
+  // JY Team = LOA roles (not Self Sourced)
+  const jyTeamClosedArr = closedDeals.filter(d=>JY_TEAM_ROLES.includes(d.role));
+  const jyTeamClosed    = jyTeamClosedArr.reduce((s,d)=>s+(calcNet(d)||0),0);
+
   const jyClosedWithLoan          = closedDeals.filter(d=>d.role==='Juan Self Sourced' && d.loan>0 && d.commission>0);
+  const jyTeamClosedWithLoan      = closedDeals.filter(d=>JY_TEAM_ROLES.includes(d.role) && d.loan>0 && d.commission>0);
   const partnershipClosedWithLoan = closedDeals.filter(d=>d.role==='Juan Partnership Sourced' && d.loan>0 && d.commission>0);
-  const helmClosedWithLoan        = closedDeals.filter(d=>d.role!=='Juan Self Sourced' && d.role!=='Juan Partnership Sourced' && d.loan>0 && d.commission>0);
+  const helmClosedWithLoan        = closedDeals.filter(d=>HELM_ROLES.includes(d.role) && d.loan>0 && d.commission>0);
   const avgGrossPctJY          = jyClosedWithLoan.length          > 0 ? (jyClosedWithLoan.reduce((s,d)=>s+(d.commission/d.loan*100),0)          / jyClosedWithLoan.length).toFixed(2)          : null;
+  const avgGrossPctJYTeam      = jyTeamClosedWithLoan.length      > 0 ? (jyTeamClosedWithLoan.reduce((s,d)=>s+(d.commission/d.loan*100),0)      / jyTeamClosedWithLoan.length).toFixed(2)      : null;
   const avgGrossPctPartnership = partnershipClosedWithLoan.length  > 0 ? (partnershipClosedWithLoan.reduce((s,d)=>s+(d.commission/d.loan*100),0)  / partnershipClosedWithLoan.length).toFixed(2)  : null;
   const avgGrossPctHelm        = helmClosedWithLoan.length         > 0 ? (helmClosedWithLoan.reduce((s,d)=>s+(d.commission/d.loan*100),0)         / helmClosedWithLoan.length).toFixed(2)         : null;
 
-  // Avg loan size by source (closed deals)
   const jyClosedLoans          = closedDeals.filter(d=>d.role==='Juan Self Sourced' && d.loan>0);
+  const jyTeamClosedLoans      = closedDeals.filter(d=>JY_TEAM_ROLES.includes(d.role) && d.loan>0);
   const partnershipClosedLoans = closedDeals.filter(d=>d.role==='Juan Partnership Sourced' && d.loan>0);
-  const helmClosedLoans        = closedDeals.filter(d=>d.role!=='Juan Self Sourced' && d.role!=='Juan Partnership Sourced' && d.loan>0);
+  const helmClosedLoans        = closedDeals.filter(d=>HELM_ROLES.includes(d.role) && d.loan>0);
   const avgLoanJY          = jyClosedLoans.length          > 0 ? jyClosedLoans.reduce((s,d)=>s+(+d.loan||0),0)          / jyClosedLoans.length          : null;
+  const avgLoanJYTeam      = jyTeamClosedLoans.length      > 0 ? jyTeamClosedLoans.reduce((s,d)=>s+(+d.loan||0),0)      / jyTeamClosedLoans.length      : null;
   const avgLoanPartnership = partnershipClosedLoans.length  > 0 ? partnershipClosedLoans.reduce((s,d)=>s+(+d.loan||0),0)  / partnershipClosedLoans.length  : null;
   const avgLoanHelm        = helmClosedLoans.length         > 0 ? helmClosedLoans.reduce((s,d)=>s+(+d.loan||0),0)         / helmClosedLoans.length         : null;
   const fmtLoan = v => v !== null ? '$'+Math.round(v/1000)+'k' : '—';
+
+  // Pipeline by column
+  const jySelfPipeline  = pipe2026.filter(d=>d.role==='Juan Self Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
+  const jyTeamPipeline  = pipe2026.filter(d=>JY_TEAM_ROLES.includes(d.role)).reduce((s,d)=>s+(calcNet(d)||0),0);
+  const partPipeline    = pipe2026.filter(d=>d.role==='Juan Partnership Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
+  const helmPipeOnly    = pipe2026.filter(d=>!JY_ASSOC_ROLES.includes(d.role) && d.role!=='Juan Partnership Sourced').reduce((s,d)=>s+(calcNet(d)||0),0);
 
   document.getElementById('outlook-rows').innerHTML = `
     <div class="insight-grid">
       <div class="insight-col-hdr-blank"></div>
       <div class="insight-col-hdr">JY Sourced</div>
+      <div class="insight-col-hdr">JY Team</div>
       <div class="insight-col-hdr">Partnership</div>
       <div class="insight-col-hdr">Helm Sourced</div>
       <div class="insight-row-lbl">Deals Closed</div>
       <div class="insight-tile c-grey"><div class="insight-val">${jyClosedArr.length}</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">${jyTeamClosedArr.length}</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">${partnershipClosedArr.length}</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">${helmClosedArr.length}</div></div>
       <div class="insight-row-lbl">Avg Loan Size</div>
       <div class="insight-tile c-grey"><div class="insight-val">${fmtLoan(avgLoanJY)}</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">${fmtLoan(avgLoanJYTeam)}</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">${fmtLoan(avgLoanPartnership)}</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">${fmtLoan(avgLoanHelm)}</div></div>
       <div class="insight-row-lbl">Avg Comm %</div>
       <div class="insight-tile c-grey"><div class="insight-val">${avgGrossPctJY !== null ? avgGrossPctJY+'%' : '—'}</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">${avgGrossPctJYTeam !== null ? avgGrossPctJYTeam+'%' : '—'}</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">${avgGrossPctPartnership !== null ? avgGrossPctPartnership+'%' : '—'}</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">${avgGrossPctHelm !== null ? avgGrossPctHelm+'%' : '—'}</div></div>
       <div class="insight-row-lbl">Total Comm YTD</div>
       <div class="insight-tile c-grey"><div class="insight-val">${fmt(jyClosed)}</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">${fmt(jyTeamClosed)}</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">${fmt(partnershipClosed)}</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">${fmt(helmClosed)}</div></div>
+      <div class="insight-row-lbl">Total Pipeline</div>
+      <div class="insight-tile c-grey"><div class="insight-val">${fmt(jySelfPipeline)}</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">${fmt(jyTeamPipeline)}</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">${fmt(partPipeline)}</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">${fmt(helmPipeOnly)}</div></div>
     </div>`;
 }
 
@@ -2692,7 +2728,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1792790042980;
+const FILE_DATA_VERSION = 1792791110334;
 
 function saveData() {
   try {
