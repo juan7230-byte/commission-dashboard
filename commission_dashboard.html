@@ -5,42 +5,49 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#eef0f4;color:#1f2937;font-size:14px;min-width:1200px}
+
+    /* WARM LIGHT GLASS BACKGROUND */
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0e8dc;color:#1f2937;font-size:14px;min-width:1200px}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 60% at 0% 0%,rgba(255,180,90,.55) 0%,transparent 65%),radial-gradient(ellipse 55% 50% at 100% 0%,rgba(255,210,140,.45) 0%,transparent 60%),radial-gradient(ellipse 60% 55% at 55% 100%,rgba(240,150,80,.4) 0%,transparent 65%),radial-gradient(ellipse 45% 45% at 100% 70%,rgba(255,190,110,.35) 0%,transparent 55%);pointer-events:none;z-index:0}
+    main,header{position:relative;z-index:1}
 
     /* HEADER */
-    header{background:#1e3a5f;color:#fff;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+    header{background:rgba(255,255,255,.45);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-bottom:1px solid rgba(255,255,255,.7);box-shadow:0 1px 0 rgba(200,140,60,.12);color:#1f2937;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
     .h-left{display:flex;align-items:center;gap:14px}
-    .h-icon{background:#2e75b6;border-radius:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
-    .h-title{font-size:17px;font-weight:700}
-    .h-sub{font-size:12px;opacity:.7;margin-top:2px}
-    .h-right{text-align:right;font-size:12px;opacity:.75}
+    .h-icon{background:linear-gradient(135deg,#d97706,#f59e0b);border-radius:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;box-shadow:0 4px 12px rgba(217,119,6,.3);color:#fff}
+    .h-title{font-size:17px;font-weight:700;color:#1f2937}
+    .h-sub{font-size:12px;color:#6b7280;margin-top:2px}
+    .h-right{text-align:right;font-size:12px;color:#6b7280}
 
     main{max-width:1440px;margin:0 auto;padding:24px 24px 48px}
 
-    /* CARDS */
-    .card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);padding:22px 24px}
+    /* GLASS CARD */
+    .card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);padding:22px 24px}
 
     /* KPI GRID */
     .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:16px}
-    .kpi-card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);padding:18px 20px;border-top:4px solid transparent}
-    /* Closed=teal · JY=blue · Helm=purple · Total=grey · Remaining=amber */
-    .kpi-card.green{border-top-color:#0d9488}.kpi-card.orange{border-top-color:#f59e0b}.kpi-card.blue{border-top-color:#2e75b6}.kpi-card.purple{border-top-color:#9ca3af}
-    .kpi-lbl{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#6b7280;margin-bottom:8px}
+    .kpi-card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);padding:18px 20px;border-top:3px solid transparent}
+    .kpi-card.green{border-top-color:#0d9488}.kpi-card.orange{border-top-color:#f59e0b}.kpi-card.blue{border-top-color:#2e75b6}.kpi-card.purple{border-top-color:#9ca3af}.kpi-card.teal{border-top-color:#8b5cf6}
+    .kpi-lbl{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#9ca3af;margin-bottom:8px}
     .kpi-val{font-size:28px;font-weight:800;line-height:1;margin-bottom:6px}
-    .kpi-card.green .kpi-val{color:#0f766e}.kpi-card.orange .kpi-val{color:#d97706}.kpi-card.blue .kpi-val{color:#2e75b6}.kpi-card.purple .kpi-val{color:#4b5563}
+    .kpi-card.green .kpi-val{color:#0f766e}.kpi-card.orange .kpi-val{color:#d97706}.kpi-card.blue .kpi-val{color:#2e75b6}.kpi-card.purple .kpi-val{color:#4b5563}.kpi-card.teal .kpi-val{color:#7c3aed}
     .kpi-sub{font-size:12px;color:#9ca3af}
     .kpi-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;margin-top:6px}
-    .bg-green{background:#ccfbf1;color:#134e4a}.bg-orange{background:#fef3c7;color:#92400e}.bg-blue{background:#dbeafe;color:#1e40af}.bg-purple{background:#f3f4f6;color:#374151}
+    .bg-green{background:#ccfbf1;color:#134e4a}
+    .bg-orange{background:#fef3c7;color:#92400e}
+    .bg-blue{background:#dbeafe;color:#1e40af}
+    .bg-purple{background:#f3f4f6;color:#374151}
+    .bg-teal{background:#ede9fe;color:#4c1d95}
 
     /* PROGRESS */
-    .prog-card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);padding:16px 24px;margin-bottom:16px}
+    .prog-card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);padding:16px 24px;margin-bottom:16px}
     .prog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
     .prog-title{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6b7280}
-    .prog-pcts{display:flex;gap:18px;font-size:12px;font-weight:600}
-    .prog-track{background:#fde68a;border-radius:8px;height:12px;overflow:hidden;display:flex}
+    .prog-pcts{display:flex;gap:18px;font-size:12px;font-weight:600;color:#374151}
+    .prog-track{background:rgba(217,119,6,.12);border-radius:8px;height:12px;overflow:hidden;display:flex}
     .prog-seg-closed{height:100%;background:#0d9488;transition:width .5s;width:0%}
-    .prog-seg-jy{height:100%;background:#2e75b6;transition:width .5s;width:0%;opacity:.8}
-    .prog-seg-helm{height:100%;background:#8b5cf6;transition:width .5s;width:0%;opacity:.8}
+    .prog-seg-jy{height:100%;background:#2e75b6;transition:width .5s;width:0%;opacity:.85}
+    .prog-seg-helm{height:100%;background:#8b5cf6;transition:width .5s;width:0%;opacity:.85}
     .prog-labels{display:flex;justify-content:space-between;margin-top:5px;font-size:11px;color:#9ca3af}
 
     /* MID GRID */
@@ -49,20 +56,20 @@
     .sec-sub{font-size:12px;color:#9ca3af;margin-bottom:16px}
     .chart-wrap{position:relative;height:230px}
 
-    /* OUTLOOK / INSIGHTS */
-    .out-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f3f4f6}
+    /* INSIGHTS */
+    .out-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.05)}
     .out-row:last-child{border:none}
     .out-lbl{font-size:13px;color:#6b7280}
     .out-val{font-size:14px;font-weight:700;color:#1f2937}
     .out-val.blue{color:#2e75b6}.out-val.green{color:#0f766e}.out-val.orange{color:#d97706}.out-val.teal{color:#0f766e}.out-val.purple{color:#7c3aed}.out-val.amber{color:#d97706}.out-val.grey{color:#4b5563}
     .insight-grid{display:grid;grid-template-columns:auto 1fr 1fr 1fr 1fr;gap:6px 10px;margin-top:14px;align-items:center}
-    .insight-col-hdr{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#374151;text-align:center;padding-bottom:4px;border-bottom:2px solid #e5e7eb}
+    .insight-col-hdr{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#374151;text-align:center;padding-bottom:4px;border-bottom:2px solid rgba(0,0,0,.1)}
     .insight-col-hdr-blank{border-bottom:2px solid transparent;padding-bottom:4px}
-    .insight-row-lbl{font-size:11px;font-weight:600;color:#6b7280;text-align:right;padding-right:6px;white-space:nowrap}
-    .insight-tile{background:#f8fafc;border-radius:8px;padding:7px 12px;display:flex;align-items:center;justify-content:center;border:1px solid #e5e7eb;transition:box-shadow .15s}
-    .insight-tile:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .insight-row-lbl{font-size:11px;font-weight:600;color:#9ca3af;text-align:right;padding-right:6px;white-space:nowrap}
+    .insight-tile{background:rgba(255,255,255,.55);border-radius:8px;padding:7px 12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.75);transition:all .15s}
+    .insight-tile:hover{background:rgba(255,255,255,.8);box-shadow:0 2px 8px rgba(0,0,0,.06)}
     .insight-icon{font-size:16px;margin-bottom:2px}
-    .insight-val{font-size:17px;font-weight:800;line-height:1.1}
+    .insight-val{font-size:17px;font-weight:800;line-height:1.1;color:#1f2937}
     .insight-lbl{font-size:11px;color:#6b7280;font-weight:500;line-height:1.3}
     .insight-sub{font-size:10px;color:#9ca3af;margin-top:1px}
     .insight-tile.c-teal .insight-val{color:#0f766e}
@@ -75,7 +82,7 @@
     .insight-tile.c-purple{border-left:3px solid #8b5cf6}
     .insight-tile.c-amber{border-left:3px solid #f59e0b}
     .insight-tile.c-grey{border-left:3px solid #9ca3af}
-    .insight-divider{grid-column:1/-1;height:1px;background:#e5e7eb;margin:2px 0}
+    .insight-divider{grid-column:1/-1;height:1px;background:rgba(0,0,0,.06);margin:2px 0}
 
     /* TABLE SECTION */
     .tbl-section{margin-bottom:16px}
@@ -85,13 +92,13 @@
     .tot-item strong{color:#1f2937;font-size:14px}
 
     table{width:100%;border-collapse:collapse;font-size:13px}
-    thead tr{background:#e9ecef;border-bottom:2px solid #d1d5db}
-    th{text-align:left;padding:8px 10px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#6b7280;white-space:nowrap}
-    td{padding:4px 6px;border-bottom:1px solid #f3f4f6;vertical-align:middle}
-    tbody tr:hover{background:rgba(0,0,0,.015)}
-    .tr-paid{background:#f0fdf4}.tr-paid:hover{background:#dcfce7}
-    .tr-estimated{background:#fffbeb}.tr-estimated:hover{background:#fef9c3}
-    tfoot td{padding:9px 10px;border-top:2px solid #d1d5db;background:#e9ecef;font-weight:700}
+    thead tr{background:rgba(255,255,255,.5);border-bottom:1px solid rgba(0,0,0,.08)}
+    th{text-align:left;padding:8px 10px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#9ca3af;white-space:nowrap}
+    td{padding:4px 6px;border-bottom:1px solid rgba(0,0,0,.04);vertical-align:middle;color:#374151}
+    tbody tr:hover{background:rgba(255,255,255,.45)}
+    .tr-paid{background:rgba(16,185,129,.06)}.tr-paid:hover{background:rgba(16,185,129,.12)}
+    .tr-estimated{background:rgba(245,158,11,.05)}.tr-estimated:hover{background:rgba(245,158,11,.1)}
+    tfoot td{padding:9px 10px;border-top:1px solid rgba(0,0,0,.1);background:rgba(255,255,255,.5);font-weight:700;color:#1f2937}
 
     .num{text-align:right}
     .net-val{font-weight:700;font-variant-numeric:tabular-nums;padding-right:4px}
@@ -99,18 +106,18 @@
 
     /* INPUTS */
     .ti{border:1px solid transparent;background:transparent;font-size:13px;width:100%;padding:4px 6px;border-radius:5px;font-family:inherit;color:#1f2937;outline:none;min-width:0}
-    .ti:hover{border-color:#d1d5db;background:#fafafa}
-    .ti:focus{border-color:#2e75b6;background:#f0f7ff;box-shadow:0 0 0 2px rgba(46,117,182,.12)}
+    .ti:hover{border-color:rgba(0,0,0,.15);background:rgba(255,255,255,.5)}
+    .ti:focus{border-color:#2e75b6;background:rgba(255,255,255,.8);box-shadow:0 0 0 2px rgba(46,117,182,.12)}
     .ti.num-i{text-align:right}
     .ti-sel{-webkit-appearance:none;appearance:none;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 6px center;padding-right:22px;cursor:pointer}
-    .split-badge{display:inline-block;background:#f3f4f6;border-radius:5px;padding:2px 8px;font-size:12px;color:#374151;white-space:nowrap}
+    .split-badge{display:inline-block;background:rgba(0,0,0,.06);border-radius:5px;padding:2px 8px;font-size:12px;color:#374151;white-space:nowrap}
     .split-proc{background:#e0e7ff;color:#3730a3}
 
-    /* STATUS SELECT COLORS */
+    /* STATUS SELECT */
     select.s-closed-paid{background:#d1fae5;color:#065f46;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
     select.s-closed-estimated{background:#fef3c7;color:#92400e;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
     select.s-estimated{background:#fef9c3;color:#a16207;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
-    select.s-projected{background:#f3f4f6;color:#6b7280;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
+    select.s-projected{background:rgba(0,0,0,.06);color:#6b7280;border-radius:20px;font-weight:600;font-size:11px;padding:2px 20px 2px 8px}
 
     /* DELETE BTN */
     .del-btn{border:none;background:transparent;color:#d1d5db;font-size:18px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:4px;transition:all .15s}
@@ -118,23 +125,23 @@
 
     /* ADD BTN */
     .add-btn{display:flex;align-items:center;gap:6px;margin-top:12px;padding:8px 14px;border:none;border-radius:8px;background:transparent;color:#2e75b6;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;width:100%}
-    .add-btn:hover{color:#1e5a9a;background:#f0f7ff}
+    .add-btn:hover{color:#1e5a9a;background:rgba(46,117,182,.08)}
 
     .warn{background:#fef3c7;color:#92400e;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:4px}
 
     /* HEADER BUTTONS */
-    #save-btn,#export-btn,#push-btn,#pull-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
-    #save-btn:hover,#export-btn:hover,#push-btn:hover,#pull-btn:hover{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.6)}
-    #save-btn.saved{background:#10b981;border-color:#10b981}
-    #export-btn.done{background:#0d9488;border-color:#0d9488}
-    #push-btn.done{background:#166534;border-color:#166534}
-    #pull-btn.done{background:#166534;border-color:#166534}
+    #save-btn,#export-btn,#push-btn,#pull-btn{background:rgba(255,255,255,.4);color:#1f2937;border:1px solid rgba(255,255,255,.7);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;backdrop-filter:blur(12px)}
+    #save-btn:hover,#export-btn:hover,#push-btn:hover,#pull-btn:hover{background:rgba(255,255,255,.7);border-color:rgba(255,255,255,.9)}
+    #save-btn.saved{background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.4);color:#065f46}
+    #export-btn.done{background:rgba(13,148,136,.2);border-color:rgba(13,148,136,.4);color:#065f46}
+    #push-btn.done{background:rgba(22,101,52,.2);border-color:rgba(34,197,94,.3);color:#065f46}
+    #pull-btn.done{background:rgba(22,101,52,.2);border-color:rgba(34,197,94,.3);color:#065f46}
 
     /* TOAST */
-    .toast{position:fixed;bottom:28px;right:28px;background:#1e3a5f;color:#fff;padding:12px 18px 12px 16px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 4px 24px rgba(0,0,0,.22);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(14px);transition:all .28s ease;z-index:9999;pointer-events:none}
+    .toast{position:fixed;bottom:28px;right:28px;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);color:#1f2937;padding:12px 18px 12px 16px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 4px 24px rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.9);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(14px);transition:all .28s ease;z-index:9999;pointer-events:none}
     .toast.show{opacity:1;transform:translateY(0)}
     .toast-icon{font-size:16px}
-    .toast-action{font-size:11px;opacity:.75;margin-left:4px}
+    .toast-action{font-size:11px;opacity:.6;margin-left:4px}
 
     /* STATUS HINT */
     .status-hint{font-size:11px;color:#9ca3af;padding:4px 10px 2px;font-style:italic}
@@ -145,42 +152,41 @@
     .role-sel{font-size:11px;max-width:150px}
 
     /* PIPELINE MONTH GROUP */
-    .pipe-month-card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);margin-bottom:12px}
-    .pipe-month-header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 10px;border-bottom:1px solid #f3f4f6}
+    .pipe-month-card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:14px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);margin-bottom:12px}
+    .pipe-month-header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
     .pipe-month-title{font-size:15px;font-weight:700;color:#1f2937}
     .pipe-month-footer{padding:6px 20px 16px}
-    .pipe-global-header{padding:18px 24px 16px;border-bottom:2px solid #f3f4f6;margin-bottom:12px;display:flex;flex-direction:column}
+    .pipe-global-header{padding:18px 24px 16px;border-bottom:1px solid rgba(0,0,0,.07);margin-bottom:12px;display:flex;flex-direction:column}
     .pipe-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;width:100%}
-    .pipe-stat{background:#f8fafc;border-radius:10px;padding:12px 16px;border:1px solid #e5e7eb;text-align:center}
+    .pipe-stat{background:rgba(255,255,255,.55);border-radius:10px;padding:12px 16px;border:1px solid rgba(255,255,255,.75);text-align:center}
     .pipe-stat-lbl{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6b7280;margin-bottom:5px}
     .pipe-stat-val{font-size:18px;font-weight:800;color:#1f2937}
     .pipe-stat-val.blue{color:#2e75b6}
 
     /* GUIDE */
-    .guide-card{background:linear-gradient(135deg,#1e3a5f 0%,#1e4976 100%);border-radius:16px;padding:32px;margin-bottom:16px;color:#fff}
-    .guide-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12)}
-    .guide-header-icon{background:rgba(255,255,255,.12);border-radius:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-    .guide-header-text h2{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
-    .guide-header-text p{font-size:13px;color:rgba(255,255,255,.6);margin:0}
+    .guide-card{background:rgba(255,255,255,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.8);border-radius:16px;padding:32px;margin-bottom:16px;color:#1f2937;box-shadow:0 2px 16px rgba(160,100,30,.08)}
+    .guide-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.08)}
+    .guide-header-icon{background:rgba(217,119,6,.15);border-radius:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    .guide-header-text h2{font-size:17px;font-weight:700;color:#1f2937;margin-bottom:3px}
+    .guide-header-text p{font-size:13px;color:#6b7280;margin:0}
     .guide-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
-    .guide-panel{background:rgba(255,255,255,.07);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,.1)}
+    .guide-panel{background:rgba(255,255,255,.5);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,.75)}
     .guide-panel-full{grid-column:1/-1}
-    .guide-panel h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1)}
-    .guide-item{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);gap:10px;font-size:12.5px}
+    .guide-panel h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(0,0,0,.07)}
+    .guide-item{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);gap:10px;font-size:12.5px}
     .guide-item:last-child{border:none;padding-bottom:0}
-    .guide-item-key{font-weight:600;color:rgba(255,255,255,.9);white-space:nowrap}
-    .guide-item-val{color:rgba(255,255,255,.55);text-align:right;font-size:12px;line-height:1.4}
-    .guide-formula-box{background:rgba(0,0,0,.2);border-left:3px solid rgba(255,255,255,.3);border-radius:0 8px 8px 0;padding:10px 14px;margin:8px 0;font-family:monospace;font-size:12.5px;color:rgba(255,255,255,.85);line-height:1.6}
-    .guide-formula-box.accent{border-left-color:#10b981}
-    .guide-note-text{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:10px;font-style:italic;line-height:1.5}
-    .guide-role-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border-radius:6px;padding:5px 10px;font-size:11.5px;color:#fff;margin:3px 0;width:100%;justify-content:space-between}
-    .guide-role-badge .splits{color:rgba(255,255,255,.55);font-size:11px}
+    .guide-item-key{font-weight:600;color:#1f2937;white-space:nowrap}
+    .guide-item-val{color:#6b7280;text-align:right;font-size:12px;line-height:1.4}
+    .guide-formula-box{background:rgba(0,0,0,.04);border-left:3px solid rgba(0,0,0,.15);border-radius:0 8px 8px 0;padding:10px 14px;margin:8px 0;font-family:monospace;font-size:12.5px;color:#374151;line-height:1.6}
+    .guide-formula-box.accent{border-left-color:#0d9488}
+    .guide-note-text{font-size:11.5px;color:#9ca3af;margin-top:10px;font-style:italic;line-height:1.5}
+    .guide-role-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.05);border-radius:6px;padding:5px 10px;font-size:11.5px;color:#374151;margin:3px 0;width:100%;justify-content:space-between}
+    .guide-role-badge .splits{color:#6b7280;font-size:11px}
     .guide-status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin:3px 0}
-    .guide-source-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12.5px}
+    .guide-source-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:12.5px}
     .guide-source-row:last-child{border:none}
     .guide-source-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
-    .kpi-card.teal{border-top-color:#8b5cf6}.kpi-card.teal .kpi-val{color:#7c3aed}.bg-teal{background:#ede9fe;color:#4c1d95}
     .mid-grid{grid-template-columns:1fr !important}
     @media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
   </style>
@@ -200,7 +206,7 @@
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
       <div id="updated-date">Updated: Oct 26, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="">💾 Save</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="saved">✓ Saved</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
     <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>
     <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>
@@ -218,9 +224,9 @@
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">JY &amp; Team Pipeline</div>
-      <div class="kpi-val" id="kpi-jy-pipeline">$16,496</div>
-      <div class="kpi-sub" id="kpi-jy-pipeline-sub">from 5 deals</div>
-      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct">11.5% of $144k goal</span>
+      <div class="kpi-val" id="kpi-jy-pipeline">$12,311</div>
+      <div class="kpi-sub" id="kpi-jy-pipeline-sub">from 4 deals</div>
+      <span class="kpi-badge bg-blue" id="kpi-jy-pipeline-pct">8.5% of $144k goal</span>
     </div>
     <div class="kpi-card teal">
       <div class="kpi-lbl">Helm Pipeline</div>
@@ -230,15 +236,15 @@
     </div>
     <div class="kpi-card purple">
       <div class="kpi-lbl">Total Closed + Pipeline</div>
-      <div class="kpi-val" id="kpi-total">$164,671</div>
-      <div class="kpi-sub" id="kpi-total-sub">from 56 deals combined</div>
-      <span class="kpi-badge bg-purple" id="kpi-total-pct">114.4% of $144k goal</span>
+      <div class="kpi-val" id="kpi-total">$160,486</div>
+      <div class="kpi-sub" id="kpi-total-sub">from 55 deals combined</div>
+      <span class="kpi-badge bg-purple" id="kpi-total-pct">111.4% of $144k goal</span>
     </div>
     <div class="kpi-card orange">
       <div class="kpi-lbl">Remaining to 2026 Goal</div>
-      <div class="kpi-val" id="kpi-remaining">$-20,671</div>
+      <div class="kpi-val" id="kpi-remaining">$-16,486</div>
       <div class="kpi-sub">of $144k goal</div>
-      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">14.4% over goal</span>
+      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">11.4% over goal</span>
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">2027 Pipeline</div>
@@ -252,10 +258,10 @@
   <div class="mid-grid">
     <div class="card">
       <div class="sec-title" style="text-align:center">Monthly Net Commission</div>
-      <div class="chart-wrap"><canvas id="monthlyChart" width="2324" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 1162px;"></canvas></div>
+      <div class="chart-wrap"><canvas id="monthlyChart" width="2320" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 1160px;"></canvas></div>
     </div>
     <div class="card">
-      <div class="sec-title" style="color:#0f766e;text-align:center">Key Highlights</div>
+      <div class="sec-title" style="color:#2dd4bf;text-align:center">Key Highlights</div>
       <div id="outlook-rows">
     <div class="insight-grid">
       <div class="insight-col-hdr-blank"></div>
@@ -284,7 +290,7 @@
       <div class="insight-tile c-grey"><div class="insight-val">$29,583</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$24,986</div></div>
       <div class="insight-row-lbl">Total Pipeline</div>
-      <div class="insight-tile c-grey"><div class="insight-val">$14,168</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">$9,983</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$2,329</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$0</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$0</div></div>
@@ -1054,10 +1060,10 @@
         <div class="sec-sub" style="margin-bottom:0">Active Pipeline</div>
       </div>
       <div class="pipe-summary-grid">
-        <div class="pipe-stat"><div class="pipe-stat-lbl">Total Deals</div><div class="pipe-stat-val">6</div></div>
-        <div class="pipe-stat"><div class="pipe-stat-lbl">Total Volume</div><div class="pipe-stat-val">$2,051,675</div></div>
-        <div class="pipe-stat"><div class="pipe-stat-lbl">Gross Comm</div><div class="pipe-stat-val">$35,859</div></div>
-        <div class="pipe-stat"><div class="pipe-stat-lbl">Total JY Comm</div><div class="pipe-stat-val blue">$22,754</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total Deals</div><div class="pipe-stat-val">5</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total Volume</div><div class="pipe-stat-val">$1,772,675</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Gross Comm</div><div class="pipe-stat-val">$30,279</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total JY Comm</div><div class="pipe-stat-val blue">$18,569</div></div>
       </div>
     </div>
     <div class="pipe-month-card">
@@ -1114,7 +1120,7 @@
     </div>
     <div class="pipe-month-card">
       <div class="pipe-month-header">
-        <div class="pipe-month-title">November <span style="color:#9ca3af;font-size:12px;font-weight:400">(4 deals)</span></div>
+        <div class="pipe-month-title">November <span style="color:#9ca3af;font-size:12px;font-weight:400">(3 deals)</span></div>
       </div>
       <div class="tbl-scroll" style="padding:0 4px">
       <table>
@@ -1163,7 +1169,7 @@
     <td><button class="del-btn" onclick="deleteDeal('pipeline',2)" title="Delete">×</button></td>
   </tr><tr id="row-pipeline-3" class="tr-estimated">
     <td><select class="ti ti-sel" onchange="updateField('pipeline',3,'month',this.value)"><option value="">— Mo —</option><optgroup label="2026"><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November" selected="">Nov</option><option value="December">Dec</option></optgroup><optgroup label="2027"><option value="January 2027">Jan '27</option><option value="February 2027">Feb '27</option><option value="March 2027">Mar '27</option><option value="April 2027">Apr '27</option><option value="May 2027">May '27</option><option value="June 2027">Jun '27</option><option value="July 2027">Jul '27</option><option value="August 2027">Aug '27</option><option value="September 2027">Sep '27</option><option value="October 2027">Oct '27</option><option value="November 2027">Nov '27</option><option value="December 2027">Dec '27</option></optgroup></select></td>
-    <td><input class="ti" type="text" value="Devon Boyette" oninput="updateField('pipeline',3,'client',this.value)" placeholder="Client name…"></td>
+    <td><input class="ti" type="text" value="Devon Thompson" oninput="updateField('pipeline',3,'client',this.value)" placeholder="Client name…"></td>
     <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',3,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Partnership Sourced">Juan Partnership Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option><option value="JY LO — LOA (Non-Associated)">JY LO — LOA (Non-Associated)</option><option value="JY LO — JY Associated (≤2%)">JY LO — JY Associated (≤2%)</option><option value="JY LO — JY Associated (&gt;2%)">JY LO — JY Associated (&gt;2%)</option></select></td>
     <td><input class="ti num-i" type="text" value="345,000" data-raw="345000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',3,'loan',this.dataset.raw)" placeholder="0"></td>
     <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-3" value="2" oninput="updateField('pipeline',3,'grossCommPct',this.value)" placeholder="1.75"></td>
@@ -1175,29 +1181,15 @@
     <td class="num"><span class="net-val" id="net-pipeline-3">$5,175</span></td>
     <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-3" onchange="updateField('pipeline',3,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
     <td><button class="del-btn" onclick="deleteDeal('pipeline',3)" title="Delete">×</button></td>
-  </tr><tr id="row-pipeline-4" class="tr-estimated">
-    <td><select class="ti ti-sel" onchange="updateField('pipeline',4,'month',this.value)"><option value="">— Mo —</option><optgroup label="2026"><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November" selected="">Nov</option><option value="December">Dec</option></optgroup><optgroup label="2027"><option value="January 2027">Jan '27</option><option value="February 2027">Feb '27</option><option value="March 2027">Mar '27</option><option value="April 2027">Apr '27</option><option value="May 2027">May '27</option><option value="June 2027">Jun '27</option><option value="July 2027">Jul '27</option><option value="August 2027">Aug '27</option><option value="September 2027">Sep '27</option><option value="October 2027">Oct '27</option><option value="November 2027">Nov '27</option><option value="December 2027">Dec '27</option></optgroup></select></td>
-    <td><input class="ti" type="text" value="Ruben Gutierrez" oninput="updateField('pipeline',4,'client',this.value)" placeholder="Client name…"></td>
-    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',4,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Partnership Sourced">Juan Partnership Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option><option value="JY LO — LOA (Non-Associated)">JY LO — LOA (Non-Associated)</option><option value="JY LO — JY Associated (≤2%)">JY LO — JY Associated (≤2%)</option><option value="JY LO — JY Associated (&gt;2%)">JY LO — JY Associated (&gt;2%)</option></select></td>
-    <td><input class="ti num-i" type="text" value="279,000" data-raw="279000" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'loan',this.dataset.raw)" placeholder="0"></td>
-    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-4" value="2" oninput="updateField('pipeline',4,'grossCommPct',this.value)" placeholder="1.75"></td>
-    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-4" value="5,580" data-raw="5580" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'commission',this.dataset.raw)"></td>
-    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'processingCost',this.dataset.raw)" placeholder="0"></td>
-    <td class="num"><span id="netcomm-pipeline-4">$5,580</span></td>
-    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',4,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75" selected="">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
-    <td><select class="ti ti-sel" onchange="updateField('pipeline',4,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
-    <td class="num"><span class="net-val" id="net-pipeline-4">$4,185</span></td>
-    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-4" onchange="updateField('pipeline',4,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
-    <td><button class="del-btn" onclick="deleteDeal('pipeline',4)" title="Delete">×</button></td>
   </tr></tbody>
         <tfoot id="pipeline-foot-November"><tr>
-      <td colspan="3" style="font-size:13px">TOTALS — 4 deals</td>
-      <td class="num">$1,314,000</td><td></td>
-      <td class="num">$21,105</td>
+      <td colspan="3" style="font-size:13px">TOTALS — 3 deals</td>
+      <td class="num">$1,035,000</td><td></td>
+      <td class="num">$15,525</td>
       <td class="num">$0</td>
-      <td class="num">$21,105</td>
+      <td class="num">$15,525</td>
       <td colspan="2"></td>
-      <td class="num" style="color:#2e75b6">$11,689</td>
+      <td class="num" style="color:#2e75b6">$7,504</td>
       <td colspan="2"></td>
     </tr></tfoot>
       </table>
@@ -1227,20 +1219,20 @@
   <th style="width:120px">Status</th>
   <th style="width:30px"></th>
 </tr></thead>
-        <tbody id="pipeline-tbody-January2027"><tr id="row-pipeline-5" class="tr-estimated">
-    <td><select class="ti ti-sel" onchange="updateField('pipeline',5,'month',this.value)"><option value="">— Mo —</option><optgroup label="2026"><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></optgroup><optgroup label="2027"><option value="January 2027" selected="">Jan '27</option><option value="February 2027">Feb '27</option><option value="March 2027">Mar '27</option><option value="April 2027">Apr '27</option><option value="May 2027">May '27</option><option value="June 2027">Jun '27</option><option value="July 2027">Jul '27</option><option value="August 2027">Aug '27</option><option value="September 2027">Sep '27</option><option value="October 2027">Oct '27</option><option value="November 2027">Nov '27</option><option value="December 2027">Dec '27</option></optgroup></select></td>
-    <td><input class="ti" type="text" value="Sudesh Jaggerssar (BPC TBD)" oninput="updateField('pipeline',5,'client',this.value)" placeholder="Client name…"></td>
-    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',5,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Partnership Sourced">Juan Partnership Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option><option value="JY LO — LOA (Non-Associated)">JY LO — LOA (Non-Associated)</option><option value="JY LO — JY Associated (≤2%)">JY LO — JY Associated (≤2%)</option><option value="JY LO — JY Associated (&gt;2%)">JY LO — JY Associated (&gt;2%)</option></select></td>
-    <td><input class="ti num-i" type="text" value="417,163" data-raw="417163" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',5,'loan',this.dataset.raw)" placeholder="0"></td>
-    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-5" value="2" oninput="updateField('pipeline',5,'grossCommPct',this.value)" placeholder="1.75"></td>
-    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-5" value="8,343.26" data-raw="8343.26" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',5,'commission',this.dataset.raw)"></td>
-    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',5,'processingCost',this.dataset.raw)" placeholder="0"></td>
-    <td class="num"><span id="netcomm-pipeline-5">$8,343</span></td>
-    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',5,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75" selected="">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
-    <td><select class="ti ti-sel" onchange="updateField('pipeline',5,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
-    <td class="num"><span class="net-val" id="net-pipeline-5">$6,257</span></td>
-    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-5" onchange="updateField('pipeline',5,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
-    <td><button class="del-btn" onclick="deleteDeal('pipeline',5)" title="Delete">×</button></td>
+        <tbody id="pipeline-tbody-January2027"><tr id="row-pipeline-4" class="tr-estimated">
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',4,'month',this.value)"><option value="">— Mo —</option><optgroup label="2026"><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October">Oct</option><option value="November">Nov</option><option value="December">Dec</option></optgroup><optgroup label="2027"><option value="January 2027" selected="">Jan '27</option><option value="February 2027">Feb '27</option><option value="March 2027">Mar '27</option><option value="April 2027">Apr '27</option><option value="May 2027">May '27</option><option value="June 2027">Jun '27</option><option value="July 2027">Jul '27</option><option value="August 2027">Aug '27</option><option value="September 2027">Sep '27</option><option value="October 2027">Oct '27</option><option value="November 2027">Nov '27</option><option value="December 2027">Dec '27</option></optgroup></select></td>
+    <td><input class="ti" type="text" value="Sudesh Jaggerssar (BPC TBD)" oninput="updateField('pipeline',4,'client',this.value)" placeholder="Client name…"></td>
+    <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',4,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Partnership Sourced">Juan Partnership Sourced</option><option value="Juan Self Sourced" selected="">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option><option value="JY LO — LOA (Non-Associated)">JY LO — LOA (Non-Associated)</option><option value="JY LO — JY Associated (≤2%)">JY LO — JY Associated (≤2%)</option><option value="JY LO — JY Associated (&gt;2%)">JY LO — JY Associated (&gt;2%)</option></select></td>
+    <td><input class="ti num-i" type="text" value="417,163" data-raw="417163" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'loan',this.dataset.raw)" placeholder="0"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-4" value="2" oninput="updateField('pipeline',4,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-4" value="8,343.26" data-raw="8343.26" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',4,'processingCost',this.dataset.raw)" placeholder="0"></td>
+    <td class="num"><span id="netcomm-pipeline-4">$8,343</span></td>
+    <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',4,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75" selected="">75%</option><option value="80">80%</option><option value="__custom__">Other…</option></select></td>
+    <td><select class="ti ti-sel" onchange="updateField('pipeline',4,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
+    <td class="num"><span class="net-val" id="net-pipeline-4">$6,257</span></td>
+    <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-4" onchange="updateField('pipeline',4,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><button class="del-btn" onclick="deleteDeal('pipeline',4)" title="Delete">×</button></td>
   </tr></tbody>
         <tfoot id="pipeline-foot-January2027"><tr>
       <td colspan="3" style="font-size:13px">TOTALS — 1 deal</td>
@@ -1286,10 +1278,10 @@
       <!-- Formulas -->
       <div class="guide-panel">
         <h4>Commission Formulas</h4>
-        <div class="guide-formula-box">Gross $ = Loan Amount × Gross %<br><span style="color:rgba(255,255,255,.4);font-size:11px">Gross % ↔ Gross $ auto-sync when either changes</span></div>
+        <div class="guide-formula-box">Gross $ = Loan Amount × Gross %<br><span style="color:#9ca3af;font-size:11px">Gross % ↔ Gross $ auto-sync when either changes</span></div>
         <div class="guide-formula-box">Net Commission = Gross $ − Processing Cost</div>
         <div class="guide-formula-box">JY Commission = Net Comm × Split 1 × Split 2</div>
-        <div class="guide-formula-box accent">Processing Role exception:<br>JY Commission = $995 × Split 2<br><span style="color:rgba(255,255,255,.4);font-size:11px">Flat fee — Net Comm is ignored for split calc</span></div>
+        <div class="guide-formula-box accent">Processing Role exception:<br>JY Commission = $995 × Split 2<br><span style="color:#9ca3af;font-size:11px">Flat fee — Net Comm is ignored for split calc</span></div>
       </div>
 
       <!-- Role Presets -->
@@ -2015,23 +2007,11 @@ let pipelineDeals = [
   },
   {
     "month": "November",
-    "client": "Devon Boyette",
+    "client": "Devon Thompson",
     "role": "Juan Self Sourced",
     "loan": "345000",
     "grossCommPct": "2",
     "commission": 6900,
-    "processingCost": 0,
-    "split1": "75",
-    "split2": "100",
-    "status": "Estimated"
-  },
-  {
-    "month": "November",
-    "client": "Ruben Gutierrez",
-    "role": "Juan Self Sourced",
-    "loan": "279000",
-    "grossCommPct": "2",
-    "commission": 5580,
     "processingCost": 0,
     "split1": "75",
     "split2": "100",
@@ -2702,11 +2682,11 @@ function initChart() {
         },
         {
           type:'bar', label:'Remaining', data:d.remaining, stack:'s0',
-          backgroundColor:'rgba(245,158,11,.35)', order:2
+          backgroundColor:'rgba(0,0,0,.06)', order:2
         },
         {
           type:'line', label:'$144k Target', data:d.budget,
-          borderColor:'#111827', borderWidth:2, borderDash:[7,4],
+          borderColor:'rgba(0,0,0,.35)', borderWidth:2, borderDash:[7,4],
           pointRadius:0, fill:false, tension:0, order:1
         }
       ]
@@ -2715,7 +2695,7 @@ function initChart() {
       responsive:true, maintainAspectRatio:false,
       interaction:{mode:'index',intersect:false},
       plugins:{
-        legend:{position:'top',labels:{font:{size:12},padding:14,boxWidth:12,boxHeight:12}},
+        legend:{position:'top',labels:{font:{size:12},padding:14,boxWidth:12,boxHeight:12,color:'#374151'}},
         tooltip:{
           position: 'topLeft',
           xAlign: 'left',
@@ -2745,7 +2725,7 @@ function initChart() {
         }
       },
       scales:{
-        x:{grid:{display:false}, stacked:true, ticks:{font:{size:11}, callback:function(val,index){
+        x:{grid:{display:false}, stacked:true, ticks:{font:{size:11}, color:'#6b7280', callback:function(val,index){
           const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
           if(!lastChartData) return months[index];
           const c = lastChartData.mClosed[index]||0;
@@ -2755,8 +2735,8 @@ function initChart() {
         }}},
         y:{
           stacked:true,
-          grid:{color:'#f3f4f6'},
-          ticks:{font:{size:11},callback:v=>'$'+v.toLocaleString()},
+          grid:{color:'rgba(0,0,0,.07)'},
+          ticks:{font:{size:11},callback:v=>'$'+v.toLocaleString(),color:'#6b7280'},
           title:{display:true,text:'Cumulative Net Commission ($)',font:{size:11},color:'#9ca3af'}
         }
       }
@@ -2780,7 +2760,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1793039118049;
+const FILE_DATA_VERSION = 1793046675013;
 
 function saveData() {
   try {
