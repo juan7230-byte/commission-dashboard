@@ -1021,7 +1021,7 @@
     <td class="num"><span class="net-val" id="net-closed-48">$3,145</span></td>
     <td><select class="ti ti-sel s-closed-paid" id="stat-sel-closed-48" onchange="updateField('closed',48,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid" selected="">Closed - Paid</option></select></td>
     <td><button class="del-btn" onclick="deleteDeal('closed',48)" title="Delete">×</button></td>
-  </tr><tr id="row-closed-49" class="tr-estimated">
+  </tr><tr id="row-closed-49" class="tr-paid">
     <td><select class="ti ti-sel" onchange="updateField('closed',49,'month',this.value)"><option value="">— Mo —</option><optgroup label="2026"><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October" selected="">Oct</option><option value="November">Nov</option><option value="December">Dec</option></optgroup><optgroup label="2027"><option value="January 2027">Jan '27</option><option value="February 2027">Feb '27</option><option value="March 2027">Mar '27</option><option value="April 2027">Apr '27</option><option value="May 2027">May '27</option><option value="June 2027">Jun '27</option><option value="July 2027">Jul '27</option><option value="August 2027">Aug '27</option><option value="September 2027">Sep '27</option><option value="October 2027">Oct '27</option><option value="November 2027">Nov '27</option><option value="December 2027">Dec '27</option></optgroup></select></td>
     <td><input class="ti" type="text" value="Marion Perez-Ruiz" oninput="updateField('closed',49,'client',this.value)" placeholder="Client name…"></td>
     <td><select class="ti ti-sel role-sel" onchange="handleRole('closed',49,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Partnership Sourced" selected="">Juan Partnership Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option><option value="JY LO — LOA (Non-Associated)">JY LO — LOA (Non-Associated)</option><option value="JY LO — JY Associated (≤2%)">JY LO — JY Associated (≤2%)</option><option value="JY LO — JY Associated (&gt;2%)">JY LO — JY Associated (&gt;2%)</option></select></td>
@@ -1033,7 +1033,7 @@
     <td><select class="ti ti-sel" onchange="handleSplit1('closed',49,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="45" selected="">45%</option><option value="__custom__">Other…</option></select></td>
     <td><select class="ti ti-sel" onchange="updateField('closed',49,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
     <td class="num"><span class="net-val" id="net-closed-49">$2,629</span></td>
-    <td><select class="ti ti-sel s-closed-estimated" id="stat-sel-closed-49" onchange="updateField('closed',49,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated" selected="">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
+    <td><select class="ti ti-sel s-closed-paid" id="stat-sel-closed-49" onchange="updateField('closed',49,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid" selected="">Closed - Paid</option></select></td>
     <td><button class="del-btn" onclick="deleteDeal('closed',49)" title="Delete">×</button></td>
   </tr><tr id="row-closed-50" class="tr-estimated">
     <td><select class="ti ti-sel" onchange="updateField('closed',50,'month',this.value)"><option value="">— Mo —</option><optgroup label="2026"><option value="January">Jan</option><option value="February">Feb</option><option value="March">Mar</option><option value="April">Apr</option><option value="May">May</option><option value="June">Jun</option><option value="July">Jul</option><option value="August">Aug</option><option value="September">Sep</option><option value="October" selected="">Oct</option><option value="November">Nov</option><option value="December">Dec</option></optgroup><optgroup label="2027"><option value="January 2027">Jan '27</option><option value="February 2027">Feb '27</option><option value="March 2027">Mar '27</option><option value="April 2027">Apr '27</option><option value="May 2027">May '27</option><option value="June 2027">Jun '27</option><option value="July 2027">Jul '27</option><option value="August 2027">Aug '27</option><option value="September 2027">Sep '27</option><option value="October 2027">Oct '27</option><option value="November 2027">Nov '27</option><option value="December 2027">Dec '27</option></optgroup></select></td>
@@ -2020,7 +2020,7 @@ let closedDeals = [
     "processingCost": "",
     "split1": "45",
     "split2": "100",
-    "status": "Closed - Estimated"
+    "status": "Closed - Paid"
   },
   {
     "month": "October",
@@ -2864,7 +2864,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1793543960339;
+const FILE_DATA_VERSION = 1793544799034;
 
 function saveData() {
   try {
