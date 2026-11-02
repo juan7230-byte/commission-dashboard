@@ -206,7 +206,7 @@
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
       <div id="updated-date">Updated: Nov 2, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="saved">✓ Saved</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="">💾 Save</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
     <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>
     <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>
@@ -230,21 +230,21 @@
     </div>
     <div class="kpi-card teal">
       <div class="kpi-lbl">Helm Pipeline</div>
-      <div class="kpi-val" id="kpi-helm-pipeline">$11,122</div>
+      <div class="kpi-val" id="kpi-helm-pipeline">$11,325</div>
       <div class="kpi-sub" id="kpi-helm-pipeline-sub">from 4 deals</div>
-      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">7.7% of $144k goal</span>
+      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">7.9% of $144k goal</span>
     </div>
     <div class="kpi-card purple">
       <div class="kpi-lbl">Total Closed + Pipeline</div>
-      <div class="kpi-val" id="kpi-total">$178,364</div>
+      <div class="kpi-val" id="kpi-total">$178,567</div>
       <div class="kpi-sub" id="kpi-total-sub">from 62 deals combined</div>
-      <span class="kpi-badge bg-purple" id="kpi-total-pct">123.9% of $144k goal</span>
+      <span class="kpi-badge bg-purple" id="kpi-total-pct">124.0% of $144k goal</span>
     </div>
     <div class="kpi-card orange">
       <div class="kpi-lbl">Remaining to 2026 Goal</div>
-      <div class="kpi-val" id="kpi-remaining">$-34,364</div>
+      <div class="kpi-val" id="kpi-remaining">$-34,567</div>
       <div class="kpi-sub">of $144k goal</div>
-      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">23.9% over goal</span>
+      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">24% over goal</span>
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">2027 Pipeline</div>
@@ -292,7 +292,7 @@
       <div class="insight-row-lbl">Total Pipeline</div>
       <div class="insight-tile c-grey"><div class="insight-val">$12,197</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$2,062</div></div>
-      <div class="insight-tile c-grey"><div class="insight-val">$11,122</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">$11,325</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$0</div></div>
     </div></div>
     </div>
@@ -1076,8 +1076,8 @@
       <div class="pipe-summary-grid">
         <div class="pipe-stat"><div class="pipe-stat-lbl">Total Deals</div><div class="pipe-stat-val">11</div></div>
         <div class="pipe-stat"><div class="pipe-stat-lbl">Total Volume</div><div class="pipe-stat-val">$3,403,073</div></div>
-        <div class="pipe-stat"><div class="pipe-stat-lbl">Gross Comm</div><div class="pipe-stat-val">$64,014</div></div>
-        <div class="pipe-stat"><div class="pipe-stat-lbl">Total JY Comm</div><div class="pipe-stat-val blue">$38,682</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Gross Comm</div><div class="pipe-stat-val">$63,608</div></div>
+        <div class="pipe-stat"><div class="pipe-stat-lbl">Total JY Comm</div><div class="pipe-stat-val blue">$38,479</div></div>
       </div>
     </div>
     <div class="pipe-month-card">
@@ -1162,13 +1162,13 @@
     <td><input class="ti" type="text" value="William Perdomo" oninput="updateField('pipeline',6,'client',this.value)" placeholder="Client name…"></td>
     <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',6,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced">Juan Company Sourced</option><option value="Juan Partnership Sourced" selected="">Juan Partnership Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option><option value="JY LO — LOA (Non-Associated)">JY LO — LOA (Non-Associated)</option><option value="JY LO — JY Associated (≤2%)">JY LO — JY Associated (≤2%)</option><option value="JY LO — JY Associated (&gt;2%)">JY LO — JY Associated (&gt;2%)</option></select></td>
     <td><input class="ti num-i" type="text" value="332,925" data-raw="332925" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',6,'loan',this.dataset.raw)" placeholder="0"></td>
-    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-6" value="1" oninput="updateField('pipeline',6,'grossCommPct',this.value)" placeholder="1.75"></td>
-    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-6" value="3,329.25" data-raw="2923" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',6,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-6" value="0.878" oninput="updateField('pipeline',6,'grossCommPct',this.value)" placeholder="1.75"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-6" value="2,923.082" data-raw="3329" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',6,'commission',this.dataset.raw)"></td>
     <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',6,'processingCost',this.dataset.raw)" placeholder="0"></td>
-    <td class="num"><span id="netcomm-pipeline-6">$2,923</span></td>
+    <td class="num"><span id="netcomm-pipeline-6">$3,329</span></td>
     <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',6,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="50" selected="">50%</option><option value="__custom__">Other…</option></select></td>
     <td><select class="ti ti-sel" onchange="updateField('pipeline',6,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
-    <td class="num"><span class="net-val" id="net-pipeline-6">$1,462</span></td>
+    <td class="num"><span class="net-val" id="net-pipeline-6">$1,665</span></td>
     <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-6" onchange="updateField('pipeline',6,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
     <td><button class="del-btn" onclick="deleteDeal('pipeline',6)" title="Delete">×</button></td>
   </tr><tr id="row-pipeline-7" class="tr-estimated">
@@ -1217,11 +1217,11 @@
         <tfoot id="pipeline-foot-November"><tr>
       <td colspan="3" style="font-size:13px">TOTALS — 8 deals</td>
       <td class="num">$2,129,910</td><td></td>
-      <td class="num">$38,551</td>
+      <td class="num">$38,145</td>
       <td class="num">$0</td>
-      <td class="num">$38,551</td>
+      <td class="num">$38,145</td>
       <td colspan="2"></td>
-      <td class="num" style="color:#2e75b6">$19,584</td>
+      <td class="num" style="color:#2e75b6">$19,381</td>
       <td colspan="2"></td>
     </tr></tfoot>
       </table>
@@ -2156,8 +2156,8 @@ let pipelineDeals = [
     "client": "William Perdomo",
     "role": "Juan Partnership Sourced",
     "loan": "332925",
-    "grossCommPct": "0.878",
-    "commission": 2923.0815000000002,
+    "grossCommPct": "1",
+    "commission": 3329.25,
     "processingCost": 0,
     "split1": "50",
     "split2": "100",
@@ -2942,7 +2942,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1793662370970;
+const FILE_DATA_VERSION = 1793662492768;
 
 function saveData() {
   try {
