@@ -25,12 +25,12 @@
     .card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);padding:22px 24px;min-width:0;overflow:hidden}
 
     /* KPI GRID */
-    .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:16px}
+    .kpi-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:16px;margin-bottom:16px}
     .kpi-card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);padding:18px 20px;border-top:3px solid transparent}
-    .kpi-card.green{border-top-color:#0d9488}.kpi-card.orange{border-top-color:#f59e0b}.kpi-card.blue{border-top-color:#2e75b6}.kpi-card.purple{border-top-color:#9ca3af}.kpi-card.teal{border-top-color:#8b5cf6}
+    .kpi-card.green{border-top-color:#0d9488}.kpi-card.orange{border-top-color:#f59e0b}.kpi-card.blue{border-top-color:#2e75b6}.kpi-card.purple{border-top-color:#9ca3af}.kpi-card.teal{border-top-color:#8b5cf6}.kpi-card.red{border-top-color:#dc2626}
     .kpi-lbl{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#9ca3af;margin-bottom:8px}
     .kpi-val{font-size:28px;font-weight:800;line-height:1;margin-bottom:6px}
-    .kpi-card.green .kpi-val{color:#0f766e}.kpi-card.orange .kpi-val{color:#d97706}.kpi-card.blue .kpi-val{color:#2e75b6}.kpi-card.purple .kpi-val{color:#4b5563}.kpi-card.teal .kpi-val{color:#7c3aed}
+    .kpi-card.green .kpi-val{color:#0f766e}.kpi-card.orange .kpi-val{color:#d97706}.kpi-card.blue .kpi-val{color:#2e75b6}.kpi-card.purple .kpi-val{color:#4b5563}.kpi-card.teal .kpi-val{color:#7c3aed}.kpi-card.red .kpi-val{color:#dc2626}
     .kpi-sub{font-size:12px;color:#9ca3af}
     .kpi-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;margin-top:6px}
     .bg-green{background:#ccfbf1;color:#134e4a}
@@ -38,6 +38,7 @@
     .bg-blue{background:#dbeafe;color:#1e40af}
     .bg-purple{background:#f3f4f6;color:#374151}
     .bg-teal{background:#ede9fe;color:#4c1d95}
+    .bg-red{background:#fee2e2;color:#991b1b}
 
     /* PROGRESS */
     .prog-card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);padding:16px 24px;margin-bottom:16px}
@@ -206,7 +207,7 @@
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
       <div id="updated-date">Updated: Nov 11, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="">💾 Save</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="saved">✓ Saved</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
     <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>
     <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>
@@ -234,17 +235,23 @@
       <div class="kpi-sub" id="kpi-helm-pipeline-sub">from 4 deals</div>
       <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">5.9% of $144k goal</span>
     </div>
+    <div class="kpi-card red">
+      <div class="kpi-lbl">Total Costs</div>
+      <div class="kpi-val" id="kpi-costs">$4,532</div>
+      <div class="kpi-sub">credit reports + leads</div>
+      <span class="kpi-badge bg-red" id="kpi-costs-sub">$1,032 reports · $3,500 leads</span>
+    </div>
     <div class="kpi-card purple">
-      <div class="kpi-lbl">Total Closed + Pipeline</div>
-      <div class="kpi-val" id="kpi-total">$173,757</div>
+      <div class="kpi-lbl">Net (Closed + Pipeline − Costs)</div>
+      <div class="kpi-val" id="kpi-total">$169,225</div>
       <div class="kpi-sub" id="kpi-total-sub">from 62 deals combined</div>
-      <span class="kpi-badge bg-purple" id="kpi-total-pct">120.7% of $144k goal</span>
+      <span class="kpi-badge bg-purple" id="kpi-total-pct">117.5% of $144k goal</span>
     </div>
     <div class="kpi-card orange">
       <div class="kpi-lbl">Remaining to 2026 Goal</div>
-      <div class="kpi-val" id="kpi-remaining">$-29,757</div>
+      <div class="kpi-val" id="kpi-remaining">$-25,225</div>
       <div class="kpi-sub">of $144k goal</div>
-      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">20.7% over goal</span>
+      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">17.5% over goal</span>
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">2027 Pipeline</div>
@@ -257,11 +264,11 @@
   <!-- CHART + OUTLOOK -->
   <div class="mid-grid">
     <div class="card">
-      <div class="sec-title" style="text-align:center">Monthly Net Commission</div>
+      <div class="sec-title" style="text-align:center">Monthly Gross Commission</div>
       <div class="chart-wrap"><canvas id="monthlyChart" width="2350" height="460" style="display: block; box-sizing: border-box; height: 230px; width: 1175px;"></canvas></div>
     </div>
     <div class="card">
-      <div class="sec-title" style="color:#2dd4bf;text-align:center">Key Highlights</div>
+      <div class="sec-title" style="color:#2dd4bf;text-align:center">Key Highlights (Gross Commission)</div>
       <div id="outlook-rows">
     <div class="insight-grid">
       <div class="insight-col-hdr-blank"></div>
@@ -1348,6 +1355,40 @@
         <button class="add-btn" onclick="addPipelineDeal('February 2027')">＋ Add February 2027 Deal</button>
       </div>
     </div><div style="padding:0 0 16px"><button class="add-btn" style="margin-top:0" onclick="addDeal('pipeline')">＋ Add Pipeline Deal (new month)</button></div></div>
+  <!-- COSTS SECTION -->
+  <div class="card tbl-section" style="margin-bottom:16px">
+    <div class="tbl-head">
+      <div>
+        <div class="sec-title">Costs</div>
+        <div class="sec-sub">Operating expenses deducted from your net commission</div>
+      </div>
+    </div>
+    <table style="max-width:480px">
+      <thead>
+        <tr>
+          <th style="width:60%">Category</th>
+          <th class="num" style="width:40%">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Credit Reports</td>
+          <td class="num"><input type="number" class="ti num-i" id="cost-credit" placeholder="0" min="0" step="0.01" oninput="onCostChange()" style="max-width:140px"></td>
+        </tr>
+        <tr>
+          <td>Leads</td>
+          <td class="num"><input type="number" class="ti num-i" id="cost-leads" placeholder="0" min="0" step="0.01" oninput="onCostChange()" style="max-width:140px"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total Costs</td>
+          <td class="num" id="cost-total-cell"><strong>$4,532</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
   <!-- GUIDE -->
   <div class="guide-card">
     <div class="guide-header">
@@ -1387,7 +1428,7 @@
         <h4>JY Role Presets</h4>
         <div class="guide-role-badge"><span>Juan Self Sourced</span><span class="splits">S1: 75% · Helm 25%</span></div>
         <div class="guide-role-badge"><span>Juan Company Sourced</span><span class="splits">S1: 30% · Helm 70%</span></div>
-        <div class="guide-role-badge"><span>Juan Partnership Sourced</span><span class="splits">S1: 45% · Helm 55%</span></div>
+        <div class="guide-role-badge"><span>Juan Partnership Sourced</span><span class="splits">S1: 50% · Helm 50%</span></div>
         <div class="guide-role-badge"><span>Juan LOA</span><span class="splits">S1: 10% · S2: 100%</span></div>
         <div class="guide-role-badge"><span>Juan Processing</span><span class="splits">S1: $995 flat · S2: 100%</span></div>
         <div class="guide-role-badge"><span>Juan LOA with Jon</span><span class="splits">S1: 10% · S2: 50%</span></div>
@@ -1451,7 +1492,7 @@ const MONTHS_ALL  = [...MONTHS, ...MONTHS_2027];
 const ROLES = ['','Juan Company Sourced','Juan Partnership Sourced','Juan Self Sourced','Juan Processing','Juan LOA','Juan Processing with Jon','Juan LOA with Jon','JY LO — LOA (Non-Associated)','JY LO — JY Associated (≤2%)','JY LO — JY Associated (>2%)'];
 const ROLE_PRESETS = {
   'Juan Company Sourced':          {split1:'30', split2:'100'},
-  'Juan Partnership Sourced':      {split1:'45', split2:'100'},
+  'Juan Partnership Sourced':      {split1:'50', split2:'100'},
   'Juan Self Sourced':             {split1:'75', split2:'100'},
   'Juan Processing':               {split1:'',   split2:'100'},
   'Juan LOA':                      {split1:'10', split2:'100'},
@@ -2213,6 +2254,8 @@ let pipelineDeals = [
   }
 ];
 
+let costData = {"creditReports":1032,"leads":3500};
+
 // ── HELPERS ──────────────────────────────────────────────────
 function calcGrossComm(d) {
   const loan = parseNum(d.loan);
@@ -2686,14 +2729,17 @@ function updateKPIs() {
   const helmPipeline= pipe2026.filter(d=>!JY_ASSOC_ROLES.includes(d.role)).reduce((s,d)=>s+(calcNet(d)||0),0);
   const ytdPipeline = jyPipeline + helmPipeline;
   const ytdTotal    = ytdClosed + ytdPipeline;
-  const remaining   = TARGET - ytdTotal;
+  const totalCosts  = (costData.creditReports || 0) + (costData.leads || 0);
+  const netTotal    = ytdTotal - totalCosts;
+  const remaining   = TARGET - netTotal;
   const closedPct   = (ytdClosed/TARGET*100).toFixed(1);
   const jyClosedPct = (jyClosed/TARGET*100).toFixed(1);
   const helmClosedPct=(helmClosed/TARGET*100).toFixed(1);
   const jyPct       = (jyPipeline/TARGET*100).toFixed(1);
   const helmPct     = (helmPipeline/TARGET*100).toFixed(1);
   const totalPct    = (ytdTotal/TARGET*100).toFixed(1);
-  const remainPct   = (100 - parseFloat(totalPct)).toFixed(1);
+  const netPct      = (netTotal/TARGET*100).toFixed(1);
+  const remainPct   = (100 - parseFloat(netPct)).toFixed(1);
   const jyCount     = pipe2026.filter(d=>JY_ASSOC_ROLES.includes(d.role)).length;
   const helmCount   = pipe2026.filter(d=>!JY_ASSOC_ROLES.includes(d.role)).length;
   const totalDeals  = closedDeals.length + pipelineDeals.length;
@@ -2710,9 +2756,12 @@ function updateKPIs() {
   document.getElementById('kpi-helm-pipeline-sub').textContent = `from ${helmCount} deal${helmCount!==1?'s':''}`;
   document.getElementById('kpi-helm-pipeline-pct').textContent = `${helmPct}% of $144k goal`;
 
-  document.getElementById('kpi-total').textContent     = fmt(ytdTotal);
+  document.getElementById('kpi-costs').textContent    = fmt(totalCosts);
+  document.getElementById('kpi-costs-sub').textContent = `${fmt(costData.creditReports||0)} reports · ${fmt(costData.leads||0)} leads`;
+
+  document.getElementById('kpi-total').textContent     = fmt(netTotal);
   document.getElementById('kpi-total-sub').textContent  = `from ${totalDeals} deal${totalDeals!==1?'s':''} combined`;
-  document.getElementById('kpi-total-pct').textContent  = `${totalPct}% of $144k goal`;
+  document.getElementById('kpi-total-pct').textContent  = `${netPct}% of $144k goal`;
 
   document.getElementById('kpi-remaining').textContent    = fmt(remaining);
   document.getElementById('kpi-remaining-pct').textContent = parseFloat(remainPct) < 0 ? `${Math.abs(remainPct)}% over goal` : `${remainPct}% still needed`;
@@ -2919,7 +2968,7 @@ function initChart() {
           stacked:true,
           grid:{color:'rgba(0,0,0,.07)'},
           ticks:{font:{size:11},callback:v=>'$'+v.toLocaleString(),color:'#6b7280'},
-          title:{display:true,text:'Cumulative Net Commission ($)',font:{size:11},color:'#9ca3af'}
+          title:{display:true,text:'Cumulative Gross Commission ($)',font:{size:11},color:'#9ca3af'}
         }
       }
     }
@@ -2942,13 +2991,14 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1794406090026;
+const FILE_DATA_VERSION = 1794406944830;
 
 function saveData() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       closedDeals,
       pipelineDeals,
+      costData,
       savedAt: new Date().toISOString(),
       savedTs: Date.now()
     }));
@@ -2965,6 +3015,7 @@ function loadData() {
     if (lsTs <= FILE_DATA_VERSION) return false;
     if (parsed.closedDeals)   closedDeals   = parsed.closedDeals;
     if (parsed.pipelineDeals) pipelineDeals = parsed.pipelineDeals;
+    if (parsed.costData)      costData      = parsed.costData;
     return true;
   } catch(e) { return false; }
 }
@@ -2973,6 +3024,25 @@ let saveTimer = null;
 function autoSave() {
   if (saveTimer) clearTimeout(saveTimer);
   saveTimer = setTimeout(() => { saveData(); }, 800);
+}
+
+function onCostChange() {
+  costData.creditReports = parseFloat(document.getElementById('cost-credit').value) || 0;
+  costData.leads         = parseFloat(document.getElementById('cost-leads').value)   || 0;
+  const total = costData.creditReports + costData.leads;
+  document.getElementById('cost-total-cell').innerHTML = `<strong>${fmt(total)}</strong>`;
+  updateKPIs();
+  autoSave();
+}
+
+function loadCostInputs() {
+  const cr = document.getElementById('cost-credit');
+  const ld = document.getElementById('cost-leads');
+  if (cr) cr.value = costData.creditReports || '';
+  if (ld) ld.value = costData.leads || '';
+  const total = (costData.creditReports || 0) + (costData.leads || 0);
+  const cell = document.getElementById('cost-total-cell');
+  if (cell) cell.innerHTML = `<strong>${fmt(total)}</strong>`;
 }
 
 function exportForWeb() {
@@ -3042,11 +3112,13 @@ function buildUpdatedHTML() {
   const src        = document.documentElement.outerHTML;
   const closedJSON = JSON.stringify(closedDeals,   null, 2);
   const pipeJSON   = JSON.stringify(pipelineDeals, null, 2);
+  const costJSON   = JSON.stringify(costData);
   const nowTs      = Date.now();
   return src
     .replace(/const FILE_DATA_VERSION\s*=\s*\d+;/, `const FILE_DATA_VERSION = ${nowTs};`)
     .replace(/let closedDeals\s*=\s*\[[\s\S]*?\];/,   `let closedDeals = ${closedJSON};`)
     .replace(/let pipelineDeals\s*=\s*\[[\s\S]*?\];/, `let pipelineDeals = ${pipeJSON};`)
+    .replace(/let costData\s*=\s*\{[^}]*\};/, `let costData = ${costJSON};`)
     .replace(/<button id="push-btn"[^>]*>[\s\S]*?<\/button>/, '<button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>')
     .replace(/<button id="pull-btn"[^>]*>[\s\S]*?<\/button>/, '<button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>');
 }
@@ -3153,6 +3225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('push-btn').title = 'Save your changes back to GitHub';
   }
   loadData();
+  loadCostInputs();
   renderTable('closed', closedDeals);
   renderPipeline();
   updateKPIs();
