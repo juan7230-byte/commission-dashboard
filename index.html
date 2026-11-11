@@ -22,7 +22,7 @@
     main{max-width:1440px;margin:0 auto;padding:24px 24px 48px}
 
     /* GLASS CARD */
-    .card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);padding:22px 24px}
+    .card{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:0 2px 16px rgba(160,100,30,.08),inset 0 1px 0 rgba(255,255,255,.9);padding:22px 24px;min-width:0;overflow:hidden}
 
     /* KPI GRID */
     .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:16px}
@@ -54,7 +54,7 @@
     .mid-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
     .sec-title{font-size:15px;font-weight:700;color:#1f2937;margin-bottom:3px}
     .sec-sub{font-size:12px;color:#9ca3af;margin-bottom:16px}
-    .chart-wrap{position:relative;height:230px}
+    .chart-wrap{position:relative;height:230px;width:100%;overflow:hidden}
 
     /* INSIGHTS */
     .out-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.05)}
@@ -62,7 +62,7 @@
     .out-lbl{font-size:13px;color:#6b7280}
     .out-val{font-size:14px;font-weight:700;color:#1f2937}
     .out-val.blue{color:#2e75b6}.out-val.green{color:#0f766e}.out-val.orange{color:#d97706}.out-val.teal{color:#0f766e}.out-val.purple{color:#7c3aed}.out-val.amber{color:#d97706}.out-val.grey{color:#4b5563}
-    .insight-grid{display:grid;grid-template-columns:auto 1fr 1fr 1fr 1fr;gap:6px 10px;margin-top:14px;align-items:center}
+    .insight-grid{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:6px 10px;margin-top:14px;align-items:center}
     .insight-col-hdr{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#374151;text-align:center;padding-bottom:4px;border-bottom:2px solid rgba(0,0,0,.1)}
     .insight-col-hdr-blank{border-bottom:2px solid transparent;padding-bottom:4px}
     .insight-row-lbl{font-size:11px;font-weight:600;color:#9ca3af;text-align:right;padding-right:6px;white-space:nowrap}
@@ -206,7 +206,7 @@
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
       <div id="updated-date">Updated: Nov 11, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="saved">✓ Saved</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="">💾 Save</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
     <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>
     <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>
@@ -2942,7 +2942,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1794405243459;
+const FILE_DATA_VERSION = 1794406090026;
 
 function saveData() {
   try {
