@@ -207,7 +207,7 @@
       <div style="font-weight:600;font-size:13px">2026 Production Tracker</div>
       <div id="updated-date">Updated: Nov 11, 2026</div>
     </div>
-    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage">💾 Save</button>
+    <button id="save-btn" onclick="manualSave()" title="Save all data to browser storage" class="saved">✓ Saved</button>
     <button id="export-btn" onclick="exportForWeb()" title="Download index.html with current data baked in">⬇ Download</button>
     <button id="push-btn" onclick="pushToGitHub()" title="Push current data directly to GitHub (one-time token setup required)">⚡ Push to GitHub</button>
     <button id="pull-btn" onclick="pullFromGitHub()" title="Load latest data from GitHub into this session" style="display:none">⬇ Pull from GitHub</button>
@@ -231,9 +231,9 @@
     </div>
     <div class="kpi-card teal">
       <div class="kpi-lbl">Helm Pipeline</div>
-      <div class="kpi-val" id="kpi-helm-pipeline">$8,524</div>
+      <div class="kpi-val" id="kpi-helm-pipeline">$8,316</div>
       <div class="kpi-sub" id="kpi-helm-pipeline-sub">from 4 deals</div>
-      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">5.9% of $144k goal</span>
+      <span class="kpi-badge bg-teal" id="kpi-helm-pipeline-pct">5.8% of $144k goal</span>
     </div>
     <div class="kpi-card red">
       <div class="kpi-lbl">Total Costs</div>
@@ -243,15 +243,15 @@
     </div>
     <div class="kpi-card purple">
       <div class="kpi-lbl">Net (Closed + Pipeline − Costs)</div>
-      <div class="kpi-val" id="kpi-total">$176,297</div>
+      <div class="kpi-val" id="kpi-total">$176,089</div>
       <div class="kpi-sub" id="kpi-total-sub">from 63 deals combined</div>
-      <span class="kpi-badge bg-purple" id="kpi-total-pct">122.4% of $144k goal</span>
+      <span class="kpi-badge bg-purple" id="kpi-total-pct">122.3% of $144k goal</span>
     </div>
     <div class="kpi-card orange">
       <div class="kpi-lbl">Remaining to 2026 Goal</div>
-      <div class="kpi-val" id="kpi-remaining">$-32,297</div>
+      <div class="kpi-val" id="kpi-remaining">$-32,089</div>
       <div class="kpi-sub">of $144k goal</div>
-      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">22.4% over goal</span>
+      <span class="kpi-badge bg-orange" id="kpi-remaining-pct">22.3% over goal</span>
     </div>
     <div class="kpi-card blue">
       <div class="kpi-lbl">2027 Pipeline</div>
@@ -300,7 +300,7 @@
       <div class="insight-tile c-grey"><div class="insight-val">$14,362</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$4,961</div></div>
       <div class="insight-tile c-grey"><div class="insight-val">$7,484</div></div>
-      <div class="insight-tile c-grey"><div class="insight-val">$1,040</div></div>
+      <div class="insight-tile c-grey"><div class="insight-val">$832</div></div>
     </div></div>
     </div>
   </div>
@@ -1250,12 +1250,12 @@
     <td><select class="ti ti-sel role-sel" onchange="handleRole('pipeline',7,this.value)"><option value="">— Role —</option><option value="Juan Company Sourced" selected="">Juan Company Sourced</option><option value="Juan Partnership Sourced">Juan Partnership Sourced</option><option value="Juan Self Sourced">Juan Self Sourced</option><option value="Juan Processing">Juan Processing</option><option value="Juan LOA">Juan LOA</option><option value="Juan Processing with Jon">Juan Processing with Jon</option><option value="Juan LOA with Jon">Juan LOA with Jon</option><option value="JY LO — LOA (Non-Associated)">JY LO — LOA (Non-Associated)</option><option value="JY LO — JY Associated (≤2%)">JY LO — JY Associated (≤2%)</option><option value="JY LO — JY Associated (&gt;2%)">JY LO — JY Associated (&gt;2%)</option></select></td>
     <td><input class="ti num-i" type="text" value="138,608" data-raw="138608" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',7,'loan',this.dataset.raw)" placeholder="0"></td>
     <td><input class="ti num-i" type="text" id="grosspct-input-pipeline-7" value="2.5" oninput="updateField('pipeline',7,'grossCommPct',this.value)" placeholder="1.75"></td>
-    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-7" value="3,465.2" data-raw="3465.2" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',7,'commission',this.dataset.raw)"></td>
+    <td><input class="ti num-i" type="text" id="grosscomm-input-pipeline-7" value="3,465.2" data-raw="2772" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',7,'commission',this.dataset.raw)"></td>
     <td><input class="ti num-i" type="text" value="" data-raw="" onfocus="this.value=this.dataset.raw||''" onblur="this.value=fmtDisp(this.dataset.raw)" oninput="this.dataset.raw=this.value.replace(/[^0-9.]/g,'');updateField('pipeline',7,'processingCost',this.dataset.raw)" placeholder="0"></td>
-    <td class="num"><span id="netcomm-pipeline-7">$3,465</span></td>
+    <td class="num"><span id="netcomm-pipeline-7">$2,772</span></td>
     <td><select class="ti ti-sel" onchange="handleSplit1('pipeline',7,this)"><option value="">$995</option><option value="10">10%</option><option value="25">25%</option><option value="75">75%</option><option value="80">80%</option><option value="30" selected="">30%</option><option value="__custom__">Other…</option></select></td>
     <td><select class="ti ti-sel" onchange="updateField('pipeline',7,'split2',this.value)"><option value="50">50%</option><option value="100" selected="">100%</option></select></td>
-    <td class="num"><span class="net-val" id="net-pipeline-7">$1,040</span></td>
+    <td class="num"><span class="net-val" id="net-pipeline-7">$832</span></td>
     <td><select class="ti ti-sel s-estimated" id="stat-sel-pipeline-7" onchange="updateField('pipeline',7,'status',this.value)"><option value="Projected">Projected</option><option value="Estimated" selected="">Estimated</option><option value="Closed - Estimated">Closed - Estimated</option><option value="Closed - Paid">Closed - Paid</option></select></td>
     <td><button class="del-btn" onclick="deleteDeal('pipeline',7)" title="Delete">×</button></td>
   </tr><tr id="row-pipeline-8" class="tr-estimated">
@@ -2223,8 +2223,8 @@ let pipelineDeals = [
     "client": "Terry Annan",
     "role": "Juan Company Sourced",
     "loan": "138608",
-    "grossCommPct": "2.5",
-    "commission": 3465.2,
+    "grossCommPct": "2",
+    "commission": 2772.16,
     "processingCost": 0,
     "split1": "30",
     "split2": "100",
@@ -3017,7 +3017,7 @@ function showToast(icon, msg, sub) {
 const STORAGE_KEY = 'commission_dashboard_2026';
 // Timestamp of when this file's data was last baked in via Export for Web.
 // localStorage is only used if it was saved AFTER this timestamp.
-const FILE_DATA_VERSION = 1794426799985;
+const FILE_DATA_VERSION = 1794428579240;
 
 function saveData() {
   try {
